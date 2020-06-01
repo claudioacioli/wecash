@@ -1,9 +1,7 @@
-from flask import Flask
-app = Flask(__name__)
+from app import create_app
 
-@app.route("/")
-def hello():
-    return "Welcome to WeCash FrontEnd!"
+
+app = create_app('dev')
 
 
 if __name__ == '__main__':
