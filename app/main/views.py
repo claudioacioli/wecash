@@ -1,7 +1,8 @@
 from . import main as app_main
+from flask import render_template
 
 
 @app_main.route("/")
-def hello():
-    return "Welcome to WeCash FrontEnd"
+def movimentos():
+    return render_template('movimentos.html')
 
