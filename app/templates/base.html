@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='cssura/cssura.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='wecash.css')}}">
+  </head>
+  <body>
+    
+    <div class="appbar appbar--fixed">
+      <div class="container" style="display:flex;align-items:center;">
+        <img src="{{url_for('static', filename='images/logo.png')}}">
+        <input type="text" class="textfield ml--2 textfield--inline" placeholder="Filtrar...">
+
+<nav class="navbar ml--1" style="flex:1;">
+  <a href="/">Resumos</a>
+  <a class="is-active" href="#">Movimentos</a>
+  <a href="./w-categorias.html">Categorias</a>
+  <a href="./w-contas.html">Contas</a>
+  <a href="./w-cartoes.html">Cartoes</a>
+  <a class="ml--auto navbar--avatar" href="/"><img src="c.jpg"></a>
+</nav>
+
+      </div>
+    </div>
+
+    {% block main %}
+    {% endblock %}
+
+  </body>
+</html>
