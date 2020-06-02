@@ -1,0 +1,36 @@
+.log {
+  border: 1px solid black!important;
+}
+.log--blue {
+  border-color: blue!important;
+}
+.log--red {
+  border-color: red!important;
+}
+.log--green {
+  border-color: green!important;
+}
+.log--orange {
+  border-color: orange!important;
+}
+.log--black {
+  border-color: black!important;
+}
+.log--white {
+  border-color: white!important;
+}
+.log--1 {
+  border-width: 1px!important;
+}
+.log--2 {
+  border-width: 2px!important;
+}
+.log--3 {
+  border-width: 3px!important;
+}
+.log--4 {
+  border-width: 4px!important;
+}
+.log--5 {
+  border-width: 5px!important;
+}

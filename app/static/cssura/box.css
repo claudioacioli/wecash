@@ -1,0 +1,41 @@
+.box {
+  font-family: inherit;
+  font-weight: inherit;
+  color: black;
+  border-radius: .35em;
+  background-color: white;
+  box-shadow: 0 0 30px 0 rgba(82,63,105,.05);
+  display: block;
+  margin: 0;
+}
+
+.box__header, 
+.box__body,
+.box__footer {
+  background-color: transparent;
+  padding: 1.5em;
+  margin: 0;
+}
+
+.box__header {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.box__footer {
+  border-top: 1px solid #f0f0f0;
+}
+
+.box__header > h1,
+.box__header > h2,
+.box__header > h3,
+.box__header > h4,
+.box__header > h5 {
+  font-family: inherit;
+  margin: 0;
+  font-weight: 500;
+  text-transform: uppercase;
+  text-shadow: 0px 0px 1px black;
+  padding: 0; 
+}
+
+

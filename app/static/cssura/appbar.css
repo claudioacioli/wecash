@@ -1,0 +1,17 @@
+.appbar {
+  display: block;
+  position: relative;
+  background-color: var(--color-white);
+  box-shadow: 0px 0px 40px 0px rgba(82, 63, 105, 0.1);
+  padding: 1em;
+  border: none;
+  margin: 0;
+}
+
+.appbar--fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}

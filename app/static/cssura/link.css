@@ -1,0 +1,26 @@
+a:link {
+  margin: 0;
+  font-family: inherit;
+  display: inline-block;
+  color: #1476b8;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #1430b8;
+}
+
+a:hover,
+a:focus {
+  text-decoration: underline;
+}
+
+a:active {
+  color: #b81414;
+}
+
+a[disabled] {
+  color: rgba(0,0,0,.6);
+  cursor: not-allowed;
+}

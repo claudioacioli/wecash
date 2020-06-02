@@ -1,0 +1,49 @@
+.textfield {
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  background-color: var(--color-gray);
+  border:1px solid var(--color-gray);
+  border-radius: .4em;
+  display: block;
+  position: relative;
+  width: 100%;
+  line-height: .8em;
+  padding: .6em;
+  margin: 0;
+}
+
+.textfield--inline {
+  display: inline-block;
+  width: inherit;
+}
+
+select.textfield {
+  -moz-appearance: none; 
+  -webkit-appearance: none; 
+  appearance: none;
+  padding: .95em;
+}
+
+select.textfield::after {
+  content:"";
+  position: absolute;
+  right: 1em;
+  top: 1em;
+  padding: 10em;
+  border: 0.3em solid;
+  border-color: black transparent transparent;
+}
+
+textarea.textfield {
+  resize: none;
+  min-height: 6em;
+}
+
+.textfield:focus, 
+.textfield:hover
+{
+  outline: none;
+  border-color: var(--color-gray-dark);
+  background-color: var(--color-gray-dark); /*#d9d9d9;*/
+}

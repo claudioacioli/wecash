@@ -1,0 +1,11 @@
+.label {
+  font-family: inherit;
+  font-size: 1em;
+  font-weight: 500;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+  line-height: 1em;
+  padding: .8em;
+  color: #464e5f;
+}
