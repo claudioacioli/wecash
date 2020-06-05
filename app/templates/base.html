@@ -6,14 +6,14 @@
     <link rel="stylesheet" href="{{url_for('static', filename='cssura/cssura.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='wecash.css')}}">
   </head>
-  <body>
-    
-    <div class="appbar appbar--fixed topbar">
-      <div class="container" style="display:flex;align-items:center;">
+  <body>    
+    <header class="appbar appbar--fixed topbar">
+      <div class="container appbar__container--flex">
+
         <img src="{{url_for('static', filename='images/logo.png')}}">
         <input type="text" class="textfield ml--2 textfield--inline" placeholder="Filtrar...">
 
-<nav class="navbar ml--1" style="flex:1;">
+<nav class="navbar ml--1 flex--1">
   <a href="/">Resumos</a>
   <a class="is-active" href="#">Movimentos</a>
   <a href="./w-categorias.html">Categorias</a>
@@ -23,10 +23,8 @@
 </nav>
 
       </div>
-    </div>
-
+    </header>
     {% block main %}
     {% endblock %}
-
   </body>
 </html>
