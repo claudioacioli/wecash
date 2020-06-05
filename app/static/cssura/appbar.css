@@ -15,3 +15,8 @@
   right: 0;
   z-index: 10;
 }
+
+.appbar__container--flex {
+  display: flex;
+  align-items: center;
+}
