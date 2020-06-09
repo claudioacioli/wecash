@@ -5,27 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="http://localhost:8080/cssura.css">
     <!--<link rel="stylesheet" href="{{url_for('static', filename='cssura/cssura.css')}}">-->
-    <link rel="stylesheet" href="{{url_for('static', filename='css/wecash.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/app.css')}}">
   </head>
   <body>    
     <header class="appbar appbar--fixed topbar">
-      <div class="container appbar__container--flex">
-
-        <img src="{{url_for('static', filename='images/logo.png')}}">
-        <input type="text" class="textfield ml--2 textfield--inline" placeholder="Filtrar...">
-
-<nav class="navbar ml--1 flex--1">
-  <a href="/">Resumos</a>
-  <a class="is-active" href="#">Movimentos</a>
-  <a href="./w-categorias.html">Categorias</a>
-  <a href="./w-contas.html">Contas</a>
-  <a href="./w-cartoes.html">Cartoes</a>
-  <a class="ml--auto navbar--avatar" href="/"><img src="{{url_for('static', filename='images/c.jpg')}}"></a>
-</nav>
-
+      <div class="appbar__container">
+        <div class="mt--0">
+          <img class="mt--0" src="{{url_for('static', filename='images/logo.png')}}">
+        </div>
+        <div class="mt--0 appbar__collapse">
+          <input type="text" class="mt--0 textfield textfield--inline" placeholder="Filtrar...">
+          <nav class="appbar__menu">
+            <a href="/">Resumos</a>
+            <a class="is-active" href="#">Movimentos</a>
+            <a href="./w-categorias.html">Categorias</a>
+            <a href="./w-contas.html">Contas</a>
+            <a href="./w-cartoes.html">Cartoes</a>
+            <a class="ml--auto" href="/"><img class="avatar--sm" src="{{url_for('static', filename='images/c.jpg')}}"></a>
+          </nav>
+        </div>
       </div>
     </header>
     {% block main %}
     {% endblock %}
+    <script href="{{url_for('static', filename='js/app.js')}}"></script>
   </body>
 </html>
