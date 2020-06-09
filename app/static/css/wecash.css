@@ -3,3 +3,15 @@
   border-top-style: solid;
   border-image: linear-gradient(139deg, #5B0A5A, #ff4b01, #c12127, #e02aff) 3; 
 }
+
+.navbar {
+  flex-direction: column;
+}
+
+@media (min-width: 50em) {
+  .navbar {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
