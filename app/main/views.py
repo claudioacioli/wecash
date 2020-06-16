@@ -10,3 +10,8 @@ def movimentos():
 @app_main.route("/categorias")
 def categorias():
     return render_template("categorias.html")
+
+
+@app_main.route("/contas")
+def contas():
+    return render_template("contas.html")
