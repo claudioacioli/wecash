@@ -49,7 +49,7 @@ const
     }
   },
 
-  deleteData = async (url, data={}, mode="cors") => {
+  deleteData = async (url, mode="cors") => {
     const response = await fetch(url, {
       method: "DELETE",
       credentials: "same-origin",
