@@ -17,11 +17,9 @@
         <div class="mt--0 appbar__collapse">
           <input type="text" class="mt--0 textfield textfield--inline" placeholder="Filtrar...">
           <nav class="appbar__menu">
-            <a href="/">Resumos</a>
-            <a class="is-active" href="#">Movimentos</a>
-            <a href="./w-categorias.html">Categorias</a>
-            <a href="./w-contas.html">Contas</a>
-            <a href="./w-cartoes.html">Cartoes</a>
+            <a {% if request.path == url_for('main.movimentos') %}class="is-active"{% endif %} href="{{url_for('main.movimentos')}}">Movimentos</a>
+            <a {% if request.path == url_for('main.categorias') %}class="is-active"{% endif %} href="{{ url_for('main.categorias') }}">Categorias</a>
+            <a {% if request.path == url_for('main.contas') %}class="is-active"{% endif %} href="{{ url_for('main.contas') }}">Contas</a>
             <a class="ml--auto" href="/"><img class="avatar--sm" src="{{url_for('static', filename='images/c.jpg')}}"></a>
           </nav>
         </div>
