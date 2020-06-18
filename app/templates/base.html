@@ -25,8 +25,10 @@
         </div>
       </div>
     </header>
+    <main class="container mt--9">
     {% block main %}
     {% endblock %}
+    </main>
     <script href="{{url_for('static', filename='js/app.js')}}"></script>
   </body>
 </html>
