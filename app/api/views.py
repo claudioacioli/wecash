@@ -4,20 +4,20 @@ from flask import jsonify
 
 @app_api.route("/movimentos")
 def movimentos():
-    return result_success([])
+    return result([])
 
 
 @app_api.route("/categorias")
 def categorias():
-    return result_success([])
+    return result([])
 
 
 @app_api.route("/contas")
 def contas():
-    return result_success([])
+    return result([])
 
 
-def result_success(payload, status=1, message="OK", http_status=200):
+def result(payload, status=1, message="OK", http_status=200):
     return jsonify({"status": status,
             "message": message,
             "payload": payload}), http_status
