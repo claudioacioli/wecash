@@ -1,3 +1,4 @@
+from flask import url_for
 from . import db
 
 
@@ -19,7 +20,8 @@ class User(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'email': self.email
+            'email': self.email,
+            'url': url_for('api.read_user', id=self.id)
         }
 
     @staticmethod
