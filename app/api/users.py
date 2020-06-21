@@ -4,7 +4,7 @@ from . import result
 from ..models import User
 
 
-@app_api.route('/users/', methods=['POST'])
+@app_api.route('/users', methods=['POST'])
 def create_user():
     user = User.from_json(request.json)
     return jsonify(
