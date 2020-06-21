@@ -8,7 +8,18 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/app.css')}}">
     <title>{% block title %}{% endblock %}</title>
   </head>
-  <body>    
+  <body>
+    <template id="template-row-movimento">
+      <tr>
+        <td><input type="checkbox" /></td>
+        <td>{prev}</td>
+        <td>{conf}</td>
+        <td>{history}</td>
+        <td>{value}</td>
+        <td>{category}</td>
+        <td>{bank}</td>
+      </tr>
+    </template>
     <header class="appbar appbar--fixed topbar">
       <div class="appbar__container">
         <div class="mt--0">
@@ -31,6 +42,7 @@
     </main>
     <script src="{{url_for('static', filename='js/by.js')}}"></script>
     <script src="{{url_for('static', filename='js/rest.js')}}"></script>
+    <script src="{{url_for('static', filename='js/api.js')}}"></script>
     <script src="{{url_for('static', filename='js/movimentos.js')}}"></script>
     <script src="{{url_for('static', filename='js/categorias.js')}}"></script>
     <script src="{{url_for('static', filename='js/contas.js')}}"></script>
