@@ -1,23 +1,18 @@
-from . import api as app_api
+from . import api as app_api, result
 from flask import jsonify
 
 
-@app_api.route("/movimentos")
-def movimentos():
-    return result([])
+@app_api.route("/invocies/")
+def invoices():
+    return jsonify(result({"invoices": []})), 200
 
 
-@app_api.route("/categorias")
-def categorias():
-    return result([])
+@app_api.route("/categories/")
+def categories():
+    return jsonify(result({"categories": []})), 200
 
 
-@app_api.route("/contas")
-def contas():
-    return result([])
+@app_api.route("/banks/")
+def banks():
+    return jsonify(result({"banks":[]})), 200
 
-
-def result(payload, status=1, message="OK", http_status=200):
-    return jsonify({"status": status,
-            "message": message,
-            "payload": payload}), http_status
