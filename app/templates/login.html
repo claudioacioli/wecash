@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://localhost:8080/cssura.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/app.css')}}">
+    <title>WeCash!</title>
+  </head>
+  <body>
+    <main class="container mt--0" style="display:flex; height:100vh; justify-content:center; align-items: center; ">
+      <div class="box mt--0 p--9 pt--0">
+        <img src="{{url_for('static', filename='images/logo.png')}}" style="margin-left:auto; margin-right:auto;" class="ml--4 mt--5">
+        <div class="box__header">
+          <h3>Acessar</h3>
+        </div>
+        <div class="box__body">
+          <form>
+            <div>
+              <label class="label mt--0">E-mail</label>
+              <input type="text" placeholder="joao@provedor.com" class="textfield">
+            </div>
+            <div>
+              <label class="label mt--0">Senha</label>
+              <input type="password" placeholder="******" class="textfield">
+            </div>
+          </form>
+        </div>
+        <div class="box__footer" style="text-align:center">
+          <button class="button button--primary">Entrar</button>
+          <button class="button button--success">Cadastrar</button>
+          <div><a href="#">Esqueci a senha</a></div>
+        </div>
+      </div>
+    </main>
+    <script src="{{url_for('static', filename='js/by.js')}}"></script>
+    <script src="{{url_for('static', filename='js/rest.js')}}"></script>
+    <script src="{{url_for('static', filename='js/api.js')}}"></script>
+    <script src="{{url_for('static', filename='js/app.js')}}"></script>
+  </body>
+</html>
