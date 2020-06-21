@@ -3,7 +3,7 @@ const
   componentCategorias = () => {
     
     const 
-      template = byId("template-row-categoria"),
+      template = byId("template-row-category"),
       tableElement = bySelector("table"),
       tbodyElement = bySelector("tbody", tableElement),
 
