@@ -10,8 +10,12 @@ def create_user():
     user = User.from_json(request.json)
     db.session.add(user)
     db.session.commit()
-    return jsonify(
-            result(
-                payload={"user": user.to_json()}
-            )
-        ), 201
+    payload = {'user': user.to_json()}
+    return jsonify(result(payload)), 201
+
+
+@app_api.route('/users', methods=['GET'])
+def read_users():
+    users = User.query.all()
+    payload = {'users': [user.to_json() for user in users]}
+    return jsonify(result(payload))
