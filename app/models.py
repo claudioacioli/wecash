@@ -9,7 +9,24 @@ class User(db.Model):
     email = db.Column('user', db.String(255), unique=True, index=True)
     password = db.Column('password', db.String(128))
 
+    def  __repr__(self):
+        return '<User %r>' % self.email
+
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
+
+    def to_json(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'email': self.email
+        }
+
+    @staticmethod
+    def from_json(json_user):
+        name = json_user.get('name', None)
+        email = json_user.get('email', None)
+        password = json_user.get('password', None)
+        return User(name=name, email=email, password=password)
 
 
