@@ -14,8 +14,15 @@ def create_user():
     return jsonify(result(payload)), 201
 
 
-@app_api.route('/users', methods=['GET'])
+@app_api.route('/users', methods=['GEhttp://localhost:5000/api/1.0/users/1T'])
 def read_users():
     users = User.query.all()
     payload = {'users': [user.to_json() for user in users]}
+    return jsonify(result(payload))
+
+
+@app_api.route('/users/<int:id>', methods=['GET'])
+def read_user(id):
+    user = User.query.get_or_404(id)
+    payload = {'user': user.to_json()}
     return jsonify(result(payload))
