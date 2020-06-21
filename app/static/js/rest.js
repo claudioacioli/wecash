@@ -6,7 +6,7 @@ const
     });
   },
 
-  getData = async () => {
+  getData = async (url, mode="cors") => {
     const response = await fetch(url, {method:"GET", mode});
     
     try {
