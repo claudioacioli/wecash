@@ -11,14 +11,14 @@ const
 
   },
   
-  getMovimentos = async () => 
-    await getData(`${WECASH_API}/movimentos`)
+  getInvoices = async () => 
+    await getData(`${WECASH_API}/invoices`)
   ,
 
-  getCategorias = async () =>
-    await getData(`${WECASH_API}/categorias`)
+  getCategories = async () =>
+    await getData(`${WECASH_API}/categories`)
   ,
 
-  getContas = async () => 
-    await getData(`${WECASH_API}/contas`)
+  getBanks = async () => 
+    await getData(`${WECASH_API}/banks`)
 ;

@@ -7,16 +7,16 @@ def main():
     return render_template("login.html")
 
 
-@app_main.route("/movimentos")
-def movimentos():
+@app_main.route("/invoices")
+def invoices():
     return render_template("movimentos.html")
 
 
-@app_main.route("/categorias")
-def categorias():
-    return render_template("categorias.html")
+@app_main.route("/categories")
+def categories():
+    return render_template("categories.html")
 
 
-@app_main.route("/contas")
-def contas():
+@app_main.route("/banks")
+def banks():
     return render_template("contas.html")

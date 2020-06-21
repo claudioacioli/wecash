@@ -1,9 +1,9 @@
 const
 
-  componentMovimentos = () => {
+  componentInvoices = () => {
     
     const
-      template = byId("template-row-movimento"),
+      template = byId("template-row-invoice"),
       tableElement = bySelector("table"),
       tbodyElement = bySelector("tbody", tableElement),
 
@@ -24,14 +24,15 @@ const
 
       renderListView = result => {
         const fragment = document.createDocumentFragment();
-        for(item of result.payload) 
-          fragment.appendChild(renderItemView(item));
+        const { invoices } = result.payload;
+        for(invoice of invoices) 
+          fragment.appendChild(renderItemView(invoice));
 
         tbodyElement.appendChild(fragment);
       }
     ;
 
-    getMovimentos()
+    getInvoices()
       .then(getResult)
       .then(renderListView)
       .catch(function(error) {

@@ -9,7 +9,7 @@
     <title>{% block title %}{% endblock %}</title>
   </head>
   <body>
-    <template id="template-row-movimento">
+    <template id="template-row-invoice">
       <tr>
         <td><input type="checkbox" /></td>
         <td>{prev}</td>
@@ -45,9 +45,9 @@
         <div class="mt--0 appbar__collapse">
           <input type="text" class="mt--0 textfield textfield--inline" placeholder="Filtrar...">
           <nav class="appbar__menu">
-            <a {% if request.path == url_for('main.movimentos') %}class="is-active"{% endif %} href="{{url_for('main.movimentos')}}">Movimentos</a>
-            <a {% if request.path == url_for('main.categorias') %}class="is-active"{% endif %} href="{{ url_for('main.categorias') }}">Categorias</a>
-            <a {% if request.path == url_for('main.contas') %}class="is-active"{% endif %} href="{{ url_for('main.contas') }}">Contas</a>
+            <a {% if request.path == url_for('main.invoices') %}class="is-active"{% endif %} href="{{url_for('main.invoices')}}">Movimentos</a>
+            <a {% if request.path == url_for('main.categories') %}class="is-active"{% endif %} href="{{ url_for('main.categories') }}">Categorias</a>
+            <a {% if request.path == url_for('main.banks') %}class="is-active"{% endif %} href="{{ url_for('main.banks') }}">Contas</a>
             <a class="ml--auto" href="/"><img class="avatar--sm" src="{{url_for('static', filename='images/c.jpg')}}"></a>
           </nav>
         </div>
@@ -60,9 +60,9 @@
     <script src="{{url_for('static', filename='js/by.js')}}"></script>
     <script src="{{url_for('static', filename='js/rest.js')}}"></script>
     <script src="{{url_for('static', filename='js/api.js')}}"></script>
-    <script src="{{url_for('static', filename='js/movimentos.js')}}"></script>
-    <script src="{{url_for('static', filename='js/categorias.js')}}"></script>
-    <script src="{{url_for('static', filename='js/contas.js')}}"></script>
+    <script src="{{url_for('static', filename='js/invoices.js')}}"></script>
+    <script src="{{url_for('static', filename='js/categories.js')}}"></script>
+    <script src="{{url_for('static', filename='js/banks.js')}}"></script>
     <script src="{{url_for('static', filename='js/app.js')}}"></script>
   </body>
 </html>

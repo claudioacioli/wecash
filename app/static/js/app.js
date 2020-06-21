@@ -2,9 +2,9 @@
 
   const 
 
-    WECASH_ROUTE_MOVIMENTOS = "/movimentos",
-    WECASH_ROUTE_CATEGORIAS = "/categorias",
-    WECASH_ROUTE_CONTAS = "/contas",
+    WECASH_ROUTE_INVOICES = "/invoices",
+    WECASH_ROUTE_CATEGORIES = "/categories",
+    WECASH_ROUTE_BANKS = "/banks",
 
     getRoute = () =>
       window.location.pathname
@@ -13,14 +13,14 @@
     app = () => {
       
       switch(getRoute()) {
-        case WECASH_ROUTE_MOVIMENTOS:
-          return componentMovimentos;
+        case WECASH_ROUTE_INVOICES:
+          return componentInvoices;
         
-        case WECASH_ROUTE_CATEGORIAS:
-          return componentCategorias;
+        case WECASH_ROUTE_CATEGORIES:
+          return componentCategories;
 
-        case WECASH_ROUTE_CONTAS:
-          return componentContas;
+        case WECASH_ROUTE_BANKS:
+          return componentBanks;
       }
 
     }

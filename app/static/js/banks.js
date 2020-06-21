@@ -1,19 +1,16 @@
 const
   
-  componentCategorias = () => {
+  componentBanks = () => {
     
-    const 
-      template = byId("template-row-category"),
+    const
+      template = byId("template-row-bank"),
       tableElement = bySelector("table"),
       tbodyElement = bySelector("tbody", tableElement),
 
-      bindItemView = ({categoria, tipo, meta}, element) => {
+      bindItemView = ({conta, saldo}, element) => {
         const elements = byAll("td", element);
-        elements[1].textContent = categoria;
-        elements[2].textContent = tipo;
-        elements[3].textContent = meta;
-        elements[4].textContent = "R$ 0,00";
-        elements[5].textContent = "R$ 0,00";
+        elements[1].textContent = conta;
+        elements[2].textContent = saldo;
         return element;
       },
 
@@ -23,17 +20,18 @@ const
 
       renderListView = result => {
         const fragment = document.createDocumentFragment();
-        for(item of result.payload)
-          fragment.appendChild(renderItemView(item))
+        const { banks } = result.payload;
+        for(bank of banks)
+          fragment.appendChild(renderItemView(bank));
 
         tbodyElement.appendChild(fragment);
       }
     ;
 
-    getCategorias()
+    getBanks()
       .then(getResult)
       .then(renderListView)
-      .then(function(error) {
+      .catch(function(error) {
         console.error(error);
       });
   }
