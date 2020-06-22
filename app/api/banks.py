@@ -25,3 +25,22 @@ def create_bank():
     db.session.commit()
     payload = {'bank': bank.to_json()}
     return jsonify(result(payload)), 201, {'Location': url_for('api.read_bank', id=bank.id)}
+
+
+@app_api.route('/banks/<int:id>', methods=['PUT'])
+def update_bank(id):
+    bank = Bank.query.get_or_404(id)
+    bank.name = request.json.get('bank', bank.name)
+    db.session.add(bank)
+    db.session.commit()
+    payload = {'bank': bank.to_json()}
+    return jsonify(result(payload))
+
+
+@app_api.route('/banks/<int:id>', methods=['DELETE'])
+def delete_bank(id):
+    bank = Bank.query.get_or_404(id)
+    db.session.delete(bank)
+    db.session.commit()
+    return jsonify(result(payload={})), 204
+
