@@ -7,10 +7,11 @@ const
       tableElement = bySelector("table"),
       tbodyElement = bySelector("tbody", tableElement),
 
-      bindItemView = ({conta, saldo}, element) => {
+      bindItemView = ({bank, value="0,00"}, element) => {
         const elements = byAll("td", element);
-        elements[1].textContent = conta;
-        elements[2].textContent = saldo;
+        elements[1].textContent = bank;
+        elements[2].textContent = value;
+        elements[2].classList.add("text--right");
         return element;
       },
 
