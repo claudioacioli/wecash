@@ -5,15 +5,6 @@ from .. import db
 from ..models import User
 
 
-@app_api.route('/users', methods=['POST'])
-def create_user():
-    user = User.from_json(request.json)
-    db.session.add(user)
-    db.session.commit()
-    payload = {'user': user.to_json()}
-    return jsonify(result(payload)), 201
-
-
 @app_api.route('/users', methods=['GEhttp://localhost:5000/api/1.0/users/1T'])
 def read_users():
     users = User.query.all()
@@ -26,3 +17,12 @@ def read_user(id):
     user = User.query.get_or_404(id)
     payload = {'user': user.to_json()}
     return jsonify(result(payload))
+
+
+@app_api.route('/users', methods=['POST'])
+def create_user():
+    user = User.from_json(request.json)
+    db.session.add(user)
+    db.session.commit()
+    payload = {'user': user.to_json()}
+    return jsonify(result(payload)), 201, {'Location': url_for('api.read_user', id=user.id)}
