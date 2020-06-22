@@ -28,9 +28,19 @@ def create_user():
     return jsonify(result(payload)), 201, {'Location': url_for('api.read_user', id=user.id)}
 
 
+@app_api.route('/users/<int:id>', methods=['PUT'])
+def update_user(id):
+    user = User.query.get_or_404(id)
+    user.name = request.json.get('name', user.name)
+    db.session.add(user)
+    db.session.commit()
+    payload = {'user': user.to_json()}
+    return jsonify(result(payload))
+
+
 @app_api.route('/users/<int:id>', methods=['DELETE'])
 def delete_user(id):
     user = User.query.get_or_404(id)
     db.session.delete(user)
     db.session.commit()
-    return jsonify(payload={}), 204
+    return jsonify(result(payload={})), 204
