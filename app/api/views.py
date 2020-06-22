@@ -7,8 +7,4 @@ def invoices():
     return jsonify(result({"invoices": []})), 200
 
 
-@app_api.route("/categories/")
-def categories():
-    return jsonify(result({"categories": []})), 200
-
 
