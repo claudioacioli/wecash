@@ -12,7 +12,3 @@ def categories():
     return jsonify(result({"categories": []})), 200
 
 
-@app_api.route("/banks/")
-def banks():
-    return jsonify(result({"banks":[]})), 200
-
