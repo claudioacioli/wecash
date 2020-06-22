@@ -19,4 +19,4 @@ def categories():
 
 @app_main.route("/banks")
 def banks():
-    return render_template("contas.html")
+    return render_template("banks.html")
