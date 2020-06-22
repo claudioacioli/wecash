@@ -1,7 +1,7 @@
 const
 
   getHeaders = () => {
-    return new Header({
+    return new Headers({
       "Content-Type": "application/json"
     });
   },
