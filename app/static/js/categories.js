@@ -28,12 +28,11 @@ const
 
       renderListView = result => {
         const fragment = document.createDocumentFragment();
-        console.log(result);
         const { categories } = result.payload;
-        console.log(categories);
+
         for(category of categories)
           fragment.appendChild(renderItemView(category))
-        console.log("here");
+        
         tbodyElement.appendChild(fragment);
       }
     ;
@@ -41,7 +40,7 @@ const
     getCategories()
       .then(getResult)
       .then(renderListView)
-      .then(function(error) {
+      .catch(function(error) {
         console.error(error);
       });
   }
