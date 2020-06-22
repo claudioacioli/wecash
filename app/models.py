@@ -35,7 +35,7 @@ class User(db.Model):
 class Bank(db.Model):
     __tablename__ = 'tb_banks'
     id = db.Column('bank_id', db.Integer, primary_key=True)
-    name = db.Column('name', db.String(255), unique=True)
+    name = db.Column('name', db.String(255), unique=False)
     user_id = db.Column('user_id', db.Integer, db.ForeignKey('tb_users.user_id'))
 
     def __init__(self, **kwargs):
@@ -56,3 +56,32 @@ class Bank(db.Model):
         name = json_bank.get('bank', None)
         user_id = json_bank.get('user_id', None)
         return Bank(name=name, user_id=user_id)
+
+
+class Category(db.Model):
+    __tablename__ = 'tb_categories'
+    id = db.Column('category_id', db.Integer, primary_key=True)
+    name = db.Column('name', db.String(255))
+    type = db.Column('type', db.String(1))
+    user_id = db.Column('user_id', db.Integer, db.ForeignKey('tb_users.user_id'))
+
+    def __init__(self, **kwargs):
+        super(Category, self).__init__(**kwargs)
+
+    def  __repr__(self):
+        return '<Category %r>' % self.name
+
+    def to_json(self):
+        return {
+            'id': self.id,
+            'category': self.name,
+            'type': self.type,
+            'user_id': self.user_id
+        }
+
+    @staticmethod
+    def from_json(json_bank):
+        name = json_bank.get('category', None)
+        type = json_bank.get('type', None)
+        user_id = json_bank.get('user_id', None)
+        return Category(name=name, type=type, user_id=user_id)
