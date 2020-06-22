@@ -21,4 +21,9 @@ const
 
   getBanks = async () => 
     await getData(`${WECASH_API}/banks`)
+  ,
+
+  postBanks = async data => 
+    await postData(`${WECASH_API}/banks/`, data)
+
 ;
