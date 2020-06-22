@@ -18,12 +18,15 @@ const
         const elements = byAll("td", element);
         elements[1].textContent = category;
         elements[2].textContent = go;
-        setBookmark(bySelector("tr", element), type); 
         return element;
       },
 
       renderItemView = item => {
-        return bindItemView(item, template.content.cloneNode(true));
+        const fragment = template.content.cloneNode(true);
+        const element = bySelector("tr", fragment);
+        element.dataset.category = JSON.stringify(item);
+        setBookmark(element, item.type); 
+        return bindItemView(item, fragment);
       },
 
       renderListView = result => {
