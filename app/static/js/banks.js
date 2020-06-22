@@ -15,7 +15,10 @@ const
       },
 
       renderItemView = item => {
-        return bindItemView(item, template.content.cloneNode(true));
+        const fragment = template.content.cloneNode(true);
+        const element = bySelector("tr", fragment);
+        element.dataset.bank = JSON.stringify(item);
+        return bindItemView(item, fragment);
       },
 
       renderListView = result => {
