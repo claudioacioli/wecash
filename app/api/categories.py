@@ -32,6 +32,7 @@ def update_category(id):
     category = Category.query.get_or_404(id)
     category.name = request.json.get('category', category.name)
     category.type = request.json.get('type', category.type)
+    category.go = request.json.get('go', category.go)
     db.session.add(category)
     db.session.commit()
     payload = {'category': category.to_json()}
