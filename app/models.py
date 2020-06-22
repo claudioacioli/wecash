@@ -63,6 +63,7 @@ class Category(db.Model):
     id = db.Column('category_id', db.Integer, primary_key=True)
     name = db.Column('name', db.String(255))
     type = db.Column('type', db.String(1))
+    go = db.Column('go', db.Float)
     user_id = db.Column('user_id', db.Integer, db.ForeignKey('tb_users.user_id'))
 
     def __init__(self, **kwargs):
@@ -76,6 +77,7 @@ class Category(db.Model):
             'id': self.id,
             'category': self.name,
             'type': self.type,
+            'go': self.go,
             'user_id': self.user_id
         }
 
@@ -83,5 +85,7 @@ class Category(db.Model):
     def from_json(json_bank):
         name = json_bank.get('category', None)
         type = json_bank.get('type', None)
+        go = json_bank.get('go', None)
         user_id = json_bank.get('user_id', None)
         return Category(name=name, type=type, user_id=user_id)
+
