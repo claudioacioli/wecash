@@ -7,13 +7,18 @@ const
       tableElement = bySelector("table"),
       tbodyElement = bySelector("tbody", tableElement),
 
-      bindItemView = ({categoria, tipo, meta}, element) => {
+      setBookmark = (element, type) => {
+        if(type === "D")
+          element.classList.replace("bookmark--success", "bookmark--danger");
+        else
+          element.classList.add("bookmark--danger", "bookmark--success");
+      },
+
+      bindItemView = ({category, type, go}, element) => {
         const elements = byAll("td", element);
-        elements[1].textContent = categoria;
-        elements[2].textContent = tipo;
-        elements[3].textContent = meta;
-        elements[4].textContent = "R$ 0,00";
-        elements[5].textContent = "R$ 0,00";
+        elements[1].textContent = category;
+        elements[2].textContent = go;
+        setBookmark(bySelector("tr", element), type); 
         return element;
       },
 

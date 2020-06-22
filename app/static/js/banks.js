@@ -11,7 +11,6 @@ const
         const elements = byAll("td", element);
         elements[1].textContent = bank;
         elements[2].textContent = value;
-        elements[2].classList.add("text--right");
         return element;
       },
 
