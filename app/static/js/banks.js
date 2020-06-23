@@ -73,13 +73,13 @@ const
         tbodyElement.appendChild(fragment);
       },
 
-      renderEdit = data => {
+      renderEditView = data => {
         const { id, bank } = data;
         hiddenElement.value = id;
         inputElement.value = bank;
       },
 
-      renderSelect = element => {
+      renderSelectView = element => {
         rowActive.toggle(element);
         renderEdit(JSON.parse(element.dataset.data));
       },
@@ -87,12 +87,12 @@ const
       handleActive = e => {
         e.preventDefault();
         if(e.target.nodeName === "TD")
-          renderSelect(e.target.parentNode);
+          renderSelectView(e.target.parentNode);
       },
 
       handleAdd = (e) => {
         e.preventDefault();
-        renderEdit({"id": 0, "bank": ""});
+        renderEditView({"id": 0, "bank": ""});
       },
 
       handleSubmit = () => {
@@ -114,7 +114,6 @@ const
     submitElement.addEventListener("click", handleSubmit);
     
     read();
-
   }
 
 ;
