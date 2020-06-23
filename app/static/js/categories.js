@@ -27,7 +27,7 @@ const
         postCategories(data)
           .then(getResult)
           .then(async result => {
-            reset();
+            renderResetView();
             return { ...result, payload: [result.payload]}
           })
           .then(renderListView)
@@ -40,7 +40,7 @@ const
         putCategories(data)
           .then(getResult)
           .then(async result => {
-            reset();
+            renderResetView();
             return { ...result, payload: [result.payload]}
           })
           .then(renderListView)
@@ -53,7 +53,7 @@ const
         deleteCategories(id)
           .then(getResult)
           .then(() => {
-            reset();
+            renderResetView();
             removeItemView(id);
           })
           .catch(function(error) {
@@ -61,7 +61,7 @@ const
           })
       },      
 
-      reset = () => {
+      renderResetView = () => {
         idFieldElement.value = "";
         nameFieldElement.value = "";
         typeFieldElement.value = "D";
