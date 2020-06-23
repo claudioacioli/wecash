@@ -10,6 +10,7 @@ const
       typeFieldElement = byId("field--type"),
       goFieldElement = byId("field--go"),
       saveElement = byId("btn--save"),
+      rowActive = new ActiveElement("is-active"),
 
       read = () => {
         getCategories()
@@ -75,8 +76,18 @@ const
         tbodyElement.appendChild(fragment);
       },
 
+      renderSelectView = element => {
+        rowActive.toggle(element);
+      },
+
+      handleActive = e => {
+        e.preventDefault();
+        const element = e.target;
+        if(element.nodeName === "TD")
+          renderSelectView(element.parentNode)
+      },
+
       handleSave = e => {
-        
         const data = {
           "category": nameFieldElement.value,
           "go": goFieldElement.value,
@@ -88,6 +99,7 @@ const
       }
     ;
 
+    tbodyElement.addEventListener("click", handleActive);
     saveElement.addEventListener("click", handleSave);
 
     read();
