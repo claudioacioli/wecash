@@ -23,6 +23,9 @@ const
     await postData(`${WECASH_API}/categories/`, data)
   ,
 
+  putCategories = async data => 
+    await putData(`${WECASH_API}/categories/${data.id}`, data)
+
   deleteCategories = async id => 
     await deleteData(`${WECASH_API}/categories/${id}`)
   ,
