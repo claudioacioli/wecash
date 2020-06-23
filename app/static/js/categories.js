@@ -72,7 +72,7 @@ const
         if(type === "D")
           element.classList.replace("bookmark--success", "bookmark--danger");
         else
-          element.classList.add("bookmark--danger", "bookmark--success");
+          element.classList.replace("bookmark--danger", "bookmark--success");
       },
 
       getItemView = id => {
