@@ -7,14 +7,14 @@ from ..models import Category
 @app_api.route('/categories/', methods=['GET'])
 def read_categories():
     categories = Category.query.all()
-    payload = {'categories': [category.to_json() for category in categories]}
+    payload = [category.to_json() for category in categories]
     return jsonify(result(payload))
 
 
 @app_api.route('/categories/<int:id>', methods=['GET'])
 def read_category(id):
     category = Category.query.get_or_404(id)
-    payload = {'category': category.to_json()}
+    payload = category.to_json()
     return jsonify(result(payload))
 
 
@@ -23,7 +23,7 @@ def create_category():
     category = Category.from_json(request.json)
     db.session.add(category)
     db.session.commit()
-    payload = {'category': category.to_json()}
+    payload = category.to_json()
     return jsonify(result(payload)), 201, {'Location': url_for('api.read_category', id=category.id)}
 
 
@@ -35,7 +35,7 @@ def update_category(id):
     category.go = request.json.get('go', category.go)
     db.session.add(category)
     db.session.commit()
-    payload = {'category': category.to_json()}
+    payload = category.to_json()
     return jsonify(result(payload))
 
 
@@ -44,5 +44,5 @@ def delete_category(id):
     category = Category.query.get_or_404(id)
     db.session.delete(category)
     db.session.commit()
-    return jsonify(result(payload={})), 204
+    return jsonify(result(payload={})), 202
 
