@@ -42,5 +42,5 @@ def delete_bank(id):
     bank = Bank.query.get_or_404(id)
     db.session.delete(bank)
     db.session.commit()
-    return jsonify(result(payload={})), 204
+    return jsonify(result(payload={})), 202
 
