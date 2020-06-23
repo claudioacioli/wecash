@@ -6,12 +6,19 @@ const
       template = byId("template-row-category"),
       tableElement = bySelector("table"),
       tbodyElement = bySelector("tbody", tableElement),
-
       nameFieldElement = byId("field--name"),
       typeFieldElement = byId("field--type"),
       goFieldElement = byId("field--go"),
-
       saveElement = byId("btn--save"),
+
+      read = () => {
+        getCategories()
+          .then(getResult)
+          .then(renderListView)
+          .catch(function(error) {
+            console.error(error);
+          });
+      },
 
       create = data => {
         postCategories(data)
@@ -83,12 +90,7 @@ const
 
     saveElement.addEventListener("click", handleSave);
 
-    getCategories()
-      .then(getResult)
-      .then(renderListView)
-      .catch(function(error) {
-        console.error(error);
-      });
+    read();
   }
 
 ;
