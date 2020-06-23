@@ -6,10 +6,12 @@ const
       template = byId("template-row-category"),
       tableElement = bySelector("table"),
       tbodyElement = bySelector("tbody", tableElement),
+      idFieldElement = byId("field--id"),
       nameFieldElement = byId("field--name"),
       typeFieldElement = byId("field--type"),
       goFieldElement = byId("field--go"),
       saveElement = byId("btn--save"),
+      deleteElement = byId("btn--delete"),
       rowActive = new ActiveElement("is-active"),
 
       read = () => {
@@ -34,7 +36,20 @@ const
           });
       },
 
+      remove = id => {
+        deleteCategories(id)
+          .then(getResult)
+          .then(() => {
+            reset();
+            removeItemView(id);
+          })
+          .catch(function(error) {
+            console.log(error);
+          })
+      },      
+
       reset = () => {
+        idFieldElement.value = "";
         nameFieldElement.value = "";
         typeFieldElement.value = "D";
         goFieldElement.value = "";
@@ -51,6 +66,11 @@ const
         return byId(id) || bySelector("tr", template.content.cloneNode(true));
       },
 
+      removeItemView = id => {
+        const element = getItemView(id);
+        element.remove();
+      }, 
+
       bindItemView = ({category, type, go}, element) => {
         const elements = byAll("td", element);
         elements[1].textContent = category;
@@ -58,12 +78,14 @@ const
         return element;
       },
 
-      renderItemView = item => {
+      renderItemView = data => {
+        const { id, type } = data;
         const fragment = template.content.cloneNode(true);
         const element = bySelector("tr", fragment);
-        element.dataset.category = JSON.stringify(item);
-        setBookmark(element, item.type); 
-        return bindItemView(item, fragment);
+        element.id = id;
+        element.dataset.data = JSON.stringify(data);
+        setBookmark(element, type); 
+        return bindItemView(data, fragment);
       },
 
       renderListView = result => {
@@ -76,8 +98,17 @@ const
         tbodyElement.appendChild(fragment);
       },
 
+      renderEditView = data => {
+        const { id, category, go, type } = data;
+        idFieldElement.value = id;
+        nameFieldElement.value = category;
+        typeFieldElement.value = type;
+        goFieldElement.value = go;
+      },
+
       renderSelectView = element => {
         rowActive.toggle(element);
+        renderEditView(JSON.parse(element.dataset.data));
       },
 
       handleActive = e => {
@@ -89,6 +120,7 @@ const
 
       handleSave = e => {
         const data = {
+          "id": idFieldElement.value,
           "category": nameFieldElement.value,
           "go": goFieldElement.value,
           "type": typeFieldElement.value,
@@ -96,11 +128,19 @@ const
         }
 
         create(data);
+      },
+
+      handleDelete = e => {
+        e.preventDefault();
+        const id = idFieldElement.value.toString().trim();
+        if(id.length && id !== "0")
+          remove(id);
       }
     ;
 
     tbodyElement.addEventListener("click", handleActive);
     saveElement.addEventListener("click", handleSave);
+    deleteElement.addEventListener("click", handleDelete);
 
     read();
   }
