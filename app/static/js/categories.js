@@ -36,6 +36,19 @@ const
           });
       },
 
+      edit = data => {
+        putCategories(data)
+          .then(getResult)
+          .then(async result => {
+            reset();
+            return { ...result, payload: [result.payload]}
+          })
+          .then(renderListView)
+          .catch(function(error) {
+            console.log(error);
+          });
+      },
+
       remove = id => {
         deleteCategories(id)
           .then(getResult)
@@ -80,12 +93,13 @@ const
 
       renderItemView = data => {
         const { id, type } = data;
-        const fragment = template.content.cloneNode(true);
-        const element = bySelector("tr", fragment);
+        const element = getItemView(id);
+        
         element.id = id;
         element.dataset.data = JSON.stringify(data);
         setBookmark(element, type); 
-        return bindItemView(data, fragment);
+
+        return bindItemView(data, element);
       },
 
       renderListView = result => {
@@ -125,9 +139,12 @@ const
           "go": goFieldElement.value,
           "type": typeFieldElement.value,
           "user_id": 1
-        }
+        };
 
-        create(data);
+        if(data.id === "0" || data.id === "")
+          create(data);
+        else
+          edit(data);
       },
 
       handleDelete = e => {
