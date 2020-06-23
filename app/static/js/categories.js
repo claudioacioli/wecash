@@ -13,6 +13,7 @@ const
       addElement = byId("btn--add"),
       saveElement = byId("btn--save"),
       deleteElement = byId("btn--delete"),
+      resetElement = byId("btn--reset"),
       rowActive = new ActiveElement("is-active"),
 
       read = () => {
@@ -63,6 +64,7 @@ const
       },      
 
       renderResetView = () => {
+        rowActive.toggle(null);
         idFieldElement.value = "";
         nameFieldElement.value = "";
         typeFieldElement.value = "D";
@@ -158,12 +160,19 @@ const
         const id = idFieldElement.value.toString().trim();
         if(id.length && id !== "0")
           remove(id);
+      },
+
+      handleReset = e => {
+        e.preventDefault();
+        renderResetView();
       }
     ;
 
+    addElement.addEventListener("click", handleAdd);
     tbodyElement.addEventListener("click", handleActive);
     saveElement.addEventListener("click", handleSave);
     deleteElement.addEventListener("click", handleDelete);
+    resetElement.addEventListener("click", handleReset);
 
     read();
   }
