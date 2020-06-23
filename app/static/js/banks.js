@@ -6,8 +6,8 @@ const
       template = byId("template-row-bank"),
       tableElement = bySelector("table"),
       tbodyElement = bySelector("tbody", tableElement),
-      inputElement = byId("input--bank"),
-      hiddenElement = byId("input--id"),
+      nameFieldElement = byId("input--bank"),
+      idFieldElement = byId("input--id"),
       saveElement = byId("btn--save"),
       deleteElement = byId("btn--delete"),
       resetElement = byId("btn--reset"),
@@ -62,8 +62,8 @@ const
       },
 
       reset = () => {
-        inputElement.value = "";
-        hiddenElement.value = "";
+        nameFieldElement.value = "";
+        idFieldElement.value = "";
         rowActive.toggle(null);
       },
 
@@ -101,8 +101,8 @@ const
 
       renderEditView = data => {
         const { id, bank } = data;
-        hiddenElement.value = id;
-        inputElement.value = bank;
+        idFieldElement.value = id;
+        nameFieldElement.value = bank;
       },
 
       renderSelectView = element => {
@@ -124,8 +124,8 @@ const
 
       handleSave = () => {
         const data = {
-          "id": hiddenElement.value,
-          "bank": inputElement.value,
+          "id": idFieldElement.value,
+          "bank": nameFieldElement.value,
           "user_id": 1
         };
 
@@ -137,7 +137,7 @@ const
 
       handleDelete = e => {
         e.preventDefault();
-        const id = hiddenElement.value.toString().trim();
+        const id = idFieldElement.value.toString().trim();
         if(id.length && id !== "0")
           remove(id);
       },
