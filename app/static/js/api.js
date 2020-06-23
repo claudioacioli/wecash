@@ -16,7 +16,11 @@ const
   ,
 
   getCategories = async () =>
-    await getData(`${WECASH_API}/categories`)
+    await getData(`${WECASH_API}/categories/`)
+  ,
+
+  postCategories = async data => 
+    await postData(`${WECASH_API}/categories/`, data)
   ,
 
   getBanks = async () => 
