@@ -112,8 +112,9 @@ const
 
       handleActive = e => {
         e.preventDefault();
-        if(e.target.nodeName === "TD")
-          renderSelectView(e.target.parentNode);
+        const element = e.target;
+        if(element.nodeName === "TD")
+          renderSelectView(element.parentNode);
       },
 
       handleAdd = (e) => {
