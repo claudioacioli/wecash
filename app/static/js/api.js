@@ -26,4 +26,6 @@ const
   postBanks = async data => 
     await postData(`${WECASH_API}/banks/`, data)
 
+  putBanks = async data => 
+    await putData(`${WECASH_API}/banks/${data.id}`, data)
 ;
