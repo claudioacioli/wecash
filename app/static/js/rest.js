@@ -35,7 +35,7 @@ const
 
   putData = async (url, data={}, mode="cors") => {
     const response = await fetch(url, {
-      method: "POST",
+      method: "PUT",
       credentials: "same-origin",
       body: JSON.stringify(data),
       mode,
