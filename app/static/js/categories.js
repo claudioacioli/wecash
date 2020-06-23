@@ -10,6 +10,7 @@ const
       nameFieldElement = byId("field--name"),
       typeFieldElement = byId("field--type"),
       goFieldElement = byId("field--go"),
+      addElement = byId("btn--add"),
       saveElement = byId("btn--save"),
       deleteElement = byId("btn--delete"),
       rowActive = new ActiveElement("is-active"),
@@ -130,6 +131,11 @@ const
         const element = e.target;
         if(element.nodeName === "TD")
           renderSelectView(element.parentNode)
+      },
+
+      handleAdd = (e) => {
+        e.preventDefault();
+        renderResetView();
       },
 
       handleSave = e => {
