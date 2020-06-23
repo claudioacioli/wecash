@@ -27,7 +27,7 @@ const
         postBanks(data)
           .then(getResult)
           .then(async result => {
-            reset();
+            renderResetView();
             return { ...result, payload: [result.payload]}
           })
           .then(renderListView)
@@ -40,7 +40,7 @@ const
         putBanks(data)
           .then(getResult)
           .then(async result => {
-            reset();
+            renderResetView();
             return { ...result, payload: [result.payload]}
           })
           .then(renderListView)
@@ -53,7 +53,7 @@ const
         deleteBanks(id)
           .then(getResult)
           .then(() => {
-            reset();
+            renderResetView();
             removeItemView(id);
           })
           .catch(function(error) {
@@ -61,7 +61,7 @@ const
           });
       },
 
-      reset = () => {
+      renderResetView = () => {
         nameFieldElement.value = "";
         idFieldElement.value = "";
         rowActive.toggle(null);
@@ -119,7 +119,7 @@ const
 
       handleAdd = (e) => {
         e.preventDefault();
-        reset();
+        renderResetView();
       },
 
       handleSave = () => {
@@ -144,7 +144,7 @@ const
 
       handleReset = e => {
         e.preventDefault();
-        reset();
+        renderResetView();
       }
     ;
 
