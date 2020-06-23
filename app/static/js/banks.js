@@ -66,10 +66,9 @@ const
 
       renderListView = result => {
         const fragment = document.createDocumentFragment();
-        const banks = result.payload;
-        for(bank of banks)
-          fragment.appendChild(renderItemView(bank));
-
+        const data = result.payload;
+        for(item of data)
+          fragment.appendChild(renderItemView(item));
         tbodyElement.appendChild(fragment);
       },
 
