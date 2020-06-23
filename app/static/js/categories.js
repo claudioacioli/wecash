@@ -6,6 +6,11 @@ const
       template = byId("template-row-category"),
       tableElement = bySelector("table"),
       tbodyElement = bySelector("tbody", tableElement),
+
+      nameFieldElement = byId("field--name"),
+      typeFieldElement = byId("field--type"),
+      goFieldElement = byId("field--go"),
+
       saveElement = byId("btn--save"),
 
       create = data => {
@@ -22,7 +27,9 @@ const
       },
 
       reset = () => {
-
+        nameFieldElement.value = "";
+        typeFieldElement.value = "D";
+        goFieldElement.value = "";
       },
 
       setBookmark = (element, type) => {
@@ -62,11 +69,14 @@ const
       },
 
       handleSave = e => {
+        
         const data = {
-          "category": "Teste",
-          "go": 100,
-          "type": "D"
+          "category": nameFieldElement.value,
+          "go": goFieldElement.value,
+          "type": typeFieldElement.value,
+          "user_id": 1
         }
+
         create(data);
       }
     ;
