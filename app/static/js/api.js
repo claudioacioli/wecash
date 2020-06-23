@@ -28,4 +28,8 @@ const
 
   putBanks = async data => 
     await putData(`${WECASH_API}/banks/${data.id}`, data)
+  ,
+
+  deleteBanks = async id => 
+    await deleteData(`${WECASH_API}/banks/${id}`)
 ;
