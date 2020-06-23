@@ -82,10 +82,10 @@ class Category(db.Model):
         }
 
     @staticmethod
-    def from_json(json_bank):
-        name = json_bank.get('category', None)
-        type = json_bank.get('type', None)
-        go = json_bank.get('go', None)
-        user_id = json_bank.get('user_id', None)
-        return Category(name=name, type=type, user_id=user_id)
+    def from_json(json_category):
+        name = json_category.get('category', None)
+        type = json_category.get('type', None)
+        go = json_category.get('go', None)
+        user_id = json_category.get('user_id', None)
+        return Category(name=name, go=go, type=type, user_id=user_id)
 
