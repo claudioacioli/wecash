@@ -7,7 +7,43 @@ const
       tableElement = bySelector("table"),
       tbodyElement = bySelector("tbody", tableElement),
       inputElement = byId("input--bank"),
+      hiddenElement = byId("input--id"),
       submitElement = byId("btn-bank--submit"),
+      addElement = byId("btn--add"),
+      rowActive = new ActiveElement("is-active"),
+
+      read = () => {
+        getBanks()
+          .then(getResult)
+          .then(renderListView)
+          .catch(function(error) {
+            console.error(error);
+          });
+      },
+
+      create = data => {
+        postBanks(data)
+          .then(getResult)
+          .then(async result => {
+            return { ...result, payload: [result.payload]}
+          })
+          .then(renderListView)
+          .catch(function(error) {
+            console.log(error);
+          });
+      },
+
+      edit = data => {
+        putBanks(data)
+          .then(getResult)
+          .then(async result => {
+            return { ...result, payload: [result.payload]}
+          })
+          .then(renderListView)
+          .catch(function(error) {
+            console.log(error);
+          });
+      },
 
       getItemView = id => {
         return byId(id) || bySelector("tr", template.content.cloneNode(true));
@@ -20,11 +56,12 @@ const
         return element;
       },
 
-      renderItemView = item => {
-        const element = getItemView(item.id);
-        element.id = item.id;
-        element.dataset.bank = JSON.stringify(item);
-        return bindItemView(item, element);
+      renderItemView = data => {
+        const {id} = data;
+        const element = getItemView(id);
+        element.id = id;
+        element.dataset.data = JSON.stringify(data);
+        return bindItemView(data, element);
       },
 
       renderListView = result => {
@@ -36,32 +73,48 @@ const
         tbodyElement.appendChild(fragment);
       },
 
+      renderEdit = data => {
+        const { id, bank } = data;
+        hiddenElement.value = id;
+        inputElement.value = bank;
+      },
+
+      renderSelect = element => {
+        rowActive.toggle(element);
+        renderEdit(JSON.parse(element.dataset.data));
+      },
+
+      handleActive = e => {
+        e.preventDefault();
+        if(e.target.nodeName === "TD")
+          renderSelect(e.target.parentNode);
+      },
+
+      handleAdd = (e) => {
+        e.preventDefault();
+        renderEdit({"id": 0, "bank": ""});
+      },
+
       handleSubmit = () => {
         const data = {
+          "id": hiddenElement.value,
           "bank": inputElement.value,
           "user_id": 1
         };
 
-        postBanks(data)
-          .then(getResult)
-          .then(async result => {
-            return { ...result, payload: [result.payload]}
-          })
-          .then(renderListView)
-          .catch(function(error) {
-            console.log(error);
-          });
+        if(data.id === "0" || data.id === "")
+          create(data);
+        else
+          edit(data);
       }
     ;
 
+    addElement.addEventListener("click", handleAdd);
+    tbodyElement.addEventListener("click", handleActive);
     submitElement.addEventListener("click", handleSubmit);
+    
+    read();
 
-    getBanks()
-      .then(getResult)
-      .then(renderListView)
-      .catch(function(error) {
-        console.error(error);
-      });
   }
 
 ;
