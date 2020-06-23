@@ -10,6 +10,7 @@ const
       hiddenElement = byId("input--id"),
       saveElement = byId("btn--save"),
       deleteElement = byId("btn--delete"),
+      resetElement = byId("btn--reset"),
       addElement = byId("btn--add"),
       rowActive = new ActiveElement("is-active"),
 
@@ -61,7 +62,6 @@ const
       },
 
       reset = () => {
-        //renderEditView({"id": "", "bank": ""});
         inputElement.value = "";
         hiddenElement.value = "";
         rowActive.toggle(null);
@@ -134,10 +134,16 @@ const
           edit(data);
       },
 
-      handleDelete = () => {
+      handleDelete = e => {
+        e.preventDefault();
         const id = hiddenElement.value.toString().trim();
         if(id.length && id !== "0")
           remove(id);
+      },
+
+      handleReset = e => {
+        e.preventDefault();
+        reset();
       }
     ;
 
@@ -145,6 +151,7 @@ const
     tbodyElement.addEventListener("click", handleActive);
     saveElement.addEventListener("click", handleSave);
     deleteElement.addEventListener("click", handleDelete);
+    resetElement.addEventListener("click", handleReset);
     
     read();
   }
