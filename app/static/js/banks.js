@@ -8,7 +8,8 @@ const
       tbodyElement = bySelector("tbody", tableElement),
       inputElement = byId("input--bank"),
       hiddenElement = byId("input--id"),
-      submitElement = byId("btn-bank--submit"),
+      saveElement = byId("btn--save"),
+      deleteElement = byId("btn--delete"),
       addElement = byId("btn--add"),
       rowActive = new ActiveElement("is-active"),
 
@@ -25,6 +26,7 @@ const
         postBanks(data)
           .then(getResult)
           .then(async result => {
+            reset();
             return { ...result, payload: [result.payload]}
           })
           .then(renderListView)
@@ -37,6 +39,7 @@ const
         putBanks(data)
           .then(getResult)
           .then(async result => {
+            reset();
             return { ...result, payload: [result.payload]}
           })
           .then(renderListView)
@@ -45,9 +48,33 @@ const
           });
       },
 
+      remove = id => {
+        deleteBanks(id)
+          .then(getResult)
+          .then(() => {
+            reset();
+            removeItemView(id);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      },
+
+      reset = () => {
+        //renderEditView({"id": "", "bank": ""});
+        inputElement.value = "";
+        hiddenElement.value = "";
+        rowActive.toggle(null);
+      },
+
       getItemView = id => {
         return byId(id) || bySelector("tr", template.content.cloneNode(true));
       },
+
+      removeItemView = id => {
+        const element = getItemView(id);
+        element.remove();
+      }, 
 
       bindItemView = ({bank, value="0,00"}, element) => {
         const elements = byAll("td", element);
@@ -80,7 +107,7 @@ const
 
       renderSelectView = element => {
         rowActive.toggle(element);
-        renderEdit(JSON.parse(element.dataset.data));
+        renderEditView(JSON.parse(element.dataset.data));
       },
 
       handleActive = e => {
@@ -91,10 +118,10 @@ const
 
       handleAdd = (e) => {
         e.preventDefault();
-        renderEditView({"id": 0, "bank": ""});
+        reset();
       },
 
-      handleSubmit = () => {
+      handleSave = () => {
         const data = {
           "id": hiddenElement.value,
           "bank": inputElement.value,
@@ -105,12 +132,19 @@ const
           create(data);
         else
           edit(data);
+      },
+
+      handleDelete = () => {
+        const id = hiddenElement.value.toString().trim();
+        if(id.length && id !== "0")
+          remove(id);
       }
     ;
 
     addElement.addEventListener("click", handleAdd);
     tbodyElement.addEventListener("click", handleActive);
-    submitElement.addEventListener("click", handleSubmit);
+    saveElement.addEventListener("click", handleSave);
+    deleteElement.addEventListener("click", handleDelete);
     
     read();
   }
