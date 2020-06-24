@@ -1,10 +1,20 @@
 from . import main as app_main
-from flask import render_template
-from flask_login import login_required
+from .. import db
+from ..models import User
+from flask import render_template, request, redirect, url_for
+from flask_login import login_required, login_user
 
 
-@app_main.route("/")
+@app_main.route("/", methods=["GET", "POST"])
 def main():
+    email = request.form.get("email", "")
+    password = request.form.get("password", "")
+    user = User.query.filter_by(email=email).first()
+    if user is not None and user.verify_password(password):
+        login_user(user, False)
+        next = request.args.get("next", url_for("main.invoices"))
+        print(next)
+        return redirect(next)
     return render_template("login.html")
 
 
