@@ -43,32 +43,32 @@
       </div>
       <div class="box__body">
         <form>
+          <input type="hidden" id="field-id">
           <div>
             <label class="label mt--0">Historico</label>
-            <input type="text" placeholder="Apartamento" class="textfield">
+            <input id="field--history"  type="text" placeholder="Apartamento" class="textfield">
           </div>
           <div>
             <label class="label mt--0">Valor</label>
-            <input type="text" placeholder="350,00" class="textfield">
+            <input id="field--value" type="text" placeholder="350,00" class="textfield">
           </div>
           <div>
             <label class="label mt--0">Previsto</label>
-            <input type="text" placeholder="01/01/2020" class="textfield">
+            <input id="field--forecast" type="text" placeholder="01/01/2020" class="textfield">
           </div>
           <div>
             <label class="label mt--0">Confirmado</label>
-            <input type="text" placeholder="01/01/2020" class="textfield">
+            <input id="field--confirmation" type="text" placeholder="01/01/2020" class="textfield">
           </div>
           <div>
             <label class="label mt--0">Conta</label>
-            <input type="text" placeholder="Caixa" class="textfield">
+            <input id="field--bank" list="datalist--bank" type="text" placeholder="Caixa" class="textfield">
+            <datalist id="datalist--bank"></datalist>
           </div>
           <div>
             <label class="label mt--0">Categoria</label>
-            <select class="textfield">
-              <option>Habitacao</option>
-              <option>Teste 2</option>
-            </select>
+            <input id="field--category" list="datalist--category" type="text" placeholder="Caixa" class="textfield">
+            <datalist id="datalist--category"></datalist>
           </div>
         </form>
       </div>
