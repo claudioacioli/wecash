@@ -1,3 +1,4 @@
+import json
 import jwt
 import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -39,9 +40,9 @@ class User(UserMixin, db.Model):
     def encode_auth_token(self):
         try:
             payload = {
-                'exp': datetime.datetime.utcnow() + datetime.timedelta(days=0, seconds=5),
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1),
                 'iat': datetime.datetime.utcnow(),
-                'sub': self.to_json()
+                'sub': json.dumps(self.to_json())
             }
             return jwt.encode(payload, current_app.config.get('SECRET_KEY'), algorithm='HS256')
         except Exception as e:
@@ -51,7 +52,7 @@ class User(UserMixin, db.Model):
     def decode_auth_token(auth_token):
         try:
             payload = jwt.decode(auth_token, current_app.config.get('SECRET_KEY'))
-            return payload["sub"]
+            return payload['sub']
         except jwt.ExpiredSignatureError:
             return 'Signature expired. Please log in again.'
         except jwt.InvalidTokenError:
