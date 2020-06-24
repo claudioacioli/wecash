@@ -1,5 +1,7 @@
+import jwt
+import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask import url_for
+from flask import url_for, current_app
 from flask_login import UserMixin
 from . import db, login_manager
 
@@ -33,6 +35,17 @@ class User(UserMixin, db.Model):
 
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    def encode_auth_token(self):
+        try:
+            payload = {
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(days=0, seconds=5),
+                'iat': datetime.datetime.utcnow(),
+                'sub': self.to_json()
+            }
+            return jwt.encode(payload, current_app.config.get('SECRET_KEY'), algorithm='HS256')
+        except Exception as e:
+            return e
 
     def to_json(self):
         return {
