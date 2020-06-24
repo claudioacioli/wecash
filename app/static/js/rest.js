@@ -1,13 +1,14 @@
 const
 
-  getHeaders = () => {
+  getHeaders = token => {
     return new Headers({
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
     });
   },
 
-  getData = async (url, mode="cors") => {
-    const response = await fetch(url, {method:"GET", mode});
+  getData = async (url, token="", mode="cors") => {
+    const response = await fetch(url, {method:"GET", mode, headers:getHeaders(token)});
     
     try {
       const result = await response.json();
@@ -17,13 +18,13 @@ const
     }
   },
 
-  postData = async (url, data={}, mode="cors") => {
+  postData = async (url, token="", data={}, mode="cors") => {
     const response = await fetch(url, {
       method: "POST",
       credentials: "same-origin",
       body: JSON.stringify(data),
       mode,
-      headers: getHeaders()
+      headers: getHeaders(token)
     });
 
     try {
@@ -33,13 +34,13 @@ const
     }
   },
 
-  putData = async (url, data={}, mode="cors") => {
+  putData = async (url, token="", data={}, mode="cors") => {
     const response = await fetch(url, {
       method: "PUT",
       credentials: "same-origin",
       body: JSON.stringify(data),
       mode,
-      headers: getHeaders()
+      headers: getHeaders(token)
     });
 
     try {
@@ -49,12 +50,12 @@ const
     }
   },
 
-  deleteData = async (url, mode="cors") => {
+  deleteData = async (url, token="", mode="cors") => {
     const response = await fetch(url, {
       method: "DELETE",
       credentials: "same-origin",
       mode,
-      headers: getHeaders()
+      headers: getHeaders(token)
     });
 
     try {
