@@ -131,3 +131,16 @@ class Category(db.Model):
         user_id = json_category.get('user_id', None)
         return Category(name=name, go=go, type=type, user_id=user_id)
 
+
+class Invoice(db.Model):
+    __tablename__ = 'tb_invoices'
+    id = db.Column('invoice_id', db.Integer, primary_key=True)
+    history = db.Column('history', db.String(255))
+    forecast_date = db.Column('forecast_date', db.Integer)
+    confirmation_date = db.Column('confirmation_date', db.Integer)
+    expected_value = db.Column('expected_value', db.Float)
+    confirmed_value = db.Column('confirmed_value', db.Float)
+    user_id = db.Column('user_id', db.Integer, db.ForeignKey('tb_users.user_id'))
+    bank_id = db.Column('bank_id', db.Integer, db.ForeignKey('tb_banks.bank_id'))
+    category_id = db.Column('category_id', db.Integer, db.ForeignKey('tb_categories.category_id')) 
+
