@@ -1,7 +1,7 @@
 from . import main as app_main
 from .. import db
 from ..models import User
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, make_response
 from flask_login import login_required, login_user, logout_user
 
 
@@ -12,13 +12,18 @@ def main():
 
 @app_main.route("/signin", methods=["POST"])
 def signin():
+    
     email = request.form.get("email", "")
     password = request.form.get("password", "")
     user = User.query.filter_by(email=email).first()
+    
     if user is not None and user.verify_password(password):
         login_user(user, False)
         next = request.args.get("next", url_for("main.invoices"))
-        return redirect(next)
+        response = make_response(redirect(next))
+        response.set_cookie('token', user.encode_auth_token().decode(), max_age=1*24*60*60)
+        return response
+
     return redirect(url_for("main.main"))
 
 
