@@ -36,7 +36,7 @@ def signout():
 @app_main.route("/invoices")
 @login_required
 def invoices():
-    return render_template("movimentos.html")
+    return render_template("invoices.html")
 
 
 @app_main.route("/categories")

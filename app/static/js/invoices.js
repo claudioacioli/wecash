@@ -7,6 +7,8 @@ const
       tableElement = bySelector("table"),
       tbodyElement = bySelector("tbody", tableElement),
 
+      
+
       bindItemView = ({historico, previsao, previsto, categoria, conta}, element) => {
         const elements = byAll("td", element);
         elements[1].textContent = previsao;
