@@ -10,19 +10,15 @@
       window.location.pathname
     ,
 
-    app = () => {
-      
+    app = () => { 
       switch(getRoute()) {
         case WECASH_ROUTE_INVOICES:
-          return componentInvoices;
-        
+          return componentInvoices; 
         case WECASH_ROUTE_CATEGORIES:
           return componentCategories;
-
         case WECASH_ROUTE_BANKS:
           return componentBanks;
       }
-
     }
   ;
 
