@@ -2,20 +2,30 @@ from . import main as app_main
 from .. import db
 from ..models import User
 from flask import render_template, request, redirect, url_for
-from flask_login import login_required, login_user
+from flask_login import login_required, login_user, logout_user
 
 
-@app_main.route("/", methods=["GET", "POST"])
+@app_main.route("/")
 def main():
+    return render_template("login.html")
+
+
+@app_main.route("/signin", methods=["POST"])
+def signin():
     email = request.form.get("email", "")
     password = request.form.get("password", "")
     user = User.query.filter_by(email=email).first()
     if user is not None and user.verify_password(password):
         login_user(user, False)
         next = request.args.get("next", url_for("main.invoices"))
-        print(next)
         return redirect(next)
-    return render_template("login.html")
+    return redirect(url_for("main.main"))
+
+
+@app_main.route("/signout")
+def signout():
+    logout_user()
+    return redirect(url_for("main.main"))
 
 
 @app_main.route("/invoices")
