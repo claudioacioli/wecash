@@ -1,3 +1,4 @@
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask import url_for
 from . import db
 
@@ -8,13 +9,24 @@ class User(db.Model):
     id = db.Column('user_id', db.Integer, primary_key=True)
     name = db.Column('name', db.String(255))
     email = db.Column('user', db.String(255), unique=True, index=True)
-    password = db.Column('password', db.String(128))
+    password_hash = db.Column('password', db.String(128))
 
     def  __repr__(self):
         return '<User %r>' % self.email
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
+
+    @property
+    def password(self):
+        raise AttributeError("password is not a readable attribute")
+
+    @password.setter
+    def password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def verify_password(self, password):
+        return check_password_hash(self.password, password)
 
     def to_json(self):
         return {
