@@ -49,7 +49,7 @@ def create_category(auth_user):
 @auth_required()
 def update_category(auth_user, id):
     user_id = auth_user.get('id')
-    category = Category.query.filter_by(id=id, user_id=user_id)
+    category = Category.query.filter_by(id=id, user_id=user_id).first()
 
     if category is None:
         return page_not_found()
@@ -70,7 +70,7 @@ def update_category(auth_user, id):
 def delete_category(id):
     
     user_id = auth_user.get('id')
-    category = Category.query.filter_by(id=id, user_id=user_id)
+    category = Category.query.filter_by(id=id, user_id=user_id).first()
 
     if category is None:
         return page_not_found()
