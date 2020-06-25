@@ -144,3 +144,33 @@ class Invoice(db.Model):
     bank_id = db.Column('bank_id', db.Integer, db.ForeignKey('tb_banks.bank_id'))
     category_id = db.Column('category_id', db.Integer, db.ForeignKey('tb_categories.category_id')) 
 
+    def to_json(self):
+        return {
+            'id': self.id,
+            'history': self.history,
+            'forecast_date': self.forecast_date,
+            'confirmation_date': self.confirmation_date,
+            'expected_value': self.expected_value,
+            'confirmed_value': self.confirmed_value,
+            'bank': Bank.query.filter_by(id=self.bank_id).first().to_json(),
+            'category': Category.query.filter_by(id=self.category_id).first().to_json()
+        }
+
+    @staticmethod
+    def from_json(json_invoice):
+        history = json_invoice.get('history', None)
+        forecast_date = json_invoice.get('forecast_date', None)
+        confirmation_date = json_invoice.get('confirmation_date', None)
+        expected_value = json_invoice.get('expected_value', None)
+        confirmed_value = json_invoice.get('confirmed_value', None)
+        bank_id = json_invoice.get('bank_id', None)
+        category_id = json_invoice.get('category_id', None)
+        return Invoice(
+                history = history,
+                forecast_date = forecast_date,
+                confirmation_date = confirmation_date,
+                expected_value=expected_value,
+                confirmed_value=confirmed_value,
+                bank_id=bank_id,
+                category_id=category_id)
+
