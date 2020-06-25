@@ -67,7 +67,7 @@ def update_category(auth_user, id):
 
 @app_api.route('/categories/<int:id>', methods=['DELETE'])
 @auth_required()
-def delete_category(id):
+def delete_category(auth_user, id):
     
     user_id = auth_user.get('id')
     category = Category.query.filter_by(id=id, user_id=user_id).first()
