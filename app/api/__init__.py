@@ -9,4 +9,4 @@ def result(payload, status=1, message="OK"):
             "payload": payload}
 
 
-from . import views, decorators, errors, users, banks, categories
+from . import decorators, errors, users, banks, categories, invoices
