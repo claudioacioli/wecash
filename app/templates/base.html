@@ -37,7 +37,7 @@
     <header class="appbar appbar--fixed topbar">
       <div class="appbar__container">
         <div class="mt--0">
-          <img class="mt--0" src="{{url_for('static', filename='images/logo.png')}}">
+          <img class="mt--0"i src="{{url_for('static', filename='images/logo2.png')}}">
         </div>
         <div class="mt--0 appbar__collapse">
           <input type="text" class="mt--0 textfield textfield--inline" placeholder="Filtrar...">
@@ -55,6 +55,7 @@
     {% block main %}
     {% endblock %}
     </main>
+    <script src="{{url_for('static', filename='js/util.js')}}"></script>
     <script src="{{url_for('static', filename='js/ActiveElement.js')}}"></script>
     <script src="{{url_for('static', filename='js/by.js')}}"></script>
     <script src="{{url_for('static', filename='js/rest.js')}}"></script>
