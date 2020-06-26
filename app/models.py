@@ -162,9 +162,10 @@ class Invoice(db.Model):
         forecast_date = json_invoice.get('forecast_date', None)
         confirmation_date = json_invoice.get('confirmation_date', None)
         expected_value = json_invoice.get('expected_value', None)
-        confirmed_value = json_invoice.get('confirmed_value', None)
+        confirmed_value = str(json_invoice.get('confirmed_value', None)) or None
         bank_id = json_invoice.get('bank_id', None)
         category_id = json_invoice.get('category_id', None)
+
         return Invoice(
                 history = history,
                 forecast_date = forecast_date,
