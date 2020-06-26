@@ -58,7 +58,7 @@ def update_invoice(auth_user, id):
     invoice.forecast_date = request.json.get('forecast_date', invoice.forecast_date)
     invoice.confirmation_date = request.json.get('confirmation_date', invoice.confirmation_date)
     invoice.expected_value = request.json.get('expected_value', invoice.expected_value)
-    invoice.confirmed_value = request.json.get('confirmed_value', invoice.confirmed_value)
+    invoice.confirmed_value = str(request.json.get('confirmed_value')) or invoice.confirmed_value
     invoice.bank_id = request.json.get('bank_id', invoice.bank_id)
     invoice.category_id = request.json.get('category_id', invoice.category_id)
     
