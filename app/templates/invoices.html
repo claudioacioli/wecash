@@ -6,7 +6,7 @@
   <div class="column__main">
     <div class="box">
       <div class="box__body">
-        <a id="btn-add" class="button button--primary" href="javascript:void(0);">Adicionar</a>
+        <a id="btn--add" class="button button--primary" href="javascript:void(0);">Adicionar</a>
         <select class="textfield textfield--inline">
           <option>Janeiro</option>
           <option>Fevereiro</option>
@@ -43,7 +43,7 @@
       </div>
       <div class="box__body">
         <form>
-          <input type="hidden" id="field-id">
+          <input type="hidden" id="field--id">
           <div class="mt--0">
             <label class="label mt--0">Historico</label>
             <input id="field--history"  type="text" placeholder="Apartamento" class="textfield">
@@ -61,11 +61,11 @@
           <div style="display:flex;">
             <div style="flex:1;margin-right:0.5em;">
               <label class="label mt--0">Data Prevista</label>
-              <input id="field--forecast" type="text" placeholder="01/01/2020" class="textfield">
+              <input id="field--forecast" type="date" placeholder="01/01/2020" class="textfield">
             </div>
             <div class="mt--0" style="flex:1;margin-left:0.5em;">
               <label class="label mt--0">Data Confirmada</label>
-              <input id="field--confirmation" type="text" placeholder="01/01/2020" class="textfield">
+              <input id="field--confirmation" type="date" placeholder="01/01/2020" class="textfield">
             </div>
           </div>
           <div>
@@ -75,7 +75,7 @@
           </div>
           <div>
             <label class="label mt--0">Categoria</label>
-            <input id="field--category" list="datalist--category" type="text" placeholder="Caixa" class="textfield">
+            <input id="field--category" list="datalist--category" type="text" placeholder="Transporte" class="textfield">
             <datalist id="datalist--category"></datalist>
           </div>
         </form>
