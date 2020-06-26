@@ -1,3 +1,4 @@
+from datetime import date
 from . import main as app_main
 from .. import db
 from ..models import User
@@ -36,7 +37,16 @@ def signout():
 @app_main.route("/invoices")
 @login_required
 def invoices():
-    return render_template("invoices.html")
+    today = date.today()
+    ref = str(today.year) + str(today.month).zfill(2)
+    return redirect(url_for("main.invoices_by_ref", ref=ref))
+    #return render_template("invoices.html")
+
+
+@app_main.route("/invoices/<string:ref>")
+@login_required
+def invoices_by_ref(ref):
+    return render_template("invoices.html", ref=ref)
 
 
 @app_main.route("/categories")

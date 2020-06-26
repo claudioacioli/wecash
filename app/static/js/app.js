@@ -2,13 +2,13 @@
 
   const 
 
-    WECASH_ROUTE_INVOICES = "/invoices",
-    WECASH_ROUTE_CATEGORIES = "/categories",
-    WECASH_ROUTE_BANKS = "/banks",
+    WECASH_ROUTE_INVOICES = "invoices",
+    WECASH_ROUTE_CATEGORIES = "categories",
+    WECASH_ROUTE_BANKS = "banks",
 
-    getRoute = () =>
-      window.location.pathname
-    ,
+    getRoute = () => {
+      return window.location.pathname.split("/")[1]
+    },
 
     app = () => { 
       switch(getRoute()) {
@@ -21,7 +21,8 @@
       }
     }
   ;
-
+  //console.log(getRoute());
+  //console.log(app());
   app()();
 
 })();
