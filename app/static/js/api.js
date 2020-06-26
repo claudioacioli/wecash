@@ -30,6 +30,18 @@ const
     await getData(`${WECASH_API}/invoices`, token)
   ,
 
+  postInvoices = async data => 
+    await postData(`${WECASH_API}/invoices/`, token, data)
+  ,
+
+  putInvoices = async data =>
+    await putData(`${WECASH_API}/invoices/${data.id}`, token, data)
+  ,
+
+  deleteInvoices = async id => 
+    await deleteData(`${WECASH_API}/invoices/${id}`, token)
+  ,
+
   getCategories = async () =>
     await getData(`${WECASH_API}/categories/`, token)
   ,
