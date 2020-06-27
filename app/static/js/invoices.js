@@ -7,6 +7,10 @@ const
       tableElement = bySelector("table"),
       tbodyElement = bySelector("tbody", tableElement),      
       idFieldElement = byId("field--id"),
+      
+      monthFilterElement = byId("filter--month"),
+      yearFilterElement = byId("filter--year"),
+
       historyFieldElement = byId("field--history"),
       forecastFieldElement = byId("field--forecast"),
       confirmationFieldElement = byId("field--confirmation"),
@@ -22,9 +26,9 @@ const
       resetElement = byId("btn--reset"),
       rowActive = new ActiveElement("is-active"),
 
-      read = () =>  {
+      read = (year, month) =>  {
 
-        getInvoices()
+        getInvoicesByYearMonth(year, month)
           .then(getResult)
           .then(renderListView)
           .catch(function(error) {
@@ -51,7 +55,8 @@ const
           .then(getResult)
           .then(async result => {
             renderResetView();
-            return { ...result, payload: [result.payload]}
+            return read(yearFilterElement.value, monthFilterElement.value);
+            //return { ...result, payload: [result.payload]}
           })
           .then(renderListView)
           .catch(function(error) {
@@ -247,6 +252,12 @@ const
       handleReset = e => {
         e.preventDefault();
         renderResetView();
+      },
+
+      handleFilter = e => {
+        const year = yearFilterElement.value;
+        const month = monthFilterElement.value;
+        document.location.href=`/invoices/${year}${month}`;
       }
     ;
 
@@ -255,8 +266,10 @@ const
     saveElement.addEventListener("click", handleSave);
     deleteElement.addEventListener("click", handleDelete);
     resetElement.addEventListener("click", handleReset);
+    yearFilterElement.addEventListener("change", handleFilter);
+    monthFilterElement.addEventListener("change", handleFilter);
 
-    read();
+    read(yearFilterElement.value, monthFilterElement.value);
 
   }
 
