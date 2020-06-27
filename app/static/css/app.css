@@ -20,3 +20,8 @@
   flex: 1;
 }
 
+tr.is-confirmed > td {
+  text-decoration: line-through;
+  color: #ccc;
+}
+
