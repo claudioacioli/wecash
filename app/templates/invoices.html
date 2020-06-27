@@ -7,7 +7,7 @@
     <div class="box">
       <div class="box__body">
         <a id="btn--add" class="button button--primary" href="javascript:void(0);">Adicionar</a>
-        <select class="textfield textfield--inline">
+        <select id="filter--month"  class="textfield textfield--inline">
           <option value="01" {% if ref[4:] == "01" %} selected {% endif%}>Janeiro</option>
           <option value="02" {% if ref[4:] == "02" %} selected {% endif%}>Fevereiro</option>
           <option value="03" {% if ref[4:] == "03" %} selected {% endif%}>Marco</option>
@@ -22,7 +22,7 @@
           <option value="12" {% if ref[4:] == "12" %} selected {% endif%}>Dezembro</option>
         </select>
 
-        <select class="textfield textfield--inline">
+        <select id="filter--year" class="textfield textfield--inline">
           <option value="2020" {% if ref[0:4] == "2020" %} selected {% endif%}>2020</option>
           <option value="2021" {% if ref[0:4] == "2021" %} selected {% endif%}>2021</option>
           <option value="2022" {% if ref[0:4] == "2022" %} selected {% endif%}>2022</option>
