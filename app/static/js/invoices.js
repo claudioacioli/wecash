@@ -95,6 +95,8 @@ const
 
       bindItemView = ({history, forecast_date, confirmation_date, expected_value, confirmation_value, bank, category}, element) => {
         const elements = byAll("td", element);
+
+        bySelector("input", elements[0]).checked = confirmation_date && confirmation_date.toString().length > 0;
         elements[1].textContent = formatDateBR(fromDate(forecast_date));
         elements[2].textContent = formatDateBR(fromDate(confirmation_date));
         elements[3].textContent = history;
@@ -122,8 +124,13 @@ const
       }, 
 
       renderItemView = data => { 
-        const { id } = data;
+        const { id, confirmation_date } = data;
         const element = getItemView(id);
+
+        console.log(confirmation_date);
+        if(confirmation_date && confirmation_date.toString().length)
+          element.classList.add("is-confirmed");
+
         element.id = id;
         element.dataset.data = JSON.stringify(data);
 
