@@ -158,6 +158,35 @@ class Invoice(db.Model):
         }
 
     @staticmethod
+    def query_pendencies(user_id):
+        sql = text("""
+                select * 
+                  from tb_invoices 
+                 where user_id = :user_id
+                   and strftime('%Y-%m-%d', forecast_date/1000, 'unixepoch') < date('now', 'start of month')
+                   and confirmation_date is null
+                 """)
+        result = db.engine.execute(sql, user_id=user_id).fetchall()
+        invoices = []
+        for row in result:
+            # unpack tuple
+            (id, history, forecast_date,
+            confirmation_date, expected_value, confirmed_value, 
+            user_id, bank_id, category_id) = row
+            # append object
+            invoices.append(Invoice(
+                    id=id,
+                    history=history,
+                    forecast_date=forecast_date,
+                    confirmation_date=confirmation_date,
+                    expected_value=expected_value,
+                    confirmed_value=confirmed_value,
+                    user_id=user_id,
+                    bank_id=bank_id,
+                    category_id=category_id))
+        return invoices
+    
+    @staticmethod
     def query_between_dates(user_id, start, end):
         sql = text("""
                 select * 
