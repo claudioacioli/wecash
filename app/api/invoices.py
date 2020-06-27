@@ -1,3 +1,4 @@
+from calendar import monthrange
 from flask import jsonify, request, url_for
 from . import api as app_api, result
 from .errors import page_not_found
@@ -18,7 +19,6 @@ def read_invoices(auth_user):
 @app_api.route('/invoices/<int:id>', methods=['GET'])
 @auth_required()
 def read_invoice(auth_user, id):
-
     user_id = auth_user.get('id')
     invoice = Invoice.query.filter_by(id=id, user_id=user_id).first()
 
@@ -27,6 +27,17 @@ def read_invoice(auth_user, id):
 
     payload = invoice.to_json()
     return jsonify(result(payload))
+
+
+@app_api.route("/invoices/<string:year>/<string:month>")
+@auth_required()
+def read_invoices_by_ref(user, year, month):
+    weekfirstday, last = monthrange(int(year),int(month))
+    start = '-'.join((year, month, '01'))
+    end = '-'.join((year, month, str(last).zfill(2)))
+    invoices = Invoice.query_between_dates(start, end)
+    payload = [invoice.to_json() for invoice in invoices]
+    return jsonify(result(payload)), 200
 
 
 @app_api.route('/invoices/', methods=['POST'])
