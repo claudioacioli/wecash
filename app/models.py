@@ -158,15 +158,16 @@ class Invoice(db.Model):
         }
 
     @staticmethod
-    def query_between_dates(start, end):
+    def query_between_dates(user_id, start, end):
         sql = text("""
                 select * 
                   from tb_invoices 
                  where strftime('%Y-%m-%d', forecast_date/1000, 'unixepoch')
                between :start
                    and :end
+                   and user_id = :user_id
                  """)
-        result = db.engine.execute(sql, start=start, end=end).fetchall()
+        result = db.engine.execute(sql, start=start, end=end, user_id=user_id).fetchall()
         invoices = []
         for row in result:
             # unpack tuple

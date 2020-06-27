@@ -32,10 +32,12 @@ def read_invoice(auth_user, id):
 @app_api.route("/invoices/<string:year>/<string:month>")
 @auth_required()
 def read_invoices_by_ref(user, year, month):
+    
     weekfirstday, last = monthrange(int(year),int(month))
     start = '-'.join((year, month, '01'))
     end = '-'.join((year, month, str(last).zfill(2)))
-    invoices = Invoice.query_between_dates(start, end)
+
+    invoices = Invoice.query_between_dates(user.get("id"), start, end)
     payload = [invoice.to_json() for invoice in invoices]
     return jsonify(result(payload)), 200
 
