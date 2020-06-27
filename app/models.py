@@ -1,6 +1,7 @@
 import json
 import jwt
 import datetime
+from sqlalchemy import text
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import url_for, current_app
 from flask_login import UserMixin
@@ -155,6 +156,31 @@ class Invoice(db.Model):
             'bank': Bank.query.filter_by(id=self.bank_id).first().to_json(),
             'category': Category.query.filter_by(id=self.category_id).first().to_json()
         }
+
+    @staticmethod
+    def query_between_dates(start, end):
+        sql = text("""
+                select * 
+                  from tb_invoices 
+                 where strftime('%Y-%m-%d', forecast_date/1000, 'unixepoch')
+               between :start
+                   and :end
+                 """)
+        result = db.engine.execute(sql, start=start, end=end).fetchall()
+        invoices = []
+        for row in result:
+            invoice = Invoice(
+                    id=row[0],
+                    history=row[1],
+                    forecast_date=row[2],
+                    confirmation_date=row[3],
+                    expected_value=row[4],
+                    confirmed_value=row[5],
+                    user_id=row[6],
+                    bank_id=row[7],
+                    category_id=row[8])
+            invoices.append(invoice)
+        return invoices
 
     @staticmethod
     def from_json(json_invoice):
