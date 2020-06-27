@@ -1,4 +1,4 @@
-from flask import jsonify, request, url_for
+from flask import jsonify, request, url_for, current_app
 from . import api as app_api, result
 from .errors import page_not_found
 from .decorators import auth_required
@@ -10,7 +10,10 @@ from ..models import Bank
 @auth_required()
 def read_banks(auth_user):
     user_id = auth_user.get('id')
-    banks = Bank.query.filter_by(user_id=user_id).all()
+    banks = Bank.query.filter_by(
+            user_id=user_id, 
+            type=current_app.config.get('TYPE_DEBIT')
+            ).all()
     payload = [bank.to_json() for bank in banks]
     return jsonify(result(payload))
 
@@ -19,7 +22,11 @@ def read_banks(auth_user):
 @auth_required()
 def read_bank(auth_user, id):
     user_id = auth_user.get('id')
-    bank = Bank.query.filter_by(user_id=user_id, id=id).first()
+    bank = Bank.query.filter_by(
+            user_id=user_id, 
+            id=id, 
+            type=current_app.config.get('TYPE_DEBIT')
+            ).first()
     
     if bank is None:
         return page_not_found()
