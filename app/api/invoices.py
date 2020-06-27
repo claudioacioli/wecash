@@ -1,3 +1,4 @@
+from datetime import datetime
 from calendar import monthrange
 from flask import jsonify, request, url_for
 from . import api as app_api, result
@@ -33,11 +34,19 @@ def read_invoice(auth_user, id):
 @auth_required()
 def read_invoices_by_ref(user, year, month):
     
+    user_id = user.get("id")
+
     weekfirstday, last = monthrange(int(year),int(month))
     start = '-'.join((year, month, '01'))
     end = '-'.join((year, month, str(last).zfill(2)))
 
-    invoices = Invoice.query_between_dates(user.get("id"), start, end)
+    invoices = Invoice.query_between_dates(user_id, start, end)
+    
+    #Show pendencies from another month
+    today = datetime.today()
+    if str(today.year) + str(today.month).zfill(2) == year + month: 
+        invoices += Invoice.query_pendencies(user_id)
+
     payload = [invoice.to_json() for invoice in invoices]
     return jsonify(result(payload)), 200
 
