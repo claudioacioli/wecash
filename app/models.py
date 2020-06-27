@@ -80,6 +80,7 @@ class Bank(db.Model):
     id = db.Column('bank_id', db.Integer, primary_key=True)
     name = db.Column('name', db.String(255), unique=False)
     user_id = db.Column('user_id', db.Integer, db.ForeignKey('tb_users.user_id'))
+    type = db.Column('type', db.String(1))
 
     def __init__(self, **kwargs):
         super(Bank, self).__init__(**kwargs)
@@ -90,15 +91,52 @@ class Bank(db.Model):
     def to_json(self):
         return {
             'id': self.id,
-            'bank': self.name,
+            'name': self.name,
+            'type': self.type,
             'user_id': self.user_id
         }
 
     @staticmethod
     def from_json(json_bank):
         name = json_bank.get('bank', None)
-        user_id = json_bank.get('user_id', None)
-        return Bank(name=name, user_id=user_id)
+        return Bank(name=name, type=current_app.config.get('TYPE_DEBIT'))
+
+
+class Card(Bank):
+    __tablename__ = 'tb_cards'
+    id = db.Column('card_id', db.Integer, db.ForeignKey('tb_banks.bank_id'), primary_key=True)
+    limit_value = db.Column('limit_value', db.Float)
+    day = db.Column('day', db.Integer)
+    goal = db.Column('goal', db.Float)
+
+    def __init__(self, **kwargs):
+        super(Card, self).__init__(**kwargs)
+
+    def  __repr__(self):
+        return '<Card %r>' % self.name
+
+    def to_json(self):
+        bank = super().to_json()
+        card = {
+            'limit_value': self.limit_value,
+            'goal': self.goal,
+            'day': self.day
+            }
+        return {**bank, **card}
+
+    @staticmethod
+    def from_json(json_card):
+        name = json_card.get('card', None)
+        limit_value = json_card.get('limit_value', None)
+        goal = json_card.get('goal', None)
+        day = json_card.get('day', None)
+        return Card(
+                name=name, 
+                type=current_app.config.get('TYPE_CREDIT'), 
+                limit_value=limit_value,
+                goal=goal,
+                day=day
+                )
 
 
 class Category(db.Model):
