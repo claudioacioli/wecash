@@ -169,17 +169,21 @@ class Invoice(db.Model):
         result = db.engine.execute(sql, start=start, end=end).fetchall()
         invoices = []
         for row in result:
-            invoice = Invoice(
-                    id=row[0],
-                    history=row[1],
-                    forecast_date=row[2],
-                    confirmation_date=row[3],
-                    expected_value=row[4],
-                    confirmed_value=row[5],
-                    user_id=row[6],
-                    bank_id=row[7],
-                    category_id=row[8])
-            invoices.append(invoice)
+            # unpack tuple
+            (id, history, forecast_date,
+            confirmation_date, expected_value, confirmed_value, 
+            user_id, bank_id, category_id) = row
+            # append object
+            invoices.append(Invoice(
+                    id=id,
+                    history=history,
+                    forecast_date=forecast_date,
+                    confirmation_date=confirmation_date,
+                    expected_value=expected_value,
+                    confirmed_value=confirmed_value,
+                    user_id=user_id,
+                    bank_id=bank_id,
+                    category_id=category_id))
         return invoices
 
     @staticmethod
