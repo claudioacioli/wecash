@@ -124,12 +124,16 @@ const
       }, 
 
       renderItemView = data => { 
-        const { id, confirmation_date } = data;
+        const { id, confirmation_date, forecast_date } = data;
         const element = getItemView(id);
 
         console.log(confirmation_date);
-        if(confirmation_date && confirmation_date.toString().length)
+        if(confirmation_date && confirmation_date > 0)
           element.classList.add("is-confirmed");
+
+        if(forecast_date < (new Date()).getTime() 
+          && (!confirmation_date || confirmation_date < 0))
+          element.classList.add("is-pendent");
 
         element.id = id;
         element.dataset.data = JSON.stringify(data);
