@@ -25,3 +25,7 @@ tr.is-confirmed > td {
   color: #ccc;
 }
 
+tr.is-pendent > td {
+  background-color: rgba(253, 57, 122, .1);
+  color: #fd397d;
+}
