@@ -76,9 +76,9 @@ const
         element.remove();
       }, 
 
-      bindItemView = ({bank, value="0,00"}, element) => {
+      bindItemView = ({name, value="0,00"}, element) => {
         const elements = byAll("td", element);
-        elements[1].textContent = bank;
+        elements[1].textContent = name;
         elements[2].textContent = value;
         return element;
       },
