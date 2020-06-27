@@ -8,7 +8,7 @@ const
       tbodyElement = bySelector("tbody", tableElement),
       idFieldElement = byId("field--id"),
       nameFieldElement = byId("field--name"),
-      typeFieldElement = byId("field--type"),
+      typeFieldElement = byName("field--type"),
       goFieldElement = byId("field--go"),
       addElement = byId("btn--add"),
       saveElement = byId("btn--save"),
@@ -67,7 +67,7 @@ const
         rowActive.toggle(null);
         idFieldElement.value = "";
         nameFieldElement.value = "";
-        typeFieldElement.value = "D";
+        typeFieldElement.item(0).checked = true;
         goFieldElement.value = "";
       },
 
@@ -115,11 +115,17 @@ const
         tbodyElement.appendChild(fragment);
       },
 
+      renderTypeView = (elements, value) => {
+        for(element of elements)
+          if(element.value === value)
+            element.checked = true;
+      },
+
       renderEditView = data => {
         const { id, category, go, type } = data;
         idFieldElement.value = id;
         nameFieldElement.value = category;
-        typeFieldElement.value = type;
+        renderTypeView(typeFieldElement, type);
         goFieldElement.value = go;
       },
 
@@ -140,12 +146,19 @@ const
         renderResetView();
       },
 
-      handleSave = e => {
+      getValueOfRadio = elements => {
+        for(element of elements)
+          if(element.checked)
+            return element.value;
+      },
+
+      handleSave = e => { 
+
         const data = {
           "id": idFieldElement.value,
           "category": nameFieldElement.value,
           "go": goFieldElement.value,
-          "type": typeFieldElement.value,
+          "type": getValueOfRadio(typeFieldElement),
           "user_id": 1
         };
 
