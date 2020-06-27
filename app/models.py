@@ -162,10 +162,14 @@ class Invoice(db.Model):
         sql = text("""
                 select * 
                   from tb_invoices 
-                 where strftime('%Y-%m-%d', forecast_date/1000, 'unixepoch')
+                 where user_id = :user_id
+                   and ((strftime('%Y-%m-%d', forecast_date/1000, 'unixepoch')
                between :start
-                   and :end
-                   and user_id = :user_id
+                   and :end)
+                    or (confirmation_date is not null
+                   and  strftime('%Y-%m-%d', confirmation_date/1000, 'unixepoch')
+               between :start
+                   and :end))
                  """)
         result = db.engine.execute(sql, start=start, end=end, user_id=user_id).fetchall()
         invoices = []
