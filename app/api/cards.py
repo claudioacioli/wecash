@@ -70,3 +70,21 @@ def update_card(auth_user, id):
     payload = card.to_json()
     return jsonify(result(payload))
 
+
+@app_api.route('/cards/<int:id>', methods=['DELETE'])
+@auth_required()
+def delete_card(auth_user, id):
+    user_id = auth_user.get('id')
+    card = Card.query.filter_by(
+            user_id=user_id, 
+            id=id,
+            type=current_app.config.get('TYPE_CREDIT')
+            ).first()
+    
+    if card is None:
+        return page_not_found()
+
+    db.session.delete(card)
+    db.session.commit()
+    return jsonify(result(payload={})), 202
+
