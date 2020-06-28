@@ -36,9 +36,9 @@ def read_invoices_by_ref(user, year, month):
     
     user_id = user.get("id")
 
-    weekfirstday, last = monthrange(int(year),int(month))
+    week_first_day, last_day = monthrange(int(year),int(month))
     start = '-'.join((year, month, '01'))
-    end = '-'.join((year, month, str(last).zfill(2)))
+    end = '-'.join((year, month, str(last_day).zfill(2)))
 
     invoices = Invoice.query_between_dates(user_id, start, end)
     
