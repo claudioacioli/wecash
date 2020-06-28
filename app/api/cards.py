@@ -46,3 +46,27 @@ def create_card(auth_user):
     payload = card.to_json()
     return jsonify(result(payload)), 201, {'Location': url_for('api.read_card', id=card.id)}
 
+
+@app_api.route('/cards/<int:id>', methods=['PUT'])
+@auth_required()
+def update_card(auth_user, id):
+    user_id = auth_user.get('id')
+    card = Card.query.filter_by(
+            user_id=user_id, 
+            id=id, 
+            type=current_app.config.get('TYPE_CREDIT')
+            ).first()
+    
+    if card is None:
+        return page_not_found()
+
+    card.name = request.json.get('card', card.name)
+    card.limit_value = request.json.get('limit_value', card.limit_value)
+    card.goal = request.json.get('goal', card.goal)
+    card.day = request.json.get('day', card.day)
+
+    db.session.add(card)
+    db.session.commit()
+    payload = card.to_json()
+    return jsonify(result(payload))
+
