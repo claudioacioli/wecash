@@ -100,9 +100,9 @@ const
       },
 
       renderEditView = data => {
-        const { id, bank } = data;
+        const { id, name } = data;
         idFieldElement.value = id;
-        nameFieldElement.value = bank;
+        nameFieldElement.value = name;
       },
 
       renderSelectView = element => {
