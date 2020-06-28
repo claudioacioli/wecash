@@ -71,7 +71,11 @@ def update_bank(auth_user, id):
 @auth_required()
 def delete_bank(auth_user, id):
     user_id = auth_user.get('id')
-    bank = Bank.query.filter_by(user_id=user_id, id=id).first()
+    bank = Bank.query.filter_by(
+            user_id=user_id, 
+            id=id,
+            type=current_app.config.get('TYPE_DEBIT')
+            ).first()
     
     if bank is None:
         return page_not_found()
