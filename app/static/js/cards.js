@@ -12,6 +12,7 @@ const
       limitFieldElement = byId("field--limit"),
       goalFieldElement = byId("field--goal"),
       saveButtonElement = byId("btn--save"),
+      addButtonElement = byId("btn--add"),
       rowActive = new ActiveElement("is-active")
 
       read = () => {
@@ -103,6 +104,11 @@ const
         renderEditView(JSON.parse(element.dataset.data));
       },
 
+      handleAdd = (e) => {
+        e.preventDefault();
+        renderResetView();
+      },
+
       handleActive = e => {
         const element = e.target;
         if(element.nodeName === "TD") {
@@ -128,6 +134,7 @@ const
       }
     ;
 
+    addButtonElement.addEventListener("click", handleAdd);
     tbodyElement.addEventListener("click", handleActive);
     saveButtonElement.addEventListener("click", handleSave);
 
