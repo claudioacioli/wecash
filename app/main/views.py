@@ -59,3 +59,9 @@ def categories():
 @login_required
 def banks():
     return render_template("banks.html")
+
+
+@app_main.route("/cards")
+@login_required
+def cards():
+    return render_template("cards.html")
