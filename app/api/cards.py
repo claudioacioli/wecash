@@ -1,9 +1,21 @@
-from flask import jsonify, request, url_for
+from flask import jsonify, request, url_for, current_app
 from . import api as app_api, result
 from .errors import page_not_found
 from .decorators import auth_required
 from .. import db
 from ..models import Card
+
+
+@app_api.route('/cards/', methods=['GET'])
+@auth_required()
+def read_cards(auth_user):
+    user_id = auth_user.get('id')
+    cards = Card.query.filter_by(
+            user_id=user_id, 
+            type=current_app.config.get('TYPE_CREDIT')
+            ).all()
+    payload = [card.to_json() for card in cards]
+    return jsonify(result(payload))
 
 
 @app_api.route('/cards/', methods=['POST'])
