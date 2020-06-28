@@ -3,6 +3,7 @@ const
   componentCards = () => { 
     
     const 
+      template = byId("template-row-card"),
       tableElement = bySelector("table"),
       tbodyElement = bySelector("tbody", tableElement),
       idFieldElement = byId("field--id"),
@@ -12,6 +13,15 @@ const
       goalFieldElement = byId("field--goal"),
       saveButtonElement = byId("btn--save"),
       rowActive = new ActiveElement("is-active")
+
+      read = () => {
+        getCards()
+          .then(getResult)
+          .then(renderListView)
+          .then(function(error) {
+            console.error(error);
+          });
+      },
 
       create = data => {
         postCards(data)
@@ -23,6 +33,37 @@ const
           .catch(function(error) {
             console.error(error);
           })
+      },
+
+      getItemView = id => {
+        return byId(id) || bySelector("tr", template.content.cloneNode(true));
+      },
+
+      bindItemView = ({ name, day, limit_value, goal}, element) => {
+        const elements = byAll("td", element);
+        elements[1].textContent = name;
+        elements[2].textContent = day;
+        elements[3].textContent = limit_value;
+        elements[4].textContent = goal;
+        return element;
+      },
+
+      renderItemView = data => {
+        const { id } = data;
+        const element = getItemView(id);
+        element.id = id;
+        element.dataset.data = JSON.stringify(data);
+        return bindItemView(data, element);
+      },
+
+      renderListView = result => {
+        const fragment = document.createDocumentFragment();
+        const data = result.payload;
+        
+        for(item of data)
+          fragment.appendChild(renderItemView(item));
+
+        tbodyElement.appendChild(fragment);
       },
 
       handleSave = () => {
@@ -41,6 +82,8 @@ const
     ;
 
     saveButtonElement.addEventListener("click", handleSave);
+
+    read();
 
   }
 
