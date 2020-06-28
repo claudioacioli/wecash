@@ -18,7 +18,7 @@ const
         getCards()
           .then(getResult)
           .then(renderListView)
-          .then(function(error) {
+          .catch(function(error) {
             console.error(error);
           });
       },
