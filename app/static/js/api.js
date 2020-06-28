@@ -67,6 +67,7 @@ const
 
   postBanks = async data => 
     await postData(`${WECASH_API}/banks/`, token, data)
+  ,
 
   putBanks = async data => 
     await putData(`${WECASH_API}/banks/${data.id}`, token, data)
@@ -82,4 +83,7 @@ const
 
   postCards = async data =>
     await postData(`${WECASH_API}/cards/`, token, data)
+
+  putCards = async data => 
+    await putData(`${WECASH_API}/cards/${data.id}`, token, data)
 ;
