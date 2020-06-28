@@ -61,7 +61,26 @@
       <div class="box__body">
         <form>
           <input type="hidden" id="field--id">
+
           <div class="mt--0">
+            <label for="field--type" class="label mt--0">Tipo</label>
+            <div class="mt--1" style="display:flex;">
+              <label class="mt--0" style="flex:1;display:flex;align-items:center;margin-left:0.5em;margin-right:0.5em;">
+                <input type="radio" checked class="mr--1" name="field--type" value="R">
+                <span class="mt--0">Renda</span>
+              </label>
+              <label class="mt--0" style="flex:1;display:flex;align-items:center;margin-right:0.5em;">
+                <input type="radio" class="mr--1" name="field--type" value="C">
+                <span class="mt--0">Credito</span>
+              </label>
+              <label class="mt--0" style="flex:1;display:flex;align-items:center;margin-left:0.5em;">
+                <input type="radio" class="mr--1" name="field--type" value="D">
+                <span class="mt--0">Debito</span>
+              </label>
+            </div>
+          </div>
+
+          <div>
             <label class="label mt--0">Historico</label>
             <input id="field--history"  type="text" maxlength="255"  placeholder="Apartamento" class="textfield">
           </div>
