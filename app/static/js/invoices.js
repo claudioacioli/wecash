@@ -177,7 +177,7 @@ const
         if(result.status.toString().trim() !== "1")
           return;
 
-        renderDataView(bankListElement, result.payload, "bank");
+        renderDataView(bankListElement, result.payload, "name");
       },
 
       renderEditView = ({id, history, forecast_date, confirmation_date, expected_value, confirmed_value, bank, category}) => {
