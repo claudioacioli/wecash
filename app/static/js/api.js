@@ -76,6 +76,10 @@ const
     await deleteData(`${WECASH_API}/banks/${id}`, token)
   ,
 
+  getCards = async () => 
+    await getData(`${WECASH_API}/cards`, token)
+  ,
+
   postCards = async data =>
     await postData(`${WECASH_API}/cards/`, token, data)
 ;
