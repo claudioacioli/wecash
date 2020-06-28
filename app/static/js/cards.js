@@ -13,6 +13,7 @@ const
       goalFieldElement = byId("field--goal"),
       saveButtonElement = byId("btn--save"),
       addButtonElement = byId("btn--add"),
+      deleteButtonElement = byId("btn--delete"),
       rowActive = new ActiveElement("is-active")
 
       read = () => {
@@ -50,6 +51,18 @@ const
           });
       },
 
+      remove = id => {
+        deleteCards(id)
+          .then(getResult)
+          .then(() => {
+            renderResetView();
+            removeItemView(id);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      },
+
       getItemView = id => {
         return byId(id) || bySelector("tr", template.content.cloneNode(true));
       },
@@ -61,6 +74,11 @@ const
         elements[3].textContent = limit_value;
         elements[4].textContent = goal;
         return element;
+      },
+
+      removeItemView = id => {
+        const element = getItemView(id);
+        element.remove();
       },
 
       renderItemView = data => {
@@ -109,6 +127,13 @@ const
         renderResetView();
       },
 
+      handleDelete = e => {
+        e.preventDefault();
+        const id = idFieldElement.value.toString().trim();
+        if(id.length && id !== "0")
+          remove(id);
+      },
+
       handleActive = e => {
         const element = e.target;
         if(element.nodeName === "TD") {
@@ -129,14 +154,14 @@ const
         if(data.id === "0" || data.id === "")
           create(data);
         else
-          edit(data);
-        
+          edit(data);        
       }
     ;
 
     addButtonElement.addEventListener("click", handleAdd);
     tbodyElement.addEventListener("click", handleActive);
     saveButtonElement.addEventListener("click", handleSave);
+    deleteButtonElement.addEventListener("click", handleDelete);
 
     read();
 
