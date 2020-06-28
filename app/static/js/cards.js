@@ -66,6 +66,18 @@ const
         tbodyElement.appendChild(fragment);
       },
 
+      renderSelectView = element => {
+        rowActive.toggle(element);
+      },
+
+      handleActive = e => {
+        const element = e.target;
+        if(element.nodeName === "TD") {
+          e.preventDefault();
+          renderSelectView(element.parentNode);
+        }
+      },
+
       handleSave = () => {
         const data = {
           "id": idFieldElement.value.toString().trim(),
@@ -81,6 +93,7 @@ const
       }
     ;
 
+    tbodyElement.addEventListener("click", handleActive);
     saveButtonElement.addEventListener("click", handleSave);
 
     read();
