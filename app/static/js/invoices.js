@@ -11,13 +11,15 @@ const
       monthFilterElement = byId("filter--month"),
       yearFilterElement = byId("filter--year"),
 
+      typeFieldElement = byName("field--type"),
       historyFieldElement = byId("field--history"),
       forecastFieldElement = byId("field--forecast"),
       confirmationFieldElement = byId("field--confirmation"),
       expectedValueFieldElement = byId("field--expected-value"),
       confirmedValueFieldElement = byId("field--confirmed-value"),
       bankFieldElement = byId("field--bank"),
-      bankListElement = byId("datalist--bank"),
+      expenseListElement = byId("datalist--despesas"),
+      cardListElement = byId("datalist--card"),
       categoryFieldElement = byId("field--category"),
       categoryListElement = byId("datalist--category"),
       addElement = byId("btn--add"),
@@ -46,8 +48,16 @@ const
           .then(getResult)
           .then(renderBankListView)
           .catch(function(error) {
-            console.log(error);
+            console.error(error);
           });
+
+        getCards()
+          .then(getResult)
+          .then(renderCardListView)
+          .catch(function(error) {
+            console.error(error);
+          })
+
       },
 
       create = data => {
@@ -102,7 +112,7 @@ const
         elements[3].textContent = history;
         elements[4].textContent = expected_value;
         elements[5].textContent = category.category;
-        elements[6].textContent = bank.bank;
+        elements[6].textContent = bank.name;
         return element;
       },
 
@@ -177,7 +187,14 @@ const
         if(result.status.toString().trim() !== "1")
           return;
 
-        renderDataView(bankListElement, result.payload, "name");
+        renderDataView(expenseListElement, result.payload.filter(({type}) => type === "D"), "name");
+      },
+
+      renderCardListView = result => {
+        if(result.status.toString().trim() !== "1")
+          return;
+
+        renderDataView(cardListElement, result.payload, "name");
       },
 
       renderEditView = ({id, history, forecast_date, confirmation_date, expected_value, confirmed_value, bank, category}) => {
@@ -227,9 +244,14 @@ const
           remove(id);
       },
 
+      handleChange = e => {
+        const element = e.target;  
+        bankFieldElement.setAttribute("list", element.dataset.list);
+      },
+
       handleSave = e => {
 
-        const bankId = getOptionSelected(bankListElement, bankFieldElement.value);
+        const bankId = getOptionSelected(byId(bankFieldElement.getAttribute("list")), bankFieldElement.value);
         if(!bankId) {
           bankFieldElement.focus();
           alert("Informe uma conta");
@@ -279,6 +301,9 @@ const
     resetElement.addEventListener("click", handleReset);
     yearFilterElement.addEventListener("change", handleFilter);
     monthFilterElement.addEventListener("change", handleFilter);
+    
+    for(typeOptionElement of typeFieldElement)
+      typeOptionElement.addEventListener("change", handleChange);
 
     read(yearFilterElement.value, monthFilterElement.value);
 
