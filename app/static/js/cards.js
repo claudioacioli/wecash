@@ -27,12 +27,26 @@ const
         postCards(data)
           .then(getResult)
           .then(async result => {
+            renderResetView();
             return { ...result, payload: [result.payload]}
           })
           .then(renderListView)
           .catch(function(error) {
             console.error(error);
           })
+      },
+
+      edit = data => {
+        putCards(data)
+          .then(getResult)
+          .then(async result => {
+            renderResetView();
+            return { ...result, payload: [result.payload]}
+          })
+          .then(renderListView)
+          .catch(function(error) {
+            console.log(error);
+          });
       },
 
       getItemView = id => {
@@ -66,8 +80,27 @@ const
         tbodyElement.appendChild(fragment);
       },
 
+      renderResetView = () => {
+        idFieldElement.value = "";
+        nameFieldElement.value = "";
+        limitFieldElement.value = "";
+        dayFieldElement.value = "";
+        goalFieldElement.value = "";
+        rowActive.toggle(null);
+      },
+
+      renderEditView = data => {
+        const { id, name, limit_value, goal, day } = data;
+        idFieldElement.value = id;
+        nameFieldElement.value = name;
+        limitFieldElement.value = limit_value;
+        dayFieldElement.value = day;
+        goalFieldElement.value = goal;
+      },
+
       renderSelectView = element => {
         rowActive.toggle(element);
+        renderEditView(JSON.parse(element.dataset.data));
       },
 
       handleActive = e => {
@@ -89,6 +122,8 @@ const
 
         if(data.id === "0" || data.id === "")
           create(data);
+        else
+          edit(data);
         
       }
     ;
