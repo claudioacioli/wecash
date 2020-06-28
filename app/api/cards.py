@@ -44,6 +44,5 @@ def create_card(auth_user):
     db.session.add(card)
     db.session.commit()
     payload = card.to_json()
-    return jsonify(result(payload)), 201
-    #return jsonify(result(payload)), 201, {'Location': url_for('api.read_bank', id=bank.id)}
+    return jsonify(result(payload)), 201, {'Location': url_for('api.read_card', id=card.id)}
 
