@@ -2,7 +2,7 @@ import json
 from functools import wraps
 from flask import request
 from .errors import unauthorized
-from ..models import User
+from ..models.user import User
 
 def auth_required():
     def decorator(f):

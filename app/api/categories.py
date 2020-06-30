@@ -3,7 +3,7 @@ from . import api as app_api, result
 from .errors import page_not_found
 from .decorators import auth_required
 from .. import db
-from ..models import Category
+from ..models.category import Category
 
 
 @app_api.route('/categories/', methods=['GET'])

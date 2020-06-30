@@ -5,7 +5,7 @@ from . import api as app_api, result
 from .errors import page_not_found
 from .decorators import auth_required
 from .. import db
-from ..models import Invoice
+from ..models.invoice import Invoice
 
 
 @app_api.route('/invoices/', methods=['GET'])
