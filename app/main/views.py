@@ -1,7 +1,7 @@
 from datetime import date
 from . import main as app_main
 from .. import db
-from ..models import User
+from ..models.user import User
 from flask import render_template, request, redirect, url_for, make_response
 from flask_login import login_required, login_user, logout_user
 
