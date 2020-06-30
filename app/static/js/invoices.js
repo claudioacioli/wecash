@@ -112,6 +112,12 @@ const
         elements[3].textContent = history;
         elements[4].textContent = expected_value;
         elements[5].textContent = category.category;
+        
+        if(category.type === "D")
+          elements[5].classList.add("text--danger");
+        else if(category.type === "R")
+          elements[5].classList.add("text--success");
+
         elements[6].textContent = bank.name;
         return element;
       },
