@@ -106,19 +106,19 @@ const
       bindItemView = ({history, forecast_date, confirmation_date, expected_value, confirmation_value, bank, category}, element) => {
         const elements = byAll("td", element);
 
-        bySelector("input", elements[0]).checked = confirmation_date && confirmation_date.toString().length > 0;
-        elements[1].textContent = formatDateBR(fromDate(forecast_date));
-        elements[2].textContent = formatDateBR(fromDate(confirmation_date));
-        elements[3].textContent = history;
-        elements[4].textContent = expected_value;
-        elements[5].textContent = category.category;
+        bySelector("input", elements.item(0)).checked = confirmation_date && confirmation_date.toString().length > 0;
+        elements.item(1).textContent = formatDateBR(fromDate(forecast_date));
+        elements.item(2).textContent = formatDateBR(fromDate(confirmation_date));
+        elements.item(3).textContent = history;
+        elements.item(4).textContent = expected_value;
+        elements.item(5).textContent = category.category;
         
         if(category.type === "D")
-          elements[5].classList.add("text--danger");
+          elements.item(5).classList.add("text--danger");
         else if(category.type === "R")
-          elements[5].classList.add("text--success");
+          elements.item(5).classList.add("text--success");
 
-        elements[6].textContent = bank.name;
+        elements.item(6).textContent = bank.name;
         return element;
       },
 
