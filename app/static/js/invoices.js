@@ -144,7 +144,6 @@ const
         const { id, confirmation_date, forecast_date } = data;
         const element = getItemView(id);
 
-        console.log(confirmation_date);
         if(confirmation_date && confirmation_date > 0)
           element.classList.add("is-confirmed");
 
@@ -175,6 +174,10 @@ const
       },
 
       renderDataView = (element, data, prop) => {
+
+        if(element.hasChildNodes())
+          return;
+
         const fragment = document.createDocumentFragment();
 
         for(item of data) 
@@ -207,8 +210,15 @@ const
       renderEditView = ({id, history, forecast_date, confirmation_date, expected_value, confirmed_value, bank, category}) => {
         
         fromDate(forecast_date);
-        for(element of typeFieldElement) 
+        for(element of typeFieldElement) {
           element.checked = element.value === bank.type;
+          if(element.checked) {
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent("change", false, true);
+            element.dispatchEvent(evt);
+          }
+            
+        }
         
         idFieldElement.value = id;
         historyFieldElement.value = history;
@@ -216,7 +226,7 @@ const
         confirmationFieldElement.value = formatDate(fromDate(confirmation_date));
         expectedValueFieldElement.value = expected_value;
         confirmedValueFieldElement.value = confirmed_value;
-        bankFieldElement.value = bank.bank;
+        bankFieldElement.value = bank.name;
         categoryFieldElement.value = category.category;
       },
      
