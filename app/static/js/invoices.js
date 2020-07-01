@@ -56,9 +56,29 @@ const
           .then(renderCardListView)
           .catch(function(error) {
             console.error(error);
+          });
+
+        getInvoicesOverview(year, month)
+          .then(getResult)
+          .then(async result => {
+            console.log(result.payload);
+            const { despesa, receita, fatura } = result.payload;
+            byId("value--d").textContent = toCurrency(despesa);
+            byId("value--r").textContent = toCurrency(receita);
+            byId("value--f").textContent = toCurrency(fatura);
+          })
+          .catch(function(error) {
+            console.error(error);
           })
 
       },
+
+      toCurrency = value => 
+        value.toLocaleString('pt-BR', {
+          style: 'currency',
+          currency: 'BRL',
+        }) 
+      ,
 
       create = data => {
         postInvoices(data)
