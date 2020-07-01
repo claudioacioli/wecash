@@ -124,6 +124,7 @@ const
 
       renderResetView = () => {
         rowActive.toggle(null);
+
         idFieldElement.value = "";
         historyFieldElement.value = "";
         forecastFieldElement.value = "";
@@ -206,7 +207,9 @@ const
       renderEditView = ({id, history, forecast_date, confirmation_date, expected_value, confirmed_value, bank, category}) => {
         
         fromDate(forecast_date);
-
+        for(element of typeFieldElement) 
+          element.checked = element.value === bank.type;
+        
         idFieldElement.value = id;
         historyFieldElement.value = history;
         forecastFieldElement.value = formatDate(fromDate(forecast_date));
