@@ -135,7 +135,7 @@ const
         elements.item(1).textContent = formatDateBR(fromDate(forecast_date));
         elements.item(2).textContent = formatDateBR(fromDate(confirmation_date));
         elements.item(3).textContent = history;
-        elements.item(4).textContent = expected_value;
+        elements.item(4).textContent = toCurrency(expected_value);
         elements.item(5).textContent = category.category;
         
         if(category.type === "D")
