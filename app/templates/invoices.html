@@ -36,6 +36,20 @@
           <option value="2030" {% if ref[0:4] == "2030" %} selected {% endif%}>2030</option>
         </select>
 
+        <select id="filter--bank" class="textfield textfield--inline">
+          <option value="0">Todos</option>
+          <optgroup label="Contas">
+          {% for bank in banks if bank.type == "D" %}
+          <option value="{{bank.id}}" {% if bank.id == current_bank_id %} selected {% endif %} >{{bank.name}}</option>
+          {% endfor %}
+          </optgroup>
+          <optgroup label="Faturas">
+          {% for bank in banks if bank.type == "C" %}
+            <option value="{{bank.id}}"{% if bank.id == current_bank_id %} selected {% endif %} >{{bank.name}}</option>
+          {% endfor %}
+          </optgroup>
+        </select>
+
         <div style="display:flex;justify-content:space-around">
           
           <div class="box box--secondary pl--2 pr--2 ">

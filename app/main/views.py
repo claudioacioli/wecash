@@ -2,8 +2,9 @@ from datetime import date
 from . import main as app_main
 from .. import db
 from ..models.user import User
+from ..models.bank import Bank
 from flask import render_template, request, redirect, url_for, make_response
-from flask_login import login_required, login_user, logout_user
+from flask_login import login_required, login_user, logout_user, current_user
 
 
 @app_main.route("/")
@@ -46,7 +47,8 @@ def invoices():
 @app_main.route("/invoices/<string:ref>")
 @login_required
 def invoices_by_ref(ref):
-    return render_template("invoices.html", ref=ref)
+    banks = Bank.query.filter_by(user_id=current_user.id).all()
+    return render_template("invoices.html", ref=ref, banks=banks, current_bank_id=request.args.get("b", 0, type=int))
 
 
 @app_main.route("/categories")
