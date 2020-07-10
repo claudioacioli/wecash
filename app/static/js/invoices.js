@@ -10,6 +10,7 @@ const
       
       monthFilterElement = byId("filter--month"),
       yearFilterElement = byId("filter--year"),
+      bankFilterElement = byId("filter--bank"),
 
       typeFieldElement = byName("field--type"),
       historyFieldElement = byId("field--history"),
@@ -28,10 +29,14 @@ const
       resetElement = byId("btn--reset"),
       rowActive = new ActiveElement("is-active"),
 
-      read = (year, month) =>  {
+      read = (year, month, bank_id) =>  {
 
-        getInvoicesByYearMonth(year, month)
+        getInvoicesByYearMonth(year, month, bank_id)
           .then(getResult)
+          .then(async result => {
+            tbodyElement.innerHTML = "";
+            return result;
+          })
           .then(renderListView)
           .catch(function(error) {
             console.error(error);
@@ -58,7 +63,7 @@ const
             console.error(error);
           });
 
-        getInvoicesOverview(year, month)
+        getInvoicesOverview(year, month, bank_id)
           .then(getResult)
           .then(async result => {
             console.log(result.payload);
@@ -329,7 +334,8 @@ const
       handleFilter = e => {
         const year = yearFilterElement.value;
         const month = monthFilterElement.value;
-        document.location.href=`/invoices/${year}${month}`;
+        const bank = bankFilterElement.value;
+        document.location.href=`/invoices/${year}${month}?b=${bank}`;
       }
     ;
 
@@ -340,11 +346,12 @@ const
     resetElement.addEventListener("click", handleReset);
     yearFilterElement.addEventListener("change", handleFilter);
     monthFilterElement.addEventListener("change", handleFilter);
+    bankFilterElement.addEventListener("change", handleFilter);
     
     for(typeOptionElement of typeFieldElement)
       typeOptionElement.addEventListener("change", handleChange);
 
-    read(yearFilterElement.value, monthFilterElement.value);
+    read(yearFilterElement.value, monthFilterElement.value, bankFilterElement.value);
 
   }
 
