@@ -2,11 +2,6 @@
 
   const 
 
-    WECASH_ROUTE_INVOICES = "invoices",
-    WECASH_ROUTE_CATEGORIES = "categories",
-    WECASH_ROUTE_BANKS = "banks",
-    WECASH_ROUTE_CARDS = "cards",
-
     getRoute = () => {
       return window.location.pathname.split("/")[1]
     },
@@ -21,6 +16,8 @@
           return componentBanks;
         case WECASH_ROUTE_CARDS:
           return componentCards;
+        case WECASH_ROUTE_RESUME:
+          return componentResume;
         default:
           return () => {
             console.warn("route not set");
