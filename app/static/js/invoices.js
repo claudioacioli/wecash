@@ -70,7 +70,7 @@ const
             const { despesa, receita, fatura } = result.payload;
             byId("value--d").textContent = toCurrency(despesa);
             byId("value--r").textContent = toCurrency(receita);
-            byId("value--f").textContent = toCurrency(fatura);
+            //byId("value--f").textContent = toCurrency(fatura);
           })
           .catch(function(error) {
             console.error(error);
@@ -122,6 +122,14 @@ const
           .catch(function(error) {
             console.log(error);
           })
+      },
+
+      savePayment = element => {
+        const data = JSON.parse(byParent("tr", element).dataset.data);
+        const confirmed = element.checked;
+        data.confirmed_value = confirmed ? data.expected_value : "";
+        data.confirmation_date = confirmed ? (new Date()).getTime() : "";
+        update(data);
       },
 
       getItemView = id => {
@@ -275,9 +283,15 @@ const
 
       handleActive = e => {
         const element = e.target;
-        if(element.nodeName === "TD") {
-          e.preventDefault();
-          renderSelectView(element.parentNode)
+
+        switch(element.nodeName) {
+          case "TD":
+            e.preventDefault();
+            renderSelectView(element.parentNode);
+            return;
+          case "INPUT":
+            savePayment(element);
+            return;
         }
       },
 
