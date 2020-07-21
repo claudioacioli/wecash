@@ -45,16 +45,16 @@ class Resume():
                 "category_id": category_id, 
                 "type": type,
                 "name": name,
-                "expected_value": expected_value,
-                "goal": goal
+                "expected_value": '{0:.2f}'.format(expected_value),
+                "goal": '{0:.2f}'.format(goal)
                 })
 
         categories.append({
             "category_id": 0,
             "type": None,
             "name": None,
-            "expected_value": total_expected_value,
-            "goal": total_goal
+            "expected_value": '{0:.2f}'.format(total_expected_value),
+            "goal": '{0:.2f}'.format(total_goal)
         })
 
         return categories

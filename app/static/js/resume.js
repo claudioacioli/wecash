@@ -38,10 +38,12 @@ const
 
         goalElement.textContent = goal;
         goalElement.style.width = "1%";
+        goalElement.style.textAlign = "right";
         element.appendChild(goalElement);
 
         valueElement.textContent = expected_value;
         valueElement.style.width = "1%";
+        valueElement.style.textAlign = "right";
         element.appendChild(valueElement);
 
         return element;
