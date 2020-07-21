@@ -67,3 +67,17 @@ def banks():
 @login_required
 def cards():
     return render_template("cards.html")
+
+
+@app_main.route("/resume")
+@login_required
+def resume():
+    today = date.today()
+    ref = str(today.year) + str(today.month).zfill(2)
+    return redirect(url_for("main.resume_by_ref", ref=ref))
+
+
+@app_main.route("/resume/<string:ref>")
+@login_required
+def resume_by_ref(ref):
+    return render_template("resume.html", ref=ref)
