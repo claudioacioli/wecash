@@ -18,6 +18,8 @@
           return componentCards;
         case WECASH_ROUTE_RESUME:
           return componentResume;
+        case WECASH_ROUTE_REGISTER:
+          return componentRegister;
         default:
           return () => {
             console.warn("route not set");
