@@ -8,7 +8,14 @@ def auth_required():
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
-            auth_header = request.headers.get('Authorization') or request.headers.get('authorization')
+            
+            auth_header = None
+
+            if 'Authorization' in request.headers:
+                auth_header = request.headers['Authorization']
+            elif 'authorization' in request.headers:
+                auth_header = request.headers['authorization']
+            
             print(auth_header)
             
             if auth_header is None or len(auth_header) == 0:
