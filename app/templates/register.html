@@ -18,35 +18,37 @@
           <div class="box__body">
             <div>
               <label class="label mt--0">Nome</label>
-              <input name="name" type="text" placeholder="joao" class="textfield">
+              <input id="name" type="text" placeholder="joao" class="textfield">
             </div>
             <div>
               <label class="label mt--0">E-mail</label>
-              <input name="email" type="text" placeholder="joao@provedor.com" class="textfield">
+              <input id="email" type="text" placeholder="joao@provedor.com" class="textfield">
             </div>
             <div>
               <label class="label mt--0">Confirmar E-mail</label>
-              <input name="email_reword" type="text" placeholder="joao@provedor.com" class="textfield">
+              <input id="email_reword" type="text" placeholder="joao@provedor.com" class="textfield">
             </div>
             <div>
               <label class="label mt--0">Senha</label>
-              <input name="password" type="password" placeholder="******" class="textfield">
+              <input id="password" type="password" placeholder="******" class="textfield">
             </div>
             <div>
               <label class="label mt--0">Confirmar Senha</label>
-              <input name="password_reword" type="password" placeholder="******" class="textfield">
+              <input id="password_reword" type="password" placeholder="******" class="textfield">
             </div>
           </div>
           <div class="box__footer" style="text-align:center">
-            <button class="button button--primary">Cadastrar</button>
+            <button id="submit" class="button button--primary">Cadastrar</button>
             <button class="button button--danger">Cancelar</button>
           </div>
         </div>
       </main>
     </form>
+    <script src="{{url_for('static', filename='js/constants.js')}}"></script>
     <script src="{{url_for('static', filename='js/by.js')}}"></script>
     <script src="{{url_for('static', filename='js/rest.js')}}"></script>
     <script src="{{url_for('static', filename='js/api.js')}}"></script>
+    <script src="{{url_for('static', filename='js/register.js')}}"></script>
     <script src="{{url_for('static', filename='js/app.js')}}"></script>
   </body>
 </html>
