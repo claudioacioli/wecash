@@ -98,4 +98,8 @@ const
 
   deleteCards = async id => 
     await deleteData(`${WECASH_API}/cards/${id}`, token)
+  ,
+
+  postUsers = async data => 
+    await postData(`${WECASH_API}/users/`, token, data)
 ;
