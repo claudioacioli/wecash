@@ -1,10 +1,10 @@
 const
 
   getHeaders = token => {
-    return new Headers({
+    return {
+      "Authorization": `Bearer ${token}`,
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
-    });
+    };
   },
 
   getData = async (url, token="", mode="cors") => {
