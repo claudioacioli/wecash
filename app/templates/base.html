@@ -53,8 +53,10 @@
             <a {% if request.path.startswith(url_for('main.invoices')) %}class="is-active"{% endif %} href="{{url_for('main.invoices')}}">Movimentos</a>
             <a {% if request.path == url_for('main.categories') %}class="is-active"{% endif %} href="{{ url_for('main.categories') }}">Categorias</a>
             <a {% if request.path == url_for('main.banks') %}class="is-active"{% endif %} href="{{ url_for('main.banks') }}">Contas</a>
+            <!--
             <a {% if request.path == url_for('main.cards') %}class="is-active"{% endif %} href="{{ url_for('main.cards') }}">Cartoes</a>
             <a {% if request.path.startswith(url_for('main.resume')) %}class="is-active"{% endif %} href="{{ url_for('main.resume') }}">Relatorios</a>
+            -->
             <!-- todo() - Remove inline css -->
             <a class="ml--auto" href="{{url_for('main.signout')}}">{{current_user.name}}<img class="avatar--sm" style="vertical-align: middle;margin-left:1em;" src="{{url_for('static', filename='images/c.jpg')}}"></a>
           </nav>
