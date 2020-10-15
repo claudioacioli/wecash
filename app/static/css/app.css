@@ -1,7 +1,8 @@
 .topbar {
   border-width: 10px 0 0;
   border-top-style: solid;
-  border-image: linear-gradient(139deg, #5B0A5A, #ff4b01, #c12127, #e02aff) 3; 
+  /*border-image: linear-gradient(139deg, #5B0A5A, #ff4b01, #c12127, #e02aff) 3; */
+  border-color: rgba(0,0,0,1);
 }
 
 .content {
