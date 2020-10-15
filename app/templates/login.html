@@ -1,41 +1,30 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/cssura-v1.1.4.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/app.css')}}">
-    <title>Or&#231;amento Dom&#233;stico!</title>
-  </head>
-  <body>
-    <form method="POST" action="{{url_for('main.signin')}}">
-      <main class="container mt--0" style="display:flex; height:100vh; justify-content:center; align-items: center; ">
-        <div class="box mt--0 p--9 pt--0">
-          <img src="{{url_for('static', filename='images/logo.png')}}" style="margin-left:auto; margin-right:auto;" class="ml--4 mt--5">
-          <div class="box__header">
-            <h3>Acessar</h3>
-          </div>
-          <div class="box__body">
-            <div>
-              <label class="label mt--0">E-mail</label>
-              <input name="email" type="text" placeholder="joao@provedor.com" class="textfield">
-            </div>
-            <div>
-              <label class="label mt--0">Senha</label>
-              <input name="password" type="password" placeholder="******" class="textfield">
-            </div>
-          </div>
-          <div class="box__footer" style="text-align:center">
-            <button class="button button--primary">Entrar</button>
-            <a href="{{url_for('main.register')}}" class="button button--success">Cadastrar</a>
-            <div><a href="#">Esqueci a senha</a></div>
-          </div>
+{% extends "external.html" %}
+{% block main %}
+<form method="POST" action="{{url_for('main.signin')}}">
+  <main class="container mt--0" style="display:flex; height:100vh; justify-content:center; align-items: center; ">
+    <div class="box mt--0 p--9 pt--0">
+      <img src="{{url_for('static', filename='images/logo.png')}}" style="margin-left:auto; margin-right:auto;" class="ml--4 mt--5">
+      <div class="box__header">
+        <h3>Acessar</h3>
+      </div>
+      <div class="box__body">
+        <div>
+          <label class="label mt--0">E-mail</label>
+          <input name="email" type="text" placeholder="joao@provedor.com" class="textfield">
+          <span class="textfield__error"></span>
         </div>
-      </main>
-    </form>
-    <script src="{{url_for('static', filename='js/by.js')}}"></script>
-    <script src="{{url_for('static', filename='js/rest.js')}}"></script>
-    <script src="{{url_for('static', filename='js/api.js')}}"></script>
-    <script src="{{url_for('static', filename='js/app.js')}}"></script>
-  </body>
-</html>
+        <div>
+          <label class="label mt--0">Senha</label>
+          <input name="password" type="password" placeholder="******" class="textfield">
+          <span class="textfield__error"></span>
+        </div>
+      </div>
+      <div class="box__footer" style="text-align:center">
+        <button class="button button--primary">Entrar</button>
+        <a href="{{url_for('main.register')}}" class="button button--success">Cadastrar</a>
+        <div><a href="#">Esqueci a senha</a></div>
+      </div>
+    </div>
+  </main>
+</form>
+{% endblock %}
