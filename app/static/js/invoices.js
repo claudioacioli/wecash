@@ -55,14 +55,14 @@ const
           .catch(function(error) {
             console.error(error);
           });
-
+/*
         getCards()
           .then(getResult)
           .then(renderCardListView)
           .catch(function(error) {
             console.error(error);
           });
-
+*/
         getInvoicesOverview(year, month, bank_id)
           .then(getResult)
           .then(async result => {
@@ -304,7 +304,7 @@ const
 
       handleChange = e => {
         const element = e.target;  
-        bankFieldElement.setAttribute("list", element.dataset.list);
+        //bankFieldElement.setAttribute("list", element.dataset.list);
       },
 
       handleSave = e => {
