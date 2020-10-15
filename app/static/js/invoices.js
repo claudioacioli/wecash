@@ -19,7 +19,7 @@ const
       expectedValueFieldElement = byId("field--expected-value"),
       confirmedValueFieldElement = byId("field--confirmed-value"),
       bankFieldElement = byId("field--bank"),
-      expenseListElement = byId("datalist--despesas"),
+      bankListElement = byId("datalist--bank"),
       cardListElement = byId("datalist--card"),
       categoryFieldElement = byId("field--category"),
       categoryListElement = byId("datalist--category"),
@@ -230,7 +230,7 @@ const
         if(result.status.toString().trim() !== "1")
           return;
 
-        renderDataView(expenseListElement, result.payload.filter(({type}) => type === "D"), "name");
+        renderDataView(bankListElement, result.payload.filter(({type}) => type === "D"), "name");
       },
 
       renderCardListView = result => {
