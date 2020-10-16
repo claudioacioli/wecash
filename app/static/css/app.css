@@ -2,7 +2,7 @@
   border-width: 10px 0 0;
   border-top-style: solid;
   /*border-image: linear-gradient(139deg, #5B0A5A, #ff4b01, #c12127, #e02aff) 3; */
-  border-color: rgba(0,0,0,1);
+  border-color: #000841;
 }
 
 .content {
@@ -29,4 +29,19 @@ tr.is-confirmed > td {
 tr.is-pendent > td {
   background-color: rgba(253, 57, 122, .1);
   color: #fd397d;
+}
+
+.bg {
+}
+
+.bg:after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -3;
+  background: url(../media/bg/bg.svg) center/cover no-repeat;
+  opacity:0.1;
 }
