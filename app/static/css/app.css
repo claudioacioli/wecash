@@ -45,3 +45,12 @@ tr.is-pendent > td {
   background: url(../media/bg/bg.svg) center/cover no-repeat;
   opacity:0.1;
 }
+
+input:focus {
+  animation: bg-input 1.5s linear !important;
+}
+
+@keyframes bg-input {
+  from {background-color: #f3f6f9;}
+  to {background-color: #e9ebec;}
+}
