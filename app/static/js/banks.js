@@ -7,6 +7,7 @@ const
       tableElement = bySelector("table"),
       tbodyElement = bySelector("tbody", tableElement),
       nameFieldElement = byId("input--bank"),
+      nameSpanElement = bySelector("span.textfield__error"),
       idFieldElement = byId("input--id"),
       saveElement = byId("btn--save"),
       deleteElement = byId("btn--delete"),
@@ -64,6 +65,7 @@ const
       renderResetView = () => {
         nameFieldElement.value = "";
         idFieldElement.value = "";
+        renderResetErrorLabel();
         rowActive.toggle(null);
       },
 
@@ -110,6 +112,16 @@ const
         renderEditView(JSON.parse(element.dataset.data));
       },
 
+      renderErrorLabel = () => {
+        nameSpanElement.innerHTML = "Por favor, informe um nome v&#225;lido.";
+        nameSpanElement.style.display = "block";
+      },
+
+      renderResetErrorLabel = () => {
+        nameSpanElement.innerHTML = "";
+        nameSpanElement.style.display = "none";
+      },
+
       handleActive = e => {
         e.preventDefault();
         const element = e.target;
@@ -123,6 +135,16 @@ const
       },
 
       handleSave = () => {
+
+        const name = nameFieldElement.value.toString().trim();
+
+        if(!name.length) {
+          renderErrorLabel()
+          return;
+        }
+
+        renderResetErrorLabel();
+
         const data = {
           "id": idFieldElement.value,
           "bank": nameFieldElement.value,
