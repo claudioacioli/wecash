@@ -89,8 +89,8 @@ const
 
       bindItemView = ({category, type, go}, element) => {
         const elements = byAll("td", element);
-        elements[1].textContent = category;
-        elements[2].textContent = go;
+        elements[0].textContent = category;
+        elements[1].textContent = toCurrencyBRL(go);
         return element;
       },
 
