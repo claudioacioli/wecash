@@ -5,18 +5,21 @@ from ..models.user import User
 from ..models.bank import Bank
 from flask import render_template, request, redirect, url_for, make_response
 from flask_login import login_required, login_user, logout_user, current_user
+from htmlmin import minify
 
 OD_COOKIE_EMAIL = 'e'
 
 @app_main.route("/")
 def main():
     email = request.cookies.get(OD_COOKIE_EMAIL) or ""
-    return render_template("login.html", email=email)
+    minified_html = minify(render_template("login.html", email=email))
+    return minified_html
 
 
 @app_main.route("/register")
 def register():
-    return render_template("register.html")
+    minified_html = minify(render_template("register.html"))
+    return minified_html
 
 
 @app_main.route("/signin", methods=["POST"])
@@ -56,25 +59,28 @@ def invoices():
 @login_required
 def invoices_by_ref(ref):
     banks = Bank.query.filter_by(user_id=current_user.id).all()
-    return render_template("invoices.html", ref=ref, banks=banks, current_bank_id=request.args.get("b", 0, type=int))
+    minified_html = minify(render_template("invoices.html", ref=ref, banks=banks, current_bank_id=request.args.get("b", 0, type=int)))
+    return minified_html
 
 
 @app_main.route("/categories")
 @login_required
 def categories():
-    return render_template("categories.html")
+    minified_html = minify(render_template("categories.html"))
+    return minified_html
 
 
 @app_main.route("/banks")
 @login_required
 def banks():
-    return render_template("banks.html")
-
+    minified_html = minify(render_template("banks.html"))
+    return minified_html
 
 @app_main.route("/cards")
 @login_required
 def cards():
-    return render_template("cards.html")
+    minified_html = minify(render_template("cards.html"))
+    return minified_html
 
 
 @app_main.route("/resume")
@@ -88,4 +94,5 @@ def resume():
 @app_main.route("/resume/<string:ref>")
 @login_required
 def resume_by_ref(ref):
-    return render_template("resume.html", ref=ref)
+    minified_html = minify(render_template("resume.html", ref=ref))
+    return minified_html
