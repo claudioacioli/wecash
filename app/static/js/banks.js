@@ -80,8 +80,8 @@ const
 
       bindItemView = ({name, value="0,00"}, element) => {
         const elements = byAll("td", element);
-        elements[1].textContent = name;
-        elements[2].textContent = value;
+        elements[0].textContent = name;
+        elements[1].textContent = value;
         return element;
       },
 
@@ -105,6 +105,7 @@ const
         const { id, name } = data;
         idFieldElement.value = id;
         nameFieldElement.value = name;
+        nameFieldElement.select();
       },
 
       renderSelectView = element => {
@@ -132,6 +133,7 @@ const
       handleAdd = (e) => {
         e.preventDefault();
         renderResetView();
+        nameFieldElement.focus();
       },
 
       handleSave = () => {
