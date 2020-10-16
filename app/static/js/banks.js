@@ -78,7 +78,7 @@ const
         element.remove();
       }, 
 
-      bindItemView = ({name, value="0.00"}, element) => {
+      bindItemView = ({name, value=0}, element) => {
         const elements = byAll("td", element);
         elements[0].textContent = name;
         elements[1].textContent = toCurrencyBRL(value);
