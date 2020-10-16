@@ -3,11 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/cssura-v1.1.5.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/app.css')}}">
     <title>Or&#231;amento Dom&#233;stico!</title>
   </head>
-  <body>
+  <body class="bg">
     {% block main %}
     {% endblock %}
     <script src="{{url_for('static', filename='js/by.js')}}"></script>
