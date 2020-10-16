@@ -6,10 +6,12 @@ from ..models.bank import Bank
 from flask import render_template, request, redirect, url_for, make_response
 from flask_login import login_required, login_user, logout_user, current_user
 
+OD_COOKIE_EMAIL = 'e'
 
 @app_main.route("/")
 def main():
-    return render_template("login.html")
+    email = request.cookies.get(OD_COOKIE_EMAIL) or ""
+    return render_template("login.html", email=email)
 
 
 @app_main.route("/register")
@@ -28,6 +30,7 @@ def signin():
         login_user(user, False)
         next = request.args.get("next", url_for("main.invoices"))
         response = make_response(redirect(next))
+        response.set_cookie(OD_COOKIE_EMAIL, email)
         response.set_cookie('token', user.encode_auth_token().decode(), max_age=1*24*60*60)
         return response
 
