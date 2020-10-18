@@ -261,6 +261,7 @@ const
         confirmedValueFieldElement.value = confirmed_value;
         bankFieldElement.value = bank.name;
         categoryFieldElement.value = category.category;
+        historyFieldElement.select();
       },
      
       renderSelectView = element => {
@@ -279,6 +280,7 @@ const
       handleAdd = (e) => {
         e.preventDefault();
         renderResetView();
+        historyFieldElement.focus();
       },
 
       handleActive = e => {
