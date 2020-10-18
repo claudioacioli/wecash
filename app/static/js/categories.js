@@ -132,12 +132,12 @@ const
         nameFieldElement.value = category;
         renderTypeView(typeFieldElement, type);
         goFieldElement.value = go;
+        nameFieldElement.select();
       },
 
       renderSelectView = element => {
         rowActive.toggle(element);
         deleteElement.classList.remove("hide");
-        nameFieldElement.select();
         renderEditView(JSON.parse(element.dataset.data));
       },
 
