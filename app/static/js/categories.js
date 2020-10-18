@@ -65,6 +65,7 @@ const
 
       renderResetView = () => {
         rowActive.toggle(null);
+        deleteElement.classList.add("hide");
         idFieldElement.value = "";
         nameFieldElement.value = "";
         typeFieldElement.item(0).checked = true;
@@ -131,6 +132,7 @@ const
 
       renderSelectView = element => {
         rowActive.toggle(element);
+        deleteElement.classList.remove("hide");
         renderEditView(JSON.parse(element.dataset.data));
       },
 
