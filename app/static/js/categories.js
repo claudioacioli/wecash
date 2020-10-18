@@ -133,6 +133,7 @@ const
       renderSelectView = element => {
         rowActive.toggle(element);
         deleteElement.classList.remove("hide");
+        nameFieldElement.select();
         renderEditView(JSON.parse(element.dataset.data));
       },
 
@@ -146,6 +147,7 @@ const
       handleAdd = (e) => {
         e.preventDefault();
         renderResetView();
+        nameFieldElement.focus();
       },
 
       getValueOfRadio = elements => {
