@@ -131,7 +131,7 @@ const
         idFieldElement.value = id;
         nameFieldElement.value = category;
         renderTypeView(typeFieldElement, type);
-        goFieldElement.value = go;
+        goFieldElement.value = parseFloat(go).toFixed(2);
         nameFieldElement.select();
       },
 
@@ -214,12 +214,30 @@ const
         renderResetView();
       },
 
+      handleMask = e => {
+        const value = e.target.value;
+        e.target.value = parseFloat(
+          value
+            .replace(/(.*){1}/, '0$1')
+            .replace(/[^\d]/g, '')
+            .replace(/(\d\d?)$/, '.$1')
+        ).toFixed(2);
+      },
+
       handlePress = e => {
         onlyCurrencyDigits(e);
+      },
+
+      handleFocus = e => {
+        if(!e.target.value.toString().trim().length)
+          e.target.value = "00.0";
       }
     ;
 
     goFieldElement.addEventListener("keypress", handlePress);
+    goFieldElement.addEventListener("keyup", handleMask);
+    goFieldElement.addEventListener("focus", handleFocus);
+
     addElement.addEventListener("click", handleAdd);
     tbodyElement.addEventListener("click", handleActive);
     saveElement.addEventListener("click", handleSave);
