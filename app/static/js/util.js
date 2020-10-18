@@ -1,5 +1,15 @@
 const
   
+  DIGITS_CURRENCY = '0123456789.,'
+    .split('')
+    .map(item => item.charCodeAt())
+  ,
+
+  onlyCurrencyDigits = e => {
+    if(DIGITS_CURRENCY.indexOf(e.which) === -1)
+      e.preventDefault();
+  },
+
   toDate = date => {
     try {
       if(date)
