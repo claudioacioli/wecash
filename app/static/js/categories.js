@@ -4,12 +4,15 @@ const
     
     const 
       template = byId("template-row-category"),
+      errorElements = byAll("span.textfield__error"),
       tableElement = bySelector("table"),
       tbodyElement = bySelector("tbody", tableElement),
       idFieldElement = byId("field--id"),
       nameFieldElement = byId("field--name"),
+      nameErrorElement = errorElements[0],
       typeFieldElement = byName("field--type"),
       goFieldElement = byId("field--go"),
+      goErrorElement = errorElements[1],
       addElement = byId("btn--add"),
       saveElement = byId("btn--save"),
       deleteElement = byId("btn--delete"),
@@ -65,6 +68,8 @@ const
 
       renderResetView = () => {
         rowActive.toggle(null);
+        deleteElement.classList.add("hide");
+        renderResetErrorLabel();
         idFieldElement.value = "";
         nameFieldElement.value = "";
         typeFieldElement.item(0).checked = true;
@@ -131,6 +136,8 @@ const
 
       renderSelectView = element => {
         rowActive.toggle(element);
+        deleteElement.classList.remove("hide");
+        nameFieldElement.select();
         renderEditView(JSON.parse(element.dataset.data));
       },
 
@@ -144,6 +151,7 @@ const
       handleAdd = (e) => {
         e.preventDefault();
         renderResetView();
+        nameFieldElement.focus();
       },
 
       getValueOfRadio = elements => {
@@ -152,7 +160,33 @@ const
             return element.value;
       },
 
+      renderResetErrorLabel = () => {
+        nameErrorElement.innerHTML = "Por favor, informe um nome v&#225;lido.";
+        nameErrorElement.style.display = "none";
+        goErrorElement.textContent = "";
+        goErrorElement.style.display = "none";
+      },
+
       handleSave = e => { 
+
+        let send = true;
+
+        if(!nameFieldElement.value.toString().trim().length) {
+          send = false;
+          nameErrorElement.innerHTML = "Por favor, informe um nome v&#225;lido.";
+          nameErrorElement.style.display = "block";
+        }
+
+        if(!goFieldElement.value.toString().trim().length) {
+          send = false;
+          goErrorElement.innerHTML = "Por favor, informe uma meta mensal.";
+          goErrorElement.style.display = "block";
+        }
+
+        if(!send) 
+          return;
+
+        renderResetErrorLabel();
 
         const data = {
           "id": idFieldElement.value,
