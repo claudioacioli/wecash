@@ -67,6 +67,7 @@ const
         idFieldElement.value = "";
         renderResetErrorLabel();
         rowActive.toggle(null);
+        deleteElement.classList.add("hide");
       },
 
       getItemView = id => {
@@ -110,6 +111,7 @@ const
 
       renderSelectView = element => {
         rowActive.toggle(element);
+        deleteElement.classList.remove("hide");
         renderEditView(JSON.parse(element.dataset.data));
       },
 
