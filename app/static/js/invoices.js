@@ -158,6 +158,9 @@ const
       renderResetView = () => {
         rowActive.toggle(null);
 
+        for(typeOptionElement of typeFieldElement)
+          typeOptionElement.checked = false;
+        
         idFieldElement.value = "";
         historyFieldElement.value = "";
         forecastFieldElement.value = "";
