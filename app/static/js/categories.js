@@ -212,9 +212,14 @@ const
       handleReset = e => {
         e.preventDefault();
         renderResetView();
+      },
+
+      handlePress = e => {
+        onlyCurrencyDigits(e);
       }
     ;
 
+    goFieldElement.addEventListener("keypress", handlePress);
     addElement.addEventListener("click", handleAdd);
     tbodyElement.addEventListener("click", handleActive);
     saveElement.addEventListener("click", handleSave);

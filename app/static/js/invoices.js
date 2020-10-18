@@ -350,9 +350,15 @@ const
         const month = monthFilterElement.value;
         const bank = bankFilterElement.value;
         document.location.href=`/invoices/${year}${month}?b=${bank}`;
+      },
+
+      handlePress = e => {
+        onlyCurrencyDigits(e);
       }
     ;
 
+    confirmedValueFieldElement.addEventListener("keypress", handlePress);
+    expectedValueFieldElement.addEventListener("keypress", handlePress);
     addElement.addEventListener("click", handleAdd);
     tbodyElement.addEventListener("click", handleActive);
     saveElement.addEventListener("click", handleSave);
