@@ -288,7 +288,7 @@ const
         idFieldElement.value = id;
         historyFieldElement.value = history;
         expectedValueFieldElement.value = parseFloat(expected_value).toFixed(2);
-        confirmedValueFieldElement.value = confirmed_value.toString().trim().length 
+        confirmedValueFieldElement.value = confirmed_value && confirmed_value.toString().trim().length 
           ? parseFloat(confirmed_value).toFixed(2) 
           : ""
         ;
