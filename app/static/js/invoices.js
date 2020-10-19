@@ -293,7 +293,7 @@ const
           : ""
         ;
         forecastFieldElement.value = formatDate(fromDate(forecast_date)) ;
-        confirmationFieldElement.value = confirmation_date.toString().trim().length 
+        confirmationFieldElement.value = confirmation_date && confirmation_date > 0
           ? formatDate(fromDate(confirmation_date))
           : ""
         ;
