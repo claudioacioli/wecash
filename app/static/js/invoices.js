@@ -363,40 +363,40 @@ const
 
         if(!checked) {
           send = false;
-          typeErrorElement.innerHTML = "Por favor, informe um tipo para seu movimento";
+          typeErrorElement.innerHTML = "Por favor, informe um tipo para seu movimento.";
           typeErrorElement.style.display = "block";
         }
 
 
         if(!historyFieldElement.value.toString().trim().length) {
           send = false;
-          historyErrorElement.innerHTML = "Por favor, informe um historico valido";
+          historyErrorElement.innerHTML = "Por favor, informe um hist&#243;rico v&#225;lido";
           historyErrorElement.style.display = "block";
         }
 
         if(!expectedValueFieldElement.value.toString().trim().length) {
           send = false;
-          valueErrorElement.innerHTML = "Por favor, informe um valor previsto";
+          valueErrorElement.innerHTML = "Por favor, informe um valor previsto.";
           valueErrorElement.style.display = "block";
         }
 
         if(!forecastFieldElement.value.toString().trim().length) {
           send = false;
-          dateErrorElement.innerHTML = "Por favor, informe um data de previsao";
+          dateErrorElement.innerHTML = "Por favor, informe uma data de previs&#227o.";
           dateErrorElement.style.display = "block";
         }
 
         const bankId = getOptionSelected(byId(bankFieldElement.getAttribute("list")), bankFieldElement.value);
         if(!bankId) {
           send = false;
-          bankErrorElement.innerHTML = "Por favor informe uma conta valida";
+          bankErrorElement.innerHTML = "Por favor informe uma conta v&#225;lida.";
           bankErrorElement.style.display = "block";
         }
 
         const categoryId = getOptionSelected(categoryListElement, categoryFieldElement.value);
         if(!categoryId) {
           send = false;
-          categoryErrorElement.innerHTML = "Por favor informe uma categoria valida";
+          categoryErrorElement.innerHTML = "Por favor informe uma categoria v&#225;lida.";
           categoryErrorElement.style.display = "block";
         }
 
