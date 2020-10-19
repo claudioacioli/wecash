@@ -7,22 +7,30 @@ const
       tableElement = bySelector("table"),
       tbodyElement = bySelector("tbody", tableElement),      
       idFieldElement = byId("field--id"),
-      
+      errorElements = byAll("span.textfield__error"),
+
       monthFilterElement = byId("filter--month"),
       yearFilterElement = byId("filter--year"),
       bankFilterElement = byId("filter--bank"),
 
       typeFieldElement = byName("field--type"),
+      typeErrorElement = errorElements[0],
       historyFieldElement = byId("field--history"),
+      historyErrorElement = errorElements[1],
       forecastFieldElement = byId("field--forecast"),
       confirmationFieldElement = byId("field--confirmation"),
+      valueErrorElement = errorElements[2],
       expectedValueFieldElement = byId("field--expected-value"),
       confirmedValueFieldElement = byId("field--confirmed-value"),
+      dateErrorElement = errorElements[3],
       bankFieldElement = byId("field--bank"),
       bankListElement = byId("datalist--bank"),
+      bankErrorElement = errorElements[4],
       cardListElement = byId("datalist--card"),
       categoryFieldElement = byId("field--category"),
       categoryListElement = byId("datalist--category"),
+      categoryErrorElement = errorElements[5],
+      
       addElement = byId("btn--add"),
       saveElement = byId("btn--save"),
       deleteElement = byId("btn--delete"),
@@ -169,6 +177,14 @@ const
         confirmedValueFieldElement.value = "";
         bankFieldElement.value = "";
         categoryFieldElement.value = "";
+        renderResetErrorView();
+      },
+
+      renderResetErrorView = () => {
+        for(element of errorElements) {
+          element.style.display = "none";
+          element.textContent = "";
+        }
       },
 
       removeItemView = id => {
@@ -243,9 +259,22 @@ const
         renderDataView(cardListElement, result.payload, "name");
       },
 
-      renderEditView = ({id, history, forecast_date, confirmation_date, expected_value, confirmed_value, bank, category}) => {
+      renderEditView = invoice => {
         
-        fromDate(forecast_date);
+        const { 
+          id,
+          history,
+          forecast_date,
+          confirmation_date,
+          expected_value,
+          confirmed_value,
+          bank,
+          category
+        } = invoice;
+
+        console.log(toDate(forecast_date));
+        const date_forecast = new Date(forecast_date);
+        console.log(date_forecast);
         for(element of typeFieldElement) {
           element.checked = element.value === bank.type;
           if(element.checked) {
@@ -255,13 +284,19 @@ const
           }
             
         }
-        
+
         idFieldElement.value = id;
         historyFieldElement.value = history;
-        forecastFieldElement.value = formatDate(fromDate(forecast_date));
-        confirmationFieldElement.value = formatDate(fromDate(confirmation_date));
         expectedValueFieldElement.value = parseFloat(expected_value).toFixed(2);
-        confirmedValueFieldElement.value = parseFloat(confirmed_value).toFixed(2);
+        confirmedValueFieldElement.value = confirmed_value.toString().trim().length 
+          ? parseFloat(confirmed_value).toFixed(2) 
+          : ""
+        ;
+        forecastFieldElement.value = formatDate(fromDate(forecast_date)) ;
+        confirmationFieldElement.value = confirmation_date.toString().trim().length 
+          ? formatDate(fromDate(confirmation_date))
+          : ""
+        ;
         bankFieldElement.value = bank.name;
         categoryFieldElement.value = category.category;
         historyFieldElement.select();
@@ -315,17 +350,56 @@ const
 
       handleSave = e => {
 
+        renderResetErrorView();
+
+        let send = true;
+
+        let checked = false;
+        console.log(typeFieldElement);
+        for(element of typeFieldElement) {
+          checked = !checked && element.checked ? true : false;
+        }
+
+        if(!checked) {
+          send = false;
+          typeErrorElement.innerHTML = "Por favor, informe um tipo para seu movimento";
+          typeErrorElement.style.display = "block";
+        }
+
+
+        if(!historyFieldElement.value.toString().trim().length) {
+          send = false;
+          historyErrorElement.innerHTML = "Por favor, informe um historico valido";
+          historyErrorElement.style.display = "block";
+        }
+
+        if(!expectedValueFieldElement.value.toString().trim().length) {
+          send = false;
+          valueErrorElement.innerHTML = "Por favor, informe um valor previsto";
+          valueErrorElement.style.display = "block";
+        }
+
+        if(!forecastFieldElement.value.toString().trim().length) {
+          send = false;
+          dateErrorElement.innerHTML = "Por favor, informe um data de previsao";
+          dateErrorElement.style.display = "block";
+        }
+
         const bankId = getOptionSelected(byId(bankFieldElement.getAttribute("list")), bankFieldElement.value);
         if(!bankId) {
-          bankFieldElement.focus();
-          alert("Informe uma conta");
-          return;
+          send = false;
+          bankErrorElement.innerHTML = "Por favor informe uma conta valida";
+          bankErrorElement.style.display = "block";
         }
 
         const categoryId = getOptionSelected(categoryListElement, categoryFieldElement.value);
         if(!categoryId) {
-          categoryFieldElement.focus();
-          alert("Informe uma categoria");
+          send = false;
+          categoryErrorElement.innerHTML = "Por favor informe uma categoria valida";
+          categoryErrorElement.style.display = "block";
+        }
+
+        if(!send) {
           return;
         }
 
