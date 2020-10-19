@@ -10,6 +10,20 @@ const
       e.preventDefault();
   },
 
+  maskCurrency = value =>
+    parseFloat(value
+      .replace(/(.*){1}/, '0$1')
+      .replace(/[^\d]/g, '')
+      .replace(/(\d\d?)$/, '.$1')
+    ).toFixed(2)
+  ,
+
+  initCurrency = value => {
+    if(!value.toString().trim().length)
+      return "0.00"
+    return value;
+  },
+
   toDate = date => {
     try {
       if(date)

@@ -260,8 +260,8 @@ const
         historyFieldElement.value = history;
         forecastFieldElement.value = formatDate(fromDate(forecast_date));
         confirmationFieldElement.value = formatDate(fromDate(confirmation_date));
-        expectedValueFieldElement.value = expected_value;
-        confirmedValueFieldElement.value = confirmed_value;
+        expectedValueFieldElement.value = parseFloat(expected_value).toFixed(2);
+        confirmedValueFieldElement.value = parseFloat(confirmed_value).toFixed(2);
         bankFieldElement.value = bank.name;
         categoryFieldElement.value = category.category;
         historyFieldElement.select();
@@ -358,14 +358,27 @@ const
         const bank = bankFilterElement.value;
         document.location.href=`/invoices/${year}${month}?b=${bank}`;
       },
+      
+      handleMask = e => {
+        e.target.value = maskCurrency(e.target.value);
+      },
 
       handlePress = e => {
         onlyCurrencyDigits(e);
+      },
+
+      handleFocus = e => {
+        e.target.value = initCurrency(e.target.value);
       }
     ;
 
+    confirmedValueFieldElement.addEventListener("focus", handleFocus);
     confirmedValueFieldElement.addEventListener("keypress", handlePress);
+    confirmedValueFieldElement.addEventListener("keyup", handleMask);
+    expectedValueFieldElement.addEventListener("focus", handleFocus);
     expectedValueFieldElement.addEventListener("keypress", handlePress);
+    expectedValueFieldElement.addEventListener("keyup", handleMask);
+
     addElement.addEventListener("click", handleAdd);
     tbodyElement.addEventListener("click", handleActive);
     saveElement.addEventListener("click", handleSave);
