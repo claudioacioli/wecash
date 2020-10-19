@@ -12,24 +12,25 @@ const
       monthFilterElement = byId("filter--month"),
       yearFilterElement = byId("filter--year"),
       bankFilterElement = byId("filter--bank"),
-
+      /*
       typeFieldElement = byName("field--type"),
       typeErrorElement = errorElements[0],
+      */
       historyFieldElement = byId("field--history"),
-      historyErrorElement = errorElements[1],
+      historyErrorElement = errorElements[0],
       forecastFieldElement = byId("field--forecast"),
       confirmationFieldElement = byId("field--confirmation"),
-      valueErrorElement = errorElements[2],
+      valueErrorElement = errorElements[1],
       expectedValueFieldElement = byId("field--expected-value"),
       confirmedValueFieldElement = byId("field--confirmed-value"),
-      dateErrorElement = errorElements[3],
+      dateErrorElement = errorElements[2],
       bankFieldElement = byId("field--bank"),
       bankListElement = byId("datalist--bank"),
-      bankErrorElement = errorElements[4],
+      bankErrorElement = errorElements[3],
       cardListElement = byId("datalist--card"),
       categoryFieldElement = byId("field--category"),
       categoryListElement = byId("datalist--category"),
-      categoryErrorElement = errorElements[5],
+      categoryErrorElement = errorElements[4],
       
       addElement = byId("btn--add"),
       saveElement = byId("btn--save"),
@@ -74,7 +75,6 @@ const
         getInvoicesOverview(year, month, bank_id)
           .then(getResult)
           .then(async result => {
-            console.log(result.payload);
             const { despesa, receita, fatura } = result.payload;
             byId("value--d").textContent = toCurrency(despesa);
             byId("value--r").textContent = toCurrency(receita);
@@ -166,10 +166,10 @@ const
       renderResetView = () => {
         rowActive.toggle(null);
         deleteElement.classList.add("hide");
-
+/*
         for(typeOptionElement of typeFieldElement)
           typeOptionElement.checked = false;
-        
+*/        
         idFieldElement.value = "";
         historyFieldElement.value = "";
         forecastFieldElement.value = "";
@@ -273,9 +273,11 @@ const
           category
         } = invoice;
 
+        /*
         console.log(toDate(forecast_date));
         const date_forecast = new Date(forecast_date);
         console.log(date_forecast);
+        
         for(element of typeFieldElement) {
           element.checked = element.value === bank.type;
           if(element.checked) {
@@ -284,7 +286,7 @@ const
             element.dispatchEvent(evt);
           }
             
-        }
+        }*/
 
         idFieldElement.value = id;
         historyFieldElement.value = history;
@@ -355,18 +357,21 @@ const
 
         let send = true;
 
+        /*
         let checked = false;
         console.log(typeFieldElement);
         for(element of typeFieldElement) {
           checked = !checked && element.checked ? true : false;
         }
+        */
 
+        /*
         if(!checked) {
           send = false;
           typeErrorElement.innerHTML = "Por favor, informe um tipo para seu movimento.";
           typeErrorElement.style.display = "block";
         }
-
+        */
 
         if(!historyFieldElement.value.toString().trim().length) {
           send = false;
@@ -462,8 +467,10 @@ const
     monthFilterElement.addEventListener("change", handleFilter);
     bankFilterElement.addEventListener("change", handleFilter);
     
+    /*
     for(typeOptionElement of typeFieldElement)
       typeOptionElement.addEventListener("change", handleChange);
+    */
 
     read(yearFilterElement.value, monthFilterElement.value, bankFilterElement.value);
 
