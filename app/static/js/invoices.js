@@ -165,6 +165,7 @@ const
 
       renderResetView = () => {
         rowActive.toggle(null);
+        deleteElement.classList.add("hide");
 
         for(typeOptionElement of typeFieldElement)
           typeOptionElement.checked = false;
@@ -422,7 +423,6 @@ const
 
       handleReset = e => {
         e.preventDefault();
-        deleteElement.classList.add("hide");
         renderResetView();
       },
 
