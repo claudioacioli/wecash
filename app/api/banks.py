@@ -10,10 +10,7 @@ from ..models.bank import Bank
 @auth_required()
 def read_banks(auth_user):
     user_id = auth_user.get('id')
-    banks = Bank.query.filter_by(
-            user_id=user_id, 
-            type=current_app.config.get('TYPE_DEBIT')
-            ).all()
+    banks = Bank.query_banks(user_id)
     payload = [bank.to_json() for bank in banks]
     return jsonify(result(payload))
 
