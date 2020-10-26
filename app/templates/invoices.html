@@ -135,18 +135,24 @@
             </div>
           </div>
           <span class="textfield__error"></span>
-          <div>
-            <label for="field--bank" class="label mt--0">Conta</label>
-            <input id="field--bank" list="datalist--bank" type="text" autocomplete="off" maxlength="255" placeholder="Ex: Caixa" class="textfield">
-            <span class="textfield__error"></span>
-            <datalist id="datalist--card"></datalist>
-            <datalist id="datalist--bank"></datalist>
-          </div>
-          <div>
-            <label for="field--category" class="label mt--0">Categoria</label>
-            <input id="field--category" list="datalist--category" type="text" autocomplete="off" maxlength="255" placeholder="Ex: Transporte" class="textfield">
-            <span class="textfield__error"></span>
-            <datalist id="datalist--category"></datalist>
+          
+          <div style="display: flex;">
+            
+            <div style="flex:1;margin-right:0.5em;" >
+              <label for="field--bank" class="label mt--0">Conta</label>
+              <input id="field--bank" list="datalist--bank" type="text" autocomplete="off" maxlength="255" placeholder="Ex: Caixa" class="textfield">
+              <span class="textfield__error"></span>
+              <datalist id="datalist--card"></datalist>
+              <datalist id="datalist--bank"></datalist>
+            </div>
+
+            <div class="mt--0" style="flex:1;margin-left:0.5em;">
+              <label for="field--category" class="label mt--0">Categoria</label>
+              <input id="field--category" list="datalist--category" type="text" autocomplete="off" maxlength="255" placeholder="Ex: Transporte" class="textfield">
+              <span class="textfield__error"></span>
+              <datalist id="datalist--category"></datalist>
+            </div>
+
           </div>
         </form>
       </div>
