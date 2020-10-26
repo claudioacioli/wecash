@@ -93,6 +93,13 @@ button:hover {
   text-decoration: none!important;
 }
 
-table.table tr > td {
-  cursor: pointer;
+table.table tr > td,
+input.textfield[list],
+input.textfield[type='date'],
+label[for]{
+  cursor: pointer!important;
+}
+
+.c--hand {
+  cursor: pointer!important;
 }
