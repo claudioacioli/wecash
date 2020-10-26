@@ -92,3 +92,7 @@ button {
 button:hover {
   text-decoration: none!important;
 }
+
+table.table tr > td {
+  cursor: pointer;
+}
