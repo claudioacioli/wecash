@@ -83,3 +83,12 @@ input:focus {
     animation-timing-function: ease-out;
   }
 }
+
+button {
+  text-decoration: underline!important;
+  font-weight: 500!important;
+}
+
+button:hover {
+  text-decoration: none!important;
+}
