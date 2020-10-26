@@ -23,24 +23,24 @@ class Bank(db.Model):
                    b.name,
                    b.type,
                    b.user_id,
-                   (
-                     select sum(i.confirmed_value)
+                   ifnull((
+                     select sum(ifnull(i.confirmed_value,0))
                        from tb_invoices i,
                             tb_categories c
                       where i.category_id = c.category_id
                         and i.bank_id = b.bank_id
                         and i.confirmation_date is not null
                         and c.type = 'R'
-                    ) as value_r,
-                    (
-                     select sum(i.confirmed_value)
+                    ),0) as value_r,
+                    ifnull((
+                     select sum(ifnull(i.confirmed_value,0))
                        from tb_invoices i,
                             tb_categories c
                       where i.category_id = c.category_id
                         and i.bank_id = b.bank_id
                         and i.confirmation_date is not null
                         and c.type = 'D'
-                   ) as value_d
+                   ),0) as value_d
               from tb_banks b
              where user_id = :user_id
                and type = 'D'
