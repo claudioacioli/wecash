@@ -103,3 +103,36 @@ label[for]{
 .c--hand {
   cursor: pointer!important;
 }
+
+.title--small {
+  font-weight: 500!important;
+  color: #b5b5c3;
+  font-size: 1em;
+  line-height: 1.5;
+}
+
+.title--medium {
+  font-weight: 600!important;
+  font-size: 1.25em;
+  color: #3f4254;
+  line-height: 2;
+}
+
+.resume__bar {
+  display: flex;
+  flex-direction: row; 
+}
+
+.resume__cell {
+  margin-top: 0!important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  padding: 1em;
+  justify-content: space-between;
+}
+
+.resume__cell + .resume__cell {
+  border-left: 1px solid #f3f6f9;
+}
