@@ -43,9 +43,11 @@ def read_overview_by_ref(user, year, month):
         if type_of_bank == 'C':
             fatura += invoice.expected_value
 
+    saldo = receita - despesa
+
     return jsonify(result({
         'despesa': despesa,
         'receita': receita,
-        'fatura': fatura
+        'saldo': saldo
         })), 200
 

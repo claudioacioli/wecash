@@ -75,10 +75,10 @@ const
         getInvoicesOverview(year, month, bank_id)
           .then(getResult)
           .then(async result => {
-            const { despesa, receita, fatura } = result.payload;
+            const { despesa, receita, saldo } = result.payload;
             byId("value--d").textContent = toCurrency(despesa);
             byId("value--r").textContent = toCurrency(receita);
-            //byId("value--f").textContent = toCurrency(fatura);
+            byId("value--s").textContent = toCurrency(saldo);
           })
           .catch(function(error) {
             console.error(error);
