@@ -36,7 +36,7 @@
           <option value="2030" {% if ref[0:4] == "2030" %} selected {% endif%}>2030</option>
         </select>
 
-        <select id="filter--bank" class="textfield textfield--inline">
+        <select id="filter--bank" class="hide textfield textfield--inline">
           <option value="0">Todos</option>
           <optgroup label="Contas">
           {% for bank in banks if bank.type == "D" %}
