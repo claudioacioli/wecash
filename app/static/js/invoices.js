@@ -115,7 +115,8 @@ const
           .then(getResult)
           .then(async result => {
             renderResetView();
-            return { ...result, payload: [result.payload]}
+            return read(yearFilterElement.value, monthFilterElement.value);
+            //return { ...result, payload: [result.payload]}
           })
           .then(renderListView)
           .catch(function(error) {
@@ -128,8 +129,10 @@ const
           .then(getResult)
           .then(() => {
             renderResetView();
-            removeItemView(id);
+            //removeItemView(id);
+            return read(yearFilterElement.value, monthFilterElement.value);
           })
+          .then(renderListView)
           .catch(function(error) {
             console.log(error);
           })
