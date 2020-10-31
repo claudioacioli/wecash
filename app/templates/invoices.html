@@ -6,8 +6,10 @@
   <div class="column__main">
     <div class="box">
       <div class="box__body">
+        
         <a id="btn--add" class="button button--primary" href="javascript:void(0);">Adicionar</a>
-        <select id="filter--month"  class="textfield textfield--inline">
+        
+        <select id="filter--month"  class="hide textfield textfield--inline">
           <option value="01" {% if ref[4:] == "01" %} selected {% endif%}>Janeiro</option>
           <option value="02" {% if ref[4:] == "02" %} selected {% endif%}>Fevereiro</option>
           <option value="03" {% if ref[4:] == "03" %} selected {% endif%}>Marco</option>
@@ -49,6 +51,21 @@
           {% endfor %}
           </optgroup>
         </select>
+
+<nav class="tab">
+  <button class="tablinks{% if ref[4:] == "01" %} selected {% endif%}" onclick="openMonth(event, '01')">Jan</button>
+  <button class="tablinks{% if ref[4:] == "02" %} selected {% endif%}" onclick="openMonth(event, '02')">Fev</button>
+  <button class="tablinks{% if ref[4:] == "03" %} selected {% endif%}" onclick="openMonth(event, '03')">Mar</button>
+  <button class="tablinks{% if ref[4:] == "04" %} selected {% endif%}" onclick="openMonth(event, '04')">Abr</button>
+  <button class="tablinks{% if ref[4:] == "05" %} selected {% endif%}" onclick="openMonth(event, '05')">Mai</button>
+  <button class="tablinks{% if ref[4:] == "06" %} selected {% endif%}" onclick="openMonth(event, '06')">Jun</button> 
+  <button class="tablinks{% if ref[4:] == "07" %} selected {% endif%}" onclick="openMonth(event, '07')">Jul</button>
+  <button class="tablinks{% if ref[4:] == "08" %} selected {% endif%}" onclick="openMonth(event, '08')">Ago</button>
+  <button class="tablinks{% if ref[4:] == "09" %} selected {% endif%}" onclick="openMonth(event, '09')">Set</button>
+  <button class="tablinks{% if ref[4:] == "10" %} selected {% endif%}" onclick="openMonth(event, '10')">Out</button>
+  <button class="tablinks{% if ref[4:] == "11" %} selected {% endif%}" onclick="openMonth(event, '11')">Nov</button>
+  <button class="tablinks{% if ref[4:] == "12" %} selected {% endif%}" onclick="openMonth(event, '12')">Dez</button>
+</nav>
 
         <div class="resume__bar">
           

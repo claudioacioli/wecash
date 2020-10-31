@@ -1,5 +1,11 @@
 const
 
+  openMonth = (e, month) => {
+    const year = byId("filter--year").value;
+    const bank = byId("filter--bank").value;
+    document.location.href=`/invoices/${year}${month}?b=${bank}`;
+  },
+
   componentInvoices = () => {
     
     const
