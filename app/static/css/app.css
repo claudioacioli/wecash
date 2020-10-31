@@ -120,7 +120,8 @@ label[for]{
 
 .resume__bar {
   display: flex;
-  flex-direction: row; 
+  flex-direction: row;
+  margin-top: 0; 
 }
 
 .resume__cell {
@@ -135,4 +136,40 @@ label[for]{
 
 .resume__cell + .resume__cell {
   border-left: 1px solid #f3f6f9;
+}
+
+.tab {
+  overflow: hidden;
+  border: 1px solid transparent;
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  margin: .25em 0;
+}
+
+.tab button {
+  margin-top: 0;
+  display: inline-block;
+  background-color: inherit;
+  border: 1px solid white;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 1em;
+  border-radius:50%;
+  height: 60px;
+  width: 60px;
+  text-decoration: none!important;
+}
+
+.tab > button + button {
+  margin-left: .5em;
+}
+
+.tab button:hover {
+  background-color: #ddd;
+}
+
+.tab button.selected {
+  background-color: #f3f6f9;
 }
