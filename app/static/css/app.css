@@ -173,3 +173,8 @@ label[for]{
 .tab button.selected {
   background-color: #f3f6f9;
 }
+
+.form--fixed {
+  position: sticky;
+  top: 8em;
+}
