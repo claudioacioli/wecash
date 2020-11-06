@@ -10,7 +10,11 @@ from ..models.category import Category
 @auth_required()
 def read_categories(auth_user):
     user_id = auth_user.get('id')
-    categories = Category.query.filter_by(user_id=user_id).all()
+    categories = Category \
+        .query \
+        .filter_by(user_id=user_id) \
+        .order_by(Category.type.desc()) \
+        .all()
     payload = [category.to_json() for category in categories]
     return jsonify(result(payload))
 
