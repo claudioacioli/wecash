@@ -75,6 +75,9 @@ class Invoice(db.Model):
                                   when 0 then bank_id
                                   else :bank_id 
                                   end)
+                 order by case when confirmation_date is null then 0 else 1 end,
+                          confirmation_date,
+                          forecast_date
                  """)
         result = db.engine.execute(
                 sql, 
