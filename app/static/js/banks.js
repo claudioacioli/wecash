@@ -25,10 +25,12 @@ const
       },
 
       create = data => {
+        renderLoaderView(saveElement, true);
         postBanks(data)
           .then(getResult)
           .then(async result => {
             renderResetView();
+            renderLoaderView(saveElement, false);
             return { ...result, payload: [result.payload]}
           })
           .then(renderListView)
@@ -38,10 +40,12 @@ const
       },
 
       edit = data => {
+        renderLoaderView(saveElement, true);
         putBanks(data)
           .then(getResult)
           .then(async result => {
             renderResetView();
+            renderLoaderView(saveElement, false);
             return { ...result, payload: [result.payload]}
           })
           .then(renderListView)
@@ -51,10 +55,12 @@ const
       },
 
       remove = id => {
+        renderLoaderView(deleteElement, true);
         deleteBanks(id)
           .then(getResult)
           .then(() => {
             renderResetView();
+            renderLoaderView(deleteElement, false);
             removeItemView(id);
           })
           .catch(function(error) {
@@ -115,6 +121,16 @@ const
         rowActive.toggle(element);
         deleteElement.classList.remove("hide");
         renderEditView(JSON.parse(element.dataset.data));
+      },
+
+      renderLoaderView = (element, loading) => {
+        if(loading) {
+          element.disabled = true;
+          element.style.cursor = "wait";
+        } else {
+          element.disabled = false;
+          element.style.cursor = "pointer";
+        }
       },
 
       renderErrorLabel = () => {

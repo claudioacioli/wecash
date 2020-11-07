@@ -103,12 +103,13 @@ const
       ,
 
       create = data => {
+        renderLoaderView(saveElement, true);
         postInvoices(data)
           .then(getResult)
           .then(async result => {
             renderResetView();
+            renderLoaderView(saveElement, false);
             return read(yearFilterElement.value, monthFilterElement.value);
-            //return { ...result, payload: [result.payload]}
           })
           .then(renderListView)
           .catch(function(error) {
@@ -117,12 +118,13 @@ const
       },
 
       update = data => {
+        renderLoaderView(saveElement, true);
         putInvoices(data)
           .then(getResult)
           .then(async result => {
             renderResetView();
+            renderLoaderView(saveElement, false);
             return read(yearFilterElement.value, monthFilterElement.value);
-            //return { ...result, payload: [result.payload]}
           })
           .then(renderListView)
           .catch(function(error) {
@@ -131,11 +133,12 @@ const
       },
 
       remove = id => {
+        renderLoaderView(deleteElement, true);
         deleteInvoices(id)
           .then(getResult)
           .then(() => {
             renderResetView();
-            //removeItemView(id);
+            renderLoaderView(deleteElement, false);
             return read(yearFilterElement.value, monthFilterElement.value);
           })
           .then(renderListView)
@@ -321,6 +324,16 @@ const
         rowActive.toggle(element);
         deleteElement.classList.remove("hide");
         renderEditView(JSON.parse(element.dataset.data));
+      },
+
+      renderLoaderView = (element, loading) => {
+        if(loading) {
+          element.disabled = true;
+          element.style.cursor = "wait";
+        } else {
+          element.disabled = false;
+          element.style.cursor = "pointer";
+        }
       },
 
       getOptionSelected = (parent, value) => {
