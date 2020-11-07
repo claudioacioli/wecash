@@ -125,11 +125,11 @@ const
 
       renderLoaderView = (element, loading) => {
         if(loading) {
+          element.classList.toggle("submitting");
           element.disabled = true;
-          element.style.cursor = "wait";
         } else {
+          element.classList.toggle("submitting");
           element.disabled = false;
-          element.style.cursor = "pointer";
         }
       },
 
