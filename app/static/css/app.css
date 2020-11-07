@@ -87,10 +87,54 @@ input:focus {
 button {
   text-decoration: underline!important;
   font-weight: 500!important;
+  outline: none;
 }
 
-button:hover {
+button:hover,
+button:hover span
+{
   text-decoration: none!important;
+}
+
+button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: .5s;
+  text-decoration: underline !important;
+}
+
+button span:after {
+  content: '';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: -20px;
+  transition: 1s;
+  width:1em;
+  height:1em;
+  border:2px solid transparent;
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+}
+
+.submitting, .submitting > span {
+	cursor: wait!important;
+}
+
+.submitting span{
+  padding-left: 25px;
+}
+
+.submitting span:after{
+  opacity: 1;
+  left: 0;
+  border-top-color:black;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 table.table tr > td,
