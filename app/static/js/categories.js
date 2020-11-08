@@ -142,6 +142,7 @@ const
       },
 
       renderSelectView = element => {
+        renderResetErrorLabel();
         rowActive.toggle(element);
         deleteElement.classList.remove("hide");
         renderEditView(JSON.parse(element.dataset.data));
