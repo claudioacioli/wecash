@@ -151,13 +151,14 @@ label[for]{
 .title--small {
   font-weight: 500!important;
   color: #b5b5c3;
+  color: #444;
   font-size: 1em;
   line-height: 1.5;
 }
 
 .title--medium {
   font-weight: 600!important;
-  font-size: 1.25em;
+  font-size: 1.35em;
   color: #3f4254;
   line-height: 2;
 }

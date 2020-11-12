@@ -85,9 +85,6 @@ const
             byId("value--d").textContent = toCurrency(despesa);
             byId("value--r").textContent = toCurrency(receita);
             byId("value--s").textContent = toCurrency(saldo);
-            byId("value--s").classList.toggle("text--danger", saldo < 0);
-            byId("value--s").classList.toggle("text--primary", saldo > 0);
-
           })
           .catch(function(error) {
             console.error(error);
