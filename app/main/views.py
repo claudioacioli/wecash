@@ -58,8 +58,7 @@ def invoices():
 @app_main.route("/invoices/<string:ref>")
 @login_required
 def invoices_by_ref(ref):
-    banks = Bank.query.filter_by(user_id=current_user.id).all()
-    minified_html = minify(render_template("invoices.html", ref=ref, banks=banks, current_bank_id=request.args.get("b", 0, type=int)))
+    minified_html = minify(render_template("invoices.html", ref=ref, current_bank_id=request.args.get("b", 0, type=int)))
     return minified_html
 
 
