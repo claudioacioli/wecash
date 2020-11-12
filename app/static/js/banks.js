@@ -89,7 +89,7 @@ const
         const elements = byAll("td", element);
         elements[0].textContent = name;
         elements[1].textContent = toCurrencyBRL(value);
-        elements[1].classList.toggle("text--primary", value > 0);
+        elements[1].classList.toggle("text--success", value > 0);
         elements[1].classList.toggle("text--danger", value < 0);
         return element;
       },
