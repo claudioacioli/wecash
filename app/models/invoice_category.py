@@ -23,6 +23,7 @@ class InvoiceCategory(Invoice):
                        tb_categories c
                  where i.category_id = c.category_id
                    and i.user_id = :user_id
+                   and c.remove_me = 0
                    and ((strftime('%Y-%m-%d', i.forecast_date/1000, 'unixepoch')
                between :start
                    and :end)
