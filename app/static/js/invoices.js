@@ -2,7 +2,8 @@ const
 
   openMonth = (e, month) => {
     const year = byId("filter--year").value;
-    document.location.href=`/invoices/${year}${month}`;
+    const viewer = byId("viewer").value;
+    document.location.href=`/invoices/${year}${month}?v=${viewer}`;
   },
 
   componentInvoices = () => {
