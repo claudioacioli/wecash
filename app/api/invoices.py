@@ -6,6 +6,7 @@ from .errors import page_not_found
 from .decorators import auth_required
 from .. import db
 from ..models.invoice import Invoice
+from ..models.invoice_category import InvoiceCategory
 
 
 @app_api.route('/invoices/', methods=['GET'])
@@ -36,19 +37,29 @@ def read_invoices_by_ref(user, year, month):
     
     user_id = user.get("id")
     bank_id = request.args.get("b", 0, type=int)
+    view_type = request.args.get("v", "D", type=str)
 
+    payload = []
+    
     week_first_day, last_day = monthrange(int(year),int(month))
     start = '-'.join((year, month, '01'))
     end = '-'.join((year, month, str(last_day).zfill(2)))
-
-    invoices = Invoice.query_between_dates(user_id, start, end, bank_id)
     
-    #Show pendencies from another month
-    today = datetime.today()
-    if str(today.year) + str(today.month).zfill(2) == year + month: 
-        invoices += Invoice.query_pendencies(user_id)
+    if view_type == "D":
 
-    payload = [invoice.to_json() for invoice in invoices]
+        invoices = Invoice.query_between_dates(user_id, start, end, bank_id)
+    
+        #Show pendencies from another month
+        today = datetime.today()
+        if str(today.year) + str(today.month).zfill(2) == year + month: 
+            invoices += Invoice.query_pendencies(user_id)
+
+        payload = [invoice.to_json() for invoice in invoices]
+    
+    elif view_type == "C":
+        invoices = InvoiceCategory.query_categories_between_dates(user_id, start, end, bank_id) 
+        payload = [invoice.to_json() for invoice in invoices]
+
     return jsonify(result(payload)), 200
 
 
