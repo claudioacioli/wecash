@@ -238,10 +238,20 @@ const
         if(confirmation_date && confirmation_date > 0)
           element.classList.add("is-confirmed");
 
+        const today = new Date();
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() -1);
+
+        if(!confirmation_date || confirmation_date < 0)
+          if(forecast_date < yesterday)
+            element.classList.add("is-pendent");
+          else if(forecast_date < today)
+            element.classList.add("is-today");
+/*
         if(forecast_date < (new Date()).getTime() 
           && (!confirmation_date || confirmation_date < 0))
           element.classList.add("is-pendent");
-
+*/
         element.id = id;
         element.dataset.data = JSON.stringify(data);
 

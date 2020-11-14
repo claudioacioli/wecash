@@ -40,6 +40,15 @@ tr.is-pendent > td {
   color: #fd397d;
 }
 
+tr.is-today > td {
+  background-color: #FFF4DE;
+  color: #FFA800;
+}
+
+tr.is-active > td {
+  background-color: black !important;
+}
+
 .bg {
 }
 
