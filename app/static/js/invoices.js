@@ -409,11 +409,14 @@ const
         switch(element.nodeName) {
           case "TD":
             e.preventDefault();
-            renderSelectView(element.parentNode);
+            if(viewerFilterElement.value !== "C")
+              renderSelectView(element.parentNode);
             return;
+          /*
           case "INPUT":
             savePayment(element);
             return;
+          */
         }
       },
 
