@@ -33,7 +33,7 @@ def signin():
         login_user(user, False)
         next = request.args.get("next", url_for("main.invoices"))
         response = make_response(redirect(next))
-        response.set_cookie(OD_COOKIE_EMAIL, email)
+        response.set_cookie(OD_COOKIE_EMAIL, email, max_age=366*24*60*60)
         response.set_cookie('token', user.encode_auth_token().decode(), max_age=1*24*60*60)
         return response
 
@@ -58,7 +58,14 @@ def invoices():
 @app_main.route("/invoices/<string:ref>")
 @login_required
 def invoices_by_ref(ref):
-    minified_html = minify(render_template("invoices.html", ref=ref, current_bank_id=request.args.get("b", 0, type=int)))
+    minified_html = minify(
+            render_template(
+                "invoices.html", 
+                ref=ref,  
+                current_bank_id=request.args.get("b", 0, type=int),
+                viewer=request.args.get("v", "D", type=str)
+                )
+            )
     return minified_html
 
 
