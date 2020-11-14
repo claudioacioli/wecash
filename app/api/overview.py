@@ -33,6 +33,10 @@ def read_overview_by_ref(user, year, month):
         json_invoices = invoice.to_json()
         type_of_bank = json_invoices.get('bank').get('type')
         type_of_category = json_invoices.get('category').get('type')
+        remove_me = json_invoices.get('category').get('remove_me')
+
+        if remove_me == 1:
+            continue
 
         if type_of_bank == 'D' and type_of_category == 'D':
             despesa += invoice.expected_value
