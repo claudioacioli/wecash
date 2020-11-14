@@ -9,6 +9,7 @@ const
     
     const
       template = byId("template-row-invoice"),
+      invoiceCategoryTemplate = byId("template-row-invoice-category"),
       tableElement = bySelector("table"),
       tbodyElement = bySelector("tbody", tableElement),      
       idFieldElement = byId("field--id"),
@@ -17,6 +18,7 @@ const
       monthFilterElement = byId("filter--month"),
       yearFilterElement = byId("filter--year"),
       bankFilterElement = byId("filter--bank"),
+      viewerFilterElement = byId("viewer"),
       /*
       typeFieldElement = byName("field--type"),
       typeErrorElement = errorElements[0],
@@ -43,18 +45,34 @@ const
       resetElement = byId("btn--reset"),
       rowActive = new ActiveElement("is-active"),
 
-      read = (year, month) =>  {
+      read = (year, month, viewer) =>  {
 
-        getInvoicesByYearMonth(year, month, 0)
-          .then(getResult)
-          .then(async result => {
-            tbodyElement.innerHTML = "";
-            return result;
-          })
-          .then(renderListView)
-          .catch(function(error) {
-            console.error(error);
-          });
+        console.log("viewer", {viewer});
+
+        if(["","D"].indexOf(viewer) !== -1)
+          getInvoicesByYearMonth(year, month, 0)
+            .then(getResult)
+            .then(async result => {
+              tbodyElement.innerHTML = "";
+              return result;
+            })
+            .then(renderListView)
+            .catch(function(error) {
+              console.error(error);
+            });
+        
+        if(viewer === "C")
+          getCategoryInvoiceByYearMonth(year, month, 0)
+            .then(getResult)
+            .then(async result => {
+              tbodyElement.innerHTML = "";
+              return result;
+            })
+            .then(renderInvoiceCategoryListView)
+            .catch(error => {
+              console.error(error);
+            });
+        
 
         getCategories()
           .then(getResult)
@@ -105,9 +123,9 @@ const
           .then(async result => {
             renderResetView();
             renderLoaderView(saveElement, false);
-            return read(yearFilterElement.value, monthFilterElement.value);
+            read(yearFilterElement.value, monthFilterElement.value, viewerFilterElement.value);
           })
-          .then(renderListView)
+          //.then(renderListView)
           .catch(function(error) {
             console.log(error);
           });
@@ -120,9 +138,9 @@ const
           .then(async result => {
             renderResetView();
             renderLoaderView(saveElement, false);
-            return read(yearFilterElement.value, monthFilterElement.value);
+            //read(yearFilterElement.value, monthFilterElement.value, viewerFilterElement.value);
           })
-          .then(renderListView)
+          //.then(renderListView)
           .catch(function(error) {
             console.log(error);
           });
@@ -135,9 +153,9 @@ const
           .then(() => {
             renderResetView();
             renderLoaderView(deleteElement, false);
-            return read(yearFilterElement.value, monthFilterElement.value);
+            read(yearFilterElement.value, monthFilterElement.value, viewerFilterElement.value);
           })
-          .then(renderListView)
+          //.then(renderListView)
           .catch(function(error) {
             console.log(error);
           })
@@ -151,8 +169,8 @@ const
         update(data);
       },
 
-      getItemView = id => {
-        return byId(id) || bySelector("tr", template.content.cloneNode(true));
+      getItemView = (id, t = template) => {
+        return byId(id) || bySelector("tr", t.content.cloneNode(true));
       },
 
       bindItemView = ({history, forecast_date, confirmation_date, expected_value, confirmation_value, bank, category}, element) => {
@@ -221,6 +239,22 @@ const
         return bindItemView(data, element);
       },
 
+      renderItemICView = data => {
+
+        const { confirmed_value, expected_value} = data;
+        const { id, category, go, type } = data.category;
+        const element = getItemView(id, invoiceCategoryTemplate);
+        const elements = byAll("td", element);
+
+        elements.item(0).textContent = category;
+        elements.item(1).textContent = toCurrency(go);
+        elements.item(2).textContent = toCurrency(expected_value);
+        elements.item(3).textContent = toCurrency(!confirmed_value ? 0 : confirmed_value);
+        
+        return element;
+        
+      },
+
       renderListView = result => {
         const fragment = document.createDocumentFragment();
         const data = result.payload;
@@ -248,6 +282,15 @@ const
           fragment.appendChild(renderOptionView(item, prop));
         
         element.appendChild(fragment);
+      },
+
+      renderInvoiceCategoryListView = result => {
+        const fragment = document.createDocumentFragment();
+        const data = result.payload;
+        for(item of data) 
+          fragment.appendChild(renderItemICView(item));
+
+        tbodyElement.appendChild(fragment);
       },
 
       renderCategoryListView = result => {
@@ -456,7 +499,8 @@ const
       handleFilter = e => {
         const year = yearFilterElement.value;
         const month = monthFilterElement.value;
-        document.location.href=`/invoices/${year}${month}`;
+        const viewer = viewerFilterElement.value;
+        document.location.href=`/invoices/${year}${month}?v=${viewer}`;
       },
       
       handleMask = e => {
@@ -485,14 +529,14 @@ const
     deleteElement.addEventListener("click", handleDelete);
     resetElement.addEventListener("click", handleReset);
     yearFilterElement.addEventListener("change", handleFilter);
-    monthFilterElement.addEventListener("change", handleFilter);
-    
+    //monthFilterElement.addEventListener("change", handleFilter);
+    viewerFilterElement.addEventListener("change", handleFilter);
     /*
     for(typeOptionElement of typeFieldElement)
       typeOptionElement.addEventListener("change", handleChange);
     */
 
-    read(yearFilterElement.value, monthFilterElement.value);
+    read(yearFilterElement.value, monthFilterElement.value, viewerFilterElement.value);
 
   }
 
