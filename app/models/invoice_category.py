@@ -37,7 +37,9 @@ class InvoiceCategory(Invoice):
                  group by
                     c.category_id
                  order by 
-                    max(c.type) desc
+                    max(c.type) desc,
+                    confirmed_value desc,
+                    expected_value desc
                  """)
         result = db.engine.execute(
                 sql, 
