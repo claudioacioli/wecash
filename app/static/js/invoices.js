@@ -139,7 +139,7 @@ const
           .then(async result => {
             renderResetView();
             renderLoaderView(saveElement, false);
-            //read(yearFilterElement.value, monthFilterElement.value, viewerFilterElement.value);
+            read(yearFilterElement.value, monthFilterElement.value, viewerFilterElement.value);
           })
           //.then(renderListView)
           .catch(function(error) {
