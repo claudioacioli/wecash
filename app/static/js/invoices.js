@@ -192,6 +192,14 @@ const
         return element;
       },
 
+      setBookmark = (element, type) => {
+        console.log("AQUI", type);
+        if(type === "D")
+          element.classList.add("bookmark","bookmark--danger");
+        else
+          element.classList.add("bookmark", "bookmark--success");
+      },
+
       renderResetView = () => {
         rowActive.toggle(null);
         deleteElement.classList.add("hide");
@@ -251,6 +259,10 @@ const
         elements.item(2).textContent = toCurrency(expected_value);
         elements.item(3).textContent = toCurrency(!confirmed_value ? 0 : confirmed_value);
         
+        element.id = id;
+        element.dataset.data = JSON.stringify(data);
+        setBookmark(element, type);
+
         return element;
         
       },
