@@ -32,6 +32,7 @@ tr.is-confirmed > td {
 
 tr.is-confirmed:hover > td {
   text-decoration: inherit;
+  color: inherit !important;
 }
 
 tr.is-pendent > td {
