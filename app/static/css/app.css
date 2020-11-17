@@ -32,7 +32,6 @@ tr.is-confirmed > td {
 
 tr.is-confirmed:hover > td {
   text-decoration: inherit;
-  color: initial !important;
 }
 
 tr.is-pendent > td {
@@ -47,6 +46,7 @@ tr.is-today > td {
 
 tr.is-active > td {
   background-color: black !important;
+  color: inherit !important;
 }
 
 .bg {
