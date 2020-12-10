@@ -379,7 +379,12 @@ const
         ;
         bankFieldElement.value = bank.name;
         categoryFieldElement.value = category.category;
-        historyFieldElement.select();
+
+        if(!confirmationFieldElement.value.length)
+          confirmationFieldElement.focus();
+        else
+          historyFieldElement.select();
+
       },
      
       renderSelectView = element => {
@@ -548,6 +553,10 @@ const
     expectedValueFieldElement.addEventListener("focus", handleFocus);
     expectedValueFieldElement.addEventListener("keypress", handlePress);
     expectedValueFieldElement.addEventListener("keyup", handleMask);
+    expectedValueFieldElement.addEventListener("change", e => {
+      if(!confirmedValueFieldElement.value.length) 
+        confirmedValueFieldElement.value =  expectedValueFieldElement.value;
+    });
 
     addElement.addEventListener("click", handleAdd);
     tbodyElement.addEventListener("click", handleActive);
