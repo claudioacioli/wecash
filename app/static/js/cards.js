@@ -69,10 +69,10 @@ const
 
       bindItemView = ({ name, day, limit_value, goal}, element) => {
         const elements = byAll("td", element);
-        elements[1].textContent = name;
-        elements[2].textContent = day;
-        elements[3].textContent = limit_value;
-        elements[4].textContent = goal;
+        elements.item(0).textContent = name;
+        elements.item(1).textContent = day;
+        elements.item(2).textContent = limit_value;
+        elements.item(3).textContent = goal;
         return element;
       },
 
