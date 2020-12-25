@@ -59,6 +59,7 @@
         <div class="mt--0 appbar__collapse">
           <!--<input type="text" class="mt--0 textfield textfield--inline" placeholder="Filtrar...">-->
           <nav class="appbar__menu">
+            <a {% if request.path.startswith(url_for('main.bill')) %}class="is-active"{% endif %} href="{{url_for('main.bill')}}">Faturas</a>
             <a {% if request.path.startswith(url_for('main.invoices')) %}class="is-active"{% endif %} href="{{url_for('main.invoices')}}">Lan&#231;amentos</a>
             <a {% if request.path == url_for('main.categories') %}class="is-active"{% endif %} href="{{ url_for('main.categories') }}">Categorias</a>
             <a {% if request.path == url_for('main.cards') %}class="is-active"{% endif %} href="{{ url_for('main.cards') }}">Cartoes</a>
