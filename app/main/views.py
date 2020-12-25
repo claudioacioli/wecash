@@ -69,6 +69,29 @@ def invoices_by_ref(ref):
     return minified_html
 
 
+@app_main.route("/bill")
+@login_required
+def bill():
+    today = date.today()
+    ref = str(today.year) + str(today.month).zfill(2)
+    return redirect(url_for("main.bill_by_ref", ref=ref))
+    #return render_template("invoices.html")
+
+
+@app_main.route("/bill/<string:ref>")
+@login_required
+def bill_by_ref(ref):
+    minified_html = minify(
+            render_template(
+                "bill.html", 
+                ref=ref,  
+                current_bank_id=request.args.get("b", 0, type=int),
+                viewer=request.args.get("v", "D", type=str)
+                )
+            )
+    return minified_html
+
+
 @app_main.route("/categories")
 @login_required
 def categories():
