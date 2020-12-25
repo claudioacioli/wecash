@@ -5,5 +5,6 @@ const
   WECASH_ROUTE_BANKS = "banks",
   WECASH_ROUTE_CARDS = "cards",
   WECASH_ROUTE_RESUME = "resume",
-  WECASH_ROUTE_REGISTER = "register"
+  WECASH_ROUTE_REGISTER = "register",
+  WECASH_ROUTE_BILL = "bill"
 ;
