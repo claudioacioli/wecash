@@ -40,7 +40,7 @@
           </optgroup>
         </select>
 
-        <select id="viewer" class="ml--auto textfield textfield--inline">
+        <select id="viewer" class="ml--auto textfield textfield--inline" style="display:none;">
           <optgroup label="Visualizar por">
             <option value="D" {% if viewer in ["","D"]  %} selected {% endif%}>Padr&#227;o</option>
             <option value="C" {% if viewer == "C" %} selected {% endif%}>Por categorias</option>
@@ -99,11 +99,10 @@
           <div class="mt--0" style="display: flex;">
 
             <div style="flex:1;margin-right:0.5em;" >
-              <label for="field--bank" class="label mt--0">Cartao:</label>
-              <input id="field--bank" list="datalist--bank" type="text" autocomplete="off" maxlength="255" placeholder="Ex: Caixa" class="textfield">
+              <label for="field--card" class="label mt--0">Cartao:</label>
+              <input id="field--card" list="datalist--card" type="text" autocomplete="off" maxlength="255" placeholder="Ex: Cart&#227;o preto" class="textfield">
               <span class="textfield__error"></span>
               <datalist id="datalist--card"></datalist>
-              <datalist id="datalist--bank"></datalist>
             </div>
             <div class="mt--0" style="flex:1;margin-left:0.5em;">
               <label for="field--category" class="label mt--0">Categoria:</label>
@@ -116,13 +115,13 @@
           <div style="display:flex;">
 
             <div style="flex:1;margin-right:0.5em;">
-              <label for="field--confirmed-value" class="label mt--0">Valor:</label>
-              <input id="field--confirmed-value" type="text" maxlength="10" placeholder="Ex: 350,00" class="textfield">
+              <label for="field--value" class="label mt--0">Valor:</label>
+              <input id="field--value" type="text" maxlength="10" placeholder="Ex: 350,00" class="textfield">
               <span class="textfield__error"></span>
             </div>
             <div class="mt--0" style="flex:1;margin-left:0.5em;">
-              <label for="field--confirmation" class="label mt--0">Data:</label>
-              <input id="field--confirmation" type="date" maxlength="10" placeholder="Ex: 01/01/2020" class="textfield">
+              <label for="field--date" class="label mt--0">Data:</label>
+              <input id="field--date" type="date" maxlength="10" placeholder="Ex: 01/01/2020" class="textfield">
               <span class="textfield__error"></span>
             </div>
 
