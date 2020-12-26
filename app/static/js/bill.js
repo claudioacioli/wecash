@@ -47,6 +47,7 @@ const
         try {
           const result = await getBills(year, month);
           console.log(result);
+          tbodyElement.innerHTML = "";
           renderListView(result);
         } catch (err) {
           console.error(err);
@@ -80,6 +81,20 @@ const
           alert(err.message);
         }
         renderLoaderView(saveElement, false);
+      },
+
+      remove = async id => {
+        renderLoaderView(deleteElement, true);
+        try {
+          const result = await deleteInvoices(id);
+          await getResult(result);
+          renderResetView();
+          read(yearFilterElement.value, monthFilterElement.value);
+        } catch (err) {
+          console.error(err);
+          alert(err);
+        }
+        renderLoaderView(deleteElement, false);
       },
 
       toCurrency = value => 
@@ -241,6 +256,16 @@ const
         }
       },
 
+      handleDelete = e => {
+        e.preventDefault();
+        console.log("chegou aqui");
+        const id = idFieldElement.value.toString().trim();
+        if(id.length 
+          && id !== "0"
+          && confirm("Tem ceteza que deseja excluir esse lancamento?"))
+          remove(id);
+      },
+
       handleSave = e => {
         renderResetErrorView();
         
@@ -303,6 +328,7 @@ const
     ;
 
     tbodyElement.addEventListener("click", handleActive);
+    deleteElement.addEventListener("click", handleDelete);
     saveElement.addEventListener("click", handleSave);
 
     read(yearFilterElement.value, monthFilterElement.value);
