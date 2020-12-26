@@ -14,6 +14,7 @@ const
       goalFieldElement = byId("field--goal"),
       saveButtonElement = byId("btn--save"),
       addButtonElement = byId("btn--add"),
+      resetElement = byId("btn--reset"),
       deleteButtonElement = byId("btn--delete"),
       rowActive = new ActiveElement("is-active")
 
@@ -145,6 +146,11 @@ const
         }
       },
 
+      handleReset = e => {
+        e.preventDefault();
+        renderResetView();
+      },
+
       handleSave = () => {
         const data = {
           "id": idFieldElement.value.toString().trim(),
@@ -166,6 +172,7 @@ const
     tbodyElement.addEventListener("click", handleActive);
     saveButtonElement.addEventListener("click", handleSave);
     deleteButtonElement.addEventListener("click", handleDelete);
+    resetElement.addEventListener("click", handleReset);
 
     read();
 
