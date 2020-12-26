@@ -9,6 +9,7 @@ const
       idFieldElement = byId("field--id"),
       nameFieldElement = byId("field--name"),
       dayFieldElement = byId("field--day"),
+      limitDayFieldElement = byId("field--pay"),
       limitFieldElement = byId("field--limit"),
       goalFieldElement = byId("field--goal"),
       saveButtonElement = byId("btn--save"),
@@ -67,7 +68,7 @@ const
         return byId(id) || bySelector("tr", template.content.cloneNode(true));
       },
 
-      bindItemView = ({ name, day, limit_value, goal}, element) => {
+      bindItemView = ({ name, day, limit_value, limit_day, goal}, element) => {
         const elements = byAll("td", element);
         elements.item(0).textContent = name;
         elements.item(1).textContent = day;
@@ -103,16 +104,18 @@ const
         idFieldElement.value = "";
         nameFieldElement.value = "";
         limitFieldElement.value = "";
+        limitDayFieldElement.value = "";
         dayFieldElement.value = "";
         goalFieldElement.value = "";
         rowActive.toggle(null);
       },
 
       renderEditView = data => {
-        const { id, name, limit_value, goal, day } = data;
+        const { id, name, limit_value, goal, day, limit_day } = data;
         idFieldElement.value = id;
         nameFieldElement.value = name;
         limitFieldElement.value = limit_value;
+        limitDayFieldElement.value = limit_day;
         dayFieldElement.value = day;
         goalFieldElement.value = goal;
       },
@@ -147,6 +150,7 @@ const
           "id": idFieldElement.value.toString().trim(),
           "card": nameFieldElement.value,
           "limit_value": limitFieldElement.value,
+          "limit_day": limitDayFieldElement.value,
           "goal": goalFieldElement.value,
           "day": dayFieldElement.value
         };
