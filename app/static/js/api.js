@@ -29,7 +29,11 @@ const
   getResumeCategoryByYearMonth = async (year, month) => 
     await getData(`${WECASH_API}/resume/category/${year}/${month}`, token)
   ,
-  
+
+  getBills = async (year, month) =>
+    await getData(`${WECASH_API}/bills/${year}/${month}`, token)
+  ,
+
   getInvoices = async () => 
     await getData(`${WECASH_API}/invoices`, token)
   ,
