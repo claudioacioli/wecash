@@ -61,8 +61,8 @@ const
     await deleteData(`${WECASH_API}/invoices/${id}`, token)
   ,
 
-  getCategories = async () =>
-    await getData(`${WECASH_API}/categories/`, token)
+  getCategories = async (type="") =>
+    await getData(`${WECASH_API}/categories/?t=${type}`, token)
   ,
 
   postCategories = async data => 

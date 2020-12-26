@@ -38,7 +38,7 @@ const
         }
 
         try {
-          const categories = await getCategories();
+          const categories = await getCategories("D");
           renderCategoryListView(categories);
         }catch (err) {
           console.error(err);
