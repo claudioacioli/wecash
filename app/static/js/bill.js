@@ -8,6 +8,7 @@ const
       tbodyElement = bySelector("tbody", tableElement),      
       monthFilterElement = byId("filter--month"),
       yearFilterElement = byId("filter--year"),
+      idFieldElement = byId("field--id"),
       errorElements = byAll("span.textfield__error"),
       cardFieldElement = byId("field--card"),
       cardListElement = byId("datalist--card");
@@ -22,6 +23,9 @@ const
       dateFieldElement = byId("field--date"),
       dateErrorElement = errorElements.item(3)
       saveElement = byId("btn--save"),
+      deleteElement = byId("btn--delete"),
+
+      rowActive = new ActiveElement("is-active"),
 
       read = async (year, month) => {
 
@@ -48,6 +52,21 @@ const
           alert(err.message);
         }
       },
+      
+      create = async data => {
+        renderLoaderView(saveElement, true);
+        try {
+          const result = await postInvoices(data);
+          await getResult(result);
+          renderResetView();
+          renderLoaderView(saveElement, false);
+          read(yearFilterElement.value, monthFilterElement.value);
+        } catch (err) {
+          console.error(err);
+          alert(err.message);
+        }
+
+      },
 
       toCurrency = value => 
         value.toLocaleString('pt-BR', {
@@ -56,6 +75,29 @@ const
         })
       ,
       
+      renderLoaderView = (element, loading) => {
+        if(loading) {
+          element.classList.toggle("submitting");
+          element.disabled = true;
+        } else {
+          element.classList.toggle("submitting");
+          element.disabled = false;
+        }
+      },
+     
+      renderResetView = () => {
+        rowActive.toggle(null);
+        deleteElement.classList.add("hide");
+        
+        idFieldElement.value = "";
+        historyFieldElement.value = "";
+        dateFieldElement.value = "";
+        valueFieldElement.value = "";
+        cardFieldElement.value = "";
+        categoryFieldElement.value = "";
+        renderResetErrorView();
+      },
+
       getOptionSelected = (parent, value) => {
         const element = bySelector(`option[value="${value}"]`, parent);
         if(!element)
@@ -184,6 +226,22 @@ const
         if(!send) {
           return;
         }
+
+        const data = {
+          "id": idFieldElement.value,
+          "history": historyFieldElement.value,
+          "forecast_date": toTime(dateFieldElement.value),
+          "confirmation_date": toTime(dateFieldElement.value),
+          "expected_value": valueFieldElement.value,
+          "confirmed_value": valueFieldElement.value,
+          "bank_id": cardId,
+          "category_id": categoryId
+        };
+        console.log(data);
+
+        if(data.id === "0" || data.id === "") 
+          create(data);
+
       }
     ;
 
