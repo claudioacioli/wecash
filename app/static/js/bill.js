@@ -23,6 +23,7 @@ const
       dateFieldElement = byId("field--date"),
       dateErrorElement = errorElements.item(3)
       saveElement = byId("btn--save"),
+      resetElement = byId("btn--reset"),
       deleteElement = byId("btn--delete"),
 
       rowActive = new ActiveElement("is-active"),
@@ -265,6 +266,11 @@ const
           && confirm("Tem ceteza que deseja excluir esse lancamento?"))
           remove(id);
       },
+     
+      handleReset = e => {
+        e.preventDefault();
+        renderResetView();
+      },
 
       handleSave = e => {
         renderResetErrorView();
@@ -329,6 +335,7 @@ const
 
     tbodyElement.addEventListener("click", handleActive);
     deleteElement.addEventListener("click", handleDelete);
+    resetElement.addEventListener("click", handleReset);
     saveElement.addEventListener("click", handleSave);
 
     read(yearFilterElement.value, monthFilterElement.value);
