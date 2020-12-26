@@ -68,6 +68,20 @@ const
         renderLoaderView(saveElement, false);
       },
 
+      update = async data => {
+        renderLoaderView(saveElement, true);
+        try {
+          const result = await putInvoices(data);
+          await getResult(result);
+          renderResetView();
+          read(yearFilterElement.value, monthFilterElement.value);
+        } catch (err) { 
+          console.error(err);
+          alert(err.message);
+        }
+        renderLoaderView(saveElement, false);
+      },
+
       toCurrency = value => 
         value.toLocaleString('pt-BR', {
           style: 'currency',
@@ -145,6 +159,36 @@ const
         tbodyElement.appendChild(fragment);
       },
       
+      renderEditView = data => {
+        
+        const { 
+          id,
+          history,
+          forecast_date,
+          confirmation_date,
+          expected_value,
+          confirmed_value,
+          bank,
+          category
+        } = data;
+
+        idFieldElement.value = id;
+        historyFieldElement.value = history;
+        valueFieldElement.value = parseFloat(confirmed_value).toFixed(2);
+        dateFieldElement.value = formatDate(fromDate(confirmation_date)) ;
+        cardFieldElement.value = bank.name;
+        categoryFieldElement.value = category.category;
+        valueFieldElement.select();
+
+      },
+
+      renderSelectView = element => {
+        renderResetErrorView();
+        rowActive.toggle(element);
+        deleteElement.classList.remove("hide");
+        renderEditView(JSON.parse(element.dataset.data));
+      },
+
       renderOptionView = (item, prop) => {
         const element = document.createElement("option");
         element.value = item[prop];
@@ -186,6 +230,17 @@ const
         }
       },
       
+      handleActive = e => {
+        const element = e.target;
+
+        switch(element.nodeName) {
+          case "TD":
+            e.preventDefault();
+            renderSelectView(element.parentNode);
+            return;
+        }
+      },
+
       handleSave = e => {
         renderResetErrorView();
         
@@ -237,14 +292,17 @@ const
           "bank_id": cardId,
           "category_id": categoryId
         };
+        
         console.log(data);
 
         if(data.id === "0" || data.id === "") 
           create(data);
-
+        else
+          update(data);
       }
     ;
 
+    tbodyElement.addEventListener("click", handleActive);
     saveElement.addEventListener("click", handleSave);
 
     read(yearFilterElement.value, monthFilterElement.value);
