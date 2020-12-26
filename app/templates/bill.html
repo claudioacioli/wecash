@@ -96,7 +96,28 @@
         <form>
           <input type="hidden" id="field--id">
 
-          <div class="mt--0" style="display: flex;">
+          <div class="mt--0">
+            <label for="field--history" class="label mt--0">Detalhes:</label>
+            <input id="field--history"  type="text" maxlength="255" placeholder="Ex: Racao para o toto" class="textfield">
+            <span class="textfield__error"></span>
+          </div> 
+
+          <div style="display:flex;">
+
+            <div style="flex:1;margin-right:0.5em;">
+              <label for="field--value" class="label mt--0">Valor:</label>
+              <input id="field--value" type="text" maxlength="10" placeholder="Ex: 350,00" class="textfield">
+              <span class="textfield__error"></span>
+            </div>
+            <div class="mt--0" style="flex:1;margin-left:0.5em;">
+              <label for="field--date" class="label mt--0">Data:</label>
+              <input id="field--date" type="date" maxlength="10" placeholder="Ex: 01/01/2020" class="textfield">
+              <span class="textfield__error"></span>
+            </div>
+
+          </div>
+
+          <div  style="display: flex;">
 
             <div style="flex:1;margin-right:0.5em;" >
               <label for="field--card" class="label mt--0">Cartao:</label>
@@ -112,25 +133,6 @@
             </div>
 
           </div>
-          <div style="display:flex;">
-
-            <div style="flex:1;margin-right:0.5em;">
-              <label for="field--value" class="label mt--0">Valor:</label>
-              <input id="field--value" type="text" maxlength="10" placeholder="Ex: 350,00" class="textfield">
-              <span class="textfield__error"></span>
-            </div>
-            <div class="mt--0" style="flex:1;margin-left:0.5em;">
-              <label for="field--date" class="label mt--0">Data:</label>
-              <input id="field--date" type="date" maxlength="10" placeholder="Ex: 01/01/2020" class="textfield">
-              <span class="textfield__error"></span>
-            </div>
-
-          </div>
-          <div>
-            <label for="field--history" class="label mt--0">Detalhes:</label>
-            <input id="field--history"  type="text" maxlength="255" placeholder="Ex: Apartamento" class="textfield">
-            <span class="textfield__error"></span>
-          </div> 
         </form>
       </div>
       <div class="box__footer">
