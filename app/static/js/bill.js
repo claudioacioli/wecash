@@ -25,12 +25,28 @@ const
 
       read = async (year, month) => {
 
-        const cards = await getCards();
-        renderCardListView(cards);
+        try {
+          const cards = await getCards();
+          renderCardListView(cards);
+        } catch (err) {
+          alert(err.message);
+        }
 
-        const result = await getBills(year, month);
-        console.log(result);
-        renderListView(result);
+        try {
+          const categories = await getCategories();
+          renderCategoryListView(categories);
+        }catch (err) {
+          console.error(err);
+          alert(err.message);
+        }
+        
+        try {
+          const result = await getBills(year, month);
+          console.log(result);
+          renderListView(result);
+        } catch (err) {
+          alert(err.message);
+        }
       },
 
       toCurrency = value => 
@@ -112,6 +128,13 @@ const
           return;
 
         renderDataView(cardListElement, result.payload, "name");
+      },
+      
+      renderCategoryListView = result => {
+        if(result.status.toString().trim() !== "1")
+          return;
+
+        renderDataView(categoryListElement, result.payload, "category");
       },
 
       renderResetErrorView = () => {
