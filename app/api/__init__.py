@@ -17,6 +17,7 @@ from . import (
         banks, 
         cards, 
         categories, 
-        invoices, 
+        invoices,
+        bills,
         resume
         )
