@@ -62,6 +62,7 @@ def update_card(auth_user, id):
 
     card.name = request.json.get('card', card.name)
     card.limit_value = request.json.get('limit_value', card.limit_value)
+    card.limit_day = request.json.get('limit_day', card.limit_day)
     card.goal = request.json.get('goal', card.goal)
     card.day = request.json.get('day', card.day)
 
