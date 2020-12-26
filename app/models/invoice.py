@@ -59,32 +59,36 @@ class Invoice(db.Model):
         return invoices
     
     @staticmethod
-    def query_between_dates(user_id, start, end, bank_id=0):
+    def query_between_dates(user_id, start, end, bank_id=0, bank_type="D"):
         sql = text("""
-                select * 
-                  from tb_invoices 
-                 where user_id = :user_id
-                   and ((strftime('%Y-%m-%d', forecast_date/1000, 'unixepoch')
+                select i.* 
+                  from tb_invoices i,
+                       tb_banks b
+                 where i.bank_id = b.bank_id
+                   and i.user_id = :user_id
+                   and ((strftime('%Y-%m-%d', i.forecast_date/1000, 'unixepoch')
                between :start
                    and :end)
-                    or (confirmation_date is not null
-                   and  strftime('%Y-%m-%d', confirmation_date/1000, 'unixepoch')
+                    or (i.confirmation_date is not null
+                   and  strftime('%Y-%m-%d', i.confirmation_date/1000, 'unixepoch')
                between :start
                    and :end))
-                   and bank_id = (case :bank_id 
-                                  when 0 then bank_id
+                   and i.bank_id = (case :bank_id 
+                                  when 0 then i.bank_id
                                   else :bank_id 
                                   end)
-                 order by case when confirmation_date is null then 0 else 1 end,
-                          confirmation_date,
-                          forecast_date
+                   and b.type = :bank_type
+                 order by case when i.confirmation_date is null then 0 else 1 end,
+                          i.confirmation_date,
+                          i.forecast_date
                  """)
         result = db.engine.execute(
                 sql, 
                 start=start, 
                 end=end, 
                 user_id=user_id, 
-                bank_id=bank_id
+                bank_id=bank_id,
+                bank_type=bank_type
                 ).fetchall()
         invoices = []
         for row in result:
