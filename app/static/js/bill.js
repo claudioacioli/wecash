@@ -49,6 +49,7 @@ const
           console.log(result);
           renderListView(result);
         } catch (err) {
+          console.error(err);
           alert(err.message);
         }
       },
@@ -59,13 +60,12 @@ const
           const result = await postInvoices(data);
           await getResult(result);
           renderResetView();
-          renderLoaderView(saveElement, false);
           read(yearFilterElement.value, monthFilterElement.value);
         } catch (err) {
           console.error(err);
           alert(err.message);
         }
-
+        renderLoaderView(saveElement, false);
       },
 
       toCurrency = value => 
