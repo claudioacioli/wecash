@@ -11,12 +11,10 @@ const
       errorElements = byAll("span.textfield__error"),
       cardFieldElement = byId("field--card"),
       cardListElement = byId("datalist--card");
-      cardErrorElement = errorElements.item(0),
-      
+      cardErrorElement = errorElements.item(0),      
       categoryFieldElement = byId("field--category"),
       categoryListElement = byId("datalist--category"),
       categoryErrorElement = errorElements.item(1),
-
       historyFieldElement = byId("field--history"),
       historyErrorElement = errorElements.item(4), 
       valueFieldElement = byId("field--value"),
@@ -26,6 +24,10 @@ const
       saveElement = byId("btn--save"),
 
       read = async (year, month) => {
+
+        const cards = await getCards();
+        renderCardListView(cards);
+
         const result = await getBills(year, month);
         console.log(result);
         renderListView(result);
@@ -83,6 +85,33 @@ const
         for(item of data) 
           fragment.appendChild(renderItemView(item));
         tbodyElement.appendChild(fragment);
+      },
+      
+      renderOptionView = (item, prop) => {
+        const element = document.createElement("option");
+        element.value = item[prop];
+        element.dataset.data = JSON.stringify(item);
+        return element;
+      },
+
+      renderDataView = (element, data, prop) => {
+
+        if(element.hasChildNodes())
+          return;
+
+        const fragment = document.createDocumentFragment();
+
+        for(item of data) 
+          fragment.appendChild(renderOptionView(item, prop));
+        
+        element.appendChild(fragment);
+      },
+
+      renderCardListView = result => {
+        if(result.status.toString().trim() !== "1")
+          return;
+
+        renderDataView(cardListElement, result.payload, "name");
       },
 
       renderResetErrorView = () => {
