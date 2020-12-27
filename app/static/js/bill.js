@@ -6,7 +6,6 @@ const
       template = byId("template-row-bill"),
       tableElement = bySelector("table"),
       tbodyElement = bySelector("tbody", tableElement),      
-      monthFilterElement = byId("filter--month"),
       yearFilterElement = byId("filter--year"),
       idFieldElement = byId("field--id"),
       errorElements = byAll("span.textfield__error"),
@@ -66,7 +65,7 @@ const
           const result = await postInvoices(data);
           await getResult(result);
           renderResetView();
-          read(yearFilterElement.value, monthFilterElement.value);
+          readHelper();
         } catch (err) {
           console.error(err);
           alert(err.message);
@@ -80,7 +79,7 @@ const
           const result = await putInvoices(data);
           await getResult(result);
           renderResetView();
-          read(yearFilterElement.value, monthFilterElement.value);
+          readHelper();
         } catch (err) { 
           console.error(err);
           alert(err.message);
@@ -94,7 +93,7 @@ const
           const result = await deleteInvoices(id);
           await getResult(result);
           renderResetView();
-          read(yearFilterElement.value, monthFilterElement.value);
+          readHelper();
         } catch (err) {
           console.error(err);
           alert(err);
@@ -104,6 +103,13 @@ const
 
       redirect = (year, month) => {
         document.location.href=`/bill/${year}${month}`;
+      },
+
+      readHelper = () => {
+        read(
+          yearFilterElement.value, 
+          byAll("button.selected", tabElement).item(0).dataset.value
+        );
       },
 
       toCurrency = value => 
@@ -373,9 +379,6 @@ const
     tabElement.addEventListener("click", handleMonth);
     yearFilterElement.addEventListener("change", handleFilter);
     
-    read(
-      yearFilterElement.value, 
-      byAll("button.selected", tabElement).item(0).dataset.value
-    );
+    readHelper();
   }
 ;
