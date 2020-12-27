@@ -99,6 +99,10 @@ const
         renderLoaderView(deleteElement, false);
       },
 
+      redirect = (year, month) => {
+        document.location.href=`/bill/${year}${month}`;
+      },
+
       toCurrency = value => 
         value.toLocaleString('pt-BR', {
           style: 'currency',
@@ -246,7 +250,13 @@ const
           element.textContent = "";
         }
       },
-      
+     
+      handleFilter = e => {
+        const year = e.target.value;
+        const month = byAll("button.selected", tabElement).item(0).dataset.value;
+        redirect(year, month);
+      },
+
       handleActive = e => {
         const element = e.target;
 
@@ -265,7 +275,7 @@ const
             e.preventDefault();
             const year = yearFilterElement.value;
             const month = element.dataset.value;
-            document.location.href=`/bill/${year}${month}`;
+            redirect(year, month);
             return;
         }
       },
@@ -351,7 +361,8 @@ const
     resetElement.addEventListener("click", handleReset);
     saveElement.addEventListener("click", handleSave);
     tabElement.addEventListener("click", handleMonth);
-
+    yearFilterElement.addEventListener("change", handleFilter);
+    
     read(yearFilterElement.value, monthFilterElement.value);
   }
 ;
