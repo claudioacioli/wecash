@@ -8,7 +8,7 @@ from sqlalchemy import text
 class InvoiceCategory(Invoice):
 
     @staticmethod
-    def query_categories_between_dates(user_id, start, end, bank_id):
+    def query_categories_between_dates(user_id, start, end, bank_id, bank_type="D"):
         sql = text("""
                 select c.category_id,
                        sum(i.expected_value) expected_value,
@@ -20,8 +20,10 @@ class InvoiceCategory(Invoice):
                          end
                        ) confirmed_value
                   from tb_invoices i,
-                       tb_categories c
+                       tb_categories c,
+                       tb_banks b
                  where i.category_id = c.category_id
+                   and i.bank_id = b.bank_id
                    and i.user_id = :user_id
                    and c.remove_me = 0
                    and ((strftime('%Y-%m-%d', i.forecast_date/1000, 'unixepoch')
@@ -31,10 +33,11 @@ class InvoiceCategory(Invoice):
                    and  strftime('%Y-%m-%d', i.confirmation_date/1000, 'unixepoch')
                between :start
                    and :end))
-                   and bank_id = (case :bank_id 
+                   and i.bank_id = (case :bank_id 
                                   when 0 then i.bank_id
                                   else :bank_id 
                                   end)
+                   and b.type = :bank_type
                  group by
                     c.category_id
                  order by 
@@ -47,7 +50,8 @@ class InvoiceCategory(Invoice):
                 start=start, 
                 end=end, 
                 user_id=user_id, 
-                bank_id=bank_id
+                bank_id=bank_id,
+                bank_type=bank_type
                 ).fetchall()
         invoices = []
         for row in result:
