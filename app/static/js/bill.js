@@ -22,12 +22,15 @@ const
       valueErrorElement = errorElements.item(2),
       dateFieldElement = byId("field--date"),
       dateErrorElement = errorElements.item(3),
+      addElement = byId("btn--add"),
       saveElement = byId("btn--save"),
       resetElement = byId("btn--reset"),
       deleteElement = byId("btn--delete"),
       tabElement = byId("tab--months"),
 
       rowActive = new ActiveElement("is-active"),
+
+      currentMonth = byAll("button.selected", tabElement).item(0).dataset.value,
 
       read = async (year, month) => {
 
@@ -251,6 +254,12 @@ const
         }
       },
      
+      handleAdd = (e) => {
+        e.preventDefault();
+        renderResetView();
+        historyFieldElement.focus();
+      },
+
       handleFilter = e => {
         const year = e.target.value;
         const month = byAll("button.selected", tabElement).item(0).dataset.value;
@@ -356,6 +365,7 @@ const
       }
     ;
 
+    addElement.addEventListener("click", handleAdd);
     tbodyElement.addEventListener("click", handleActive);
     deleteElement.addEventListener("click", handleDelete);
     resetElement.addEventListener("click", handleReset);
@@ -363,6 +373,9 @@ const
     tabElement.addEventListener("click", handleMonth);
     yearFilterElement.addEventListener("change", handleFilter);
     
-    read(yearFilterElement.value, monthFilterElement.value);
+    read(
+      yearFilterElement.value, 
+      byAll("button.selected", tabElement).item(0).dataset.value
+    );
   }
 ;
