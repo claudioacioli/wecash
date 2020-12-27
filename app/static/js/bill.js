@@ -11,7 +11,7 @@ const
       idFieldElement = byId("field--id"),
       errorElements = byAll("span.textfield__error"),
       cardFieldElement = byId("field--card"),
-      cardListElement = byId("datalist--card");
+      cardListElement = byId("datalist--card"),
       cardErrorElement = errorElements.item(0),      
       categoryFieldElement = byId("field--category"),
       categoryListElement = byId("datalist--category"),
@@ -21,10 +21,11 @@ const
       valueFieldElement = byId("field--value"),
       valueErrorElement = errorElements.item(2),
       dateFieldElement = byId("field--date"),
-      dateErrorElement = errorElements.item(3)
+      dateErrorElement = errorElements.item(3),
       saveElement = byId("btn--save"),
       resetElement = byId("btn--reset"),
       deleteElement = byId("btn--delete"),
+      tabElement = byId("tab--months"),
 
       rowActive = new ActiveElement("is-active"),
 
@@ -257,6 +258,18 @@ const
         }
       },
 
+      handleMonth = e => {
+        const element = e.target;
+        switch(element.nodeName) {
+          case "BUTTON":
+            e.preventDefault();
+            const year = yearFilterElement.value;
+            const month = element.dataset.value;
+            document.location.href=`/bill/${year}${month}`;
+            return;
+        }
+      },
+
       handleDelete = e => {
         e.preventDefault();
         console.log("chegou aqui");
@@ -337,6 +350,7 @@ const
     deleteElement.addEventListener("click", handleDelete);
     resetElement.addEventListener("click", handleReset);
     saveElement.addEventListener("click", handleSave);
+    tabElement.addEventListener("click", handleMonth);
 
     read(yearFilterElement.value, monthFilterElement.value);
   }

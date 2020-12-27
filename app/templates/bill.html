@@ -48,19 +48,19 @@
           </optgroup>
         </select>
 
-<nav class="tab">
-  <button class="tablinks{% if ref[4:] == "01" %} selected {% endif%}" onclick="openMonth(event, '01')">Jan</button>
-  <button class="tablinks{% if ref[4:] == "02" %} selected {% endif%}" onclick="openMonth(event, '02')">Fev</button>
-  <button class="tablinks{% if ref[4:] == "03" %} selected {% endif%}" onclick="openMonth(event, '03')">Mar</button>
-  <button class="tablinks{% if ref[4:] == "04" %} selected {% endif%}" onclick="openMonth(event, '04')">Abr</button>
-  <button class="tablinks{% if ref[4:] == "05" %} selected {% endif%}" onclick="openMonth(event, '05')">Mai</button>
-  <button class="tablinks{% if ref[4:] == "06" %} selected {% endif%}" onclick="openMonth(event, '06')">Jun</button> 
-  <button class="tablinks{% if ref[4:] == "07" %} selected {% endif%}" onclick="openMonth(event, '07')">Jul</button>
-  <button class="tablinks{% if ref[4:] == "08" %} selected {% endif%}" onclick="openMonth(event, '08')">Ago</button>
-  <button class="tablinks{% if ref[4:] == "09" %} selected {% endif%}" onclick="openMonth(event, '09')">Set</button>
-  <button class="tablinks{% if ref[4:] == "10" %} selected {% endif%}" onclick="openMonth(event, '10')">Out</button>
-  <button class="tablinks{% if ref[4:] == "11" %} selected {% endif%}" onclick="openMonth(event, '11')">Nov</button>
-  <button class="tablinks{% if ref[4:] == "12" %} selected {% endif%}" onclick="openMonth(event, '12')">Dez</button>
+<nav id="tab--months" class="tab">
+  <button class="tablinks{% if ref[4:] == "01" %} selected {% endif%}" data-value="01">Jan</button>
+  <button class="tablinks{% if ref[4:] == "02" %} selected {% endif%}" data-value="02">Fev</button>
+  <button class="tablinks{% if ref[4:] == "03" %} selected {% endif%}" data-value="03">Mar</button>
+  <button class="tablinks{% if ref[4:] == "04" %} selected {% endif%}" data-value="04">Abr</button>
+  <button class="tablinks{% if ref[4:] == "05" %} selected {% endif%}" data-value="05">Mai</button>
+  <button class="tablinks{% if ref[4:] == "06" %} selected {% endif%}" data-value="06">Jun</button> 
+  <button class="tablinks{% if ref[4:] == "07" %} selected {% endif%}" data-value="07">Jul</button>
+  <button class="tablinks{% if ref[4:] == "08" %} selected {% endif%}" data-value="08">Ago</button>
+  <button class="tablinks{% if ref[4:] == "09" %} selected {% endif%}" data-value="09">Set</button>
+  <button class="tablinks{% if ref[4:] == "10" %} selected {% endif%}" data-value="10">Out</button>
+  <button class="tablinks{% if ref[4:] == "11" %} selected {% endif%}" data-value="11">Nov</button>
+  <button class="tablinks{% if ref[4:] == "12" %} selected {% endif%}" data-value="12">Dez</button>
 </nav>
 
         <table class="mt--1 table table--hover td--hover">
