@@ -14,6 +14,7 @@ class User(UserMixin, db.Model):
     name = db.Column('name', db.String(255))
     email = db.Column('user', db.String(255), unique=True, index=True)
     password_hash = db.Column('password', db.String(128))
+    cards = db.Column('cards', db.String(1), default='0', server_default='0', nullable=False)
 
     def  __repr__(self):
         return '<User %r>' % self.email
@@ -58,6 +59,7 @@ class User(UserMixin, db.Model):
             'id': self.id,
             'name': self.name,
             'email': self.email,
+            'cards': self.cards,
             'url': url_for('api.read_user', id=self.id)
         }
 
