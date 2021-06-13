@@ -68,7 +68,8 @@ class Invoice(db.Model):
                    and i.user_id = :user_id
                    and ((strftime('%Y-%m-%d', i.forecast_date/1000, 'unixepoch')
                between :start
-                   and :end)
+                   and :end
+                   and i.confirmation_date is null)
                     or (i.confirmation_date is not null
                    and  strftime('%Y-%m-%d', i.confirmation_date/1000, 'unixepoch')
                between :start
