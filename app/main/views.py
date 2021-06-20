@@ -1,13 +1,12 @@
 from datetime import date
 from . import main as app_main
-from .. import db
 from ..models.user import User
-from ..models.bank import Bank
 from flask import render_template, request, redirect, url_for, make_response
-from flask_login import login_required, login_user, logout_user, current_user
+from flask_login import login_required, login_user, logout_user
 from htmlmin import minify
 
 OD_COOKIE_EMAIL = 'e'
+
 
 @app_main.route("/")
 def main():
@@ -23,7 +22,7 @@ def register():
 
 
 @app_main.route("/signin", methods=["POST"])
-def signin():
+def sign_in():
     
     email = request.form.get("email", "")
     password = request.form.get("password", "")
@@ -31,8 +30,8 @@ def signin():
     
     if user is not None and user.verify_password(password):
         login_user(user, False)
-        next = request.args.get("next", url_for("main.invoices"))
-        response = make_response(redirect(next))
+        next_view = request.args.get("next", url_for("main.invoices"))
+        response = make_response(redirect(next_view))
         response.set_cookie(OD_COOKIE_EMAIL, email, max_age=366*24*60*60)
         response.set_cookie('token', user.encode_auth_token().decode(), max_age=1*24*60*60)
         return response
@@ -41,7 +40,7 @@ def signin():
 
 
 @app_main.route("/signout")
-def signout():
+def sign_out():
     logout_user()
     return redirect(url_for("main.main"))
 
@@ -52,7 +51,7 @@ def invoices():
     today = date.today()
     ref = str(today.year) + str(today.month).zfill(2)
     return redirect(url_for("main.invoices_by_ref", ref=ref))
-    #return render_template("invoices.html")
+    # return render_template("invoices.html")
 
 
 @app_main.route("/invoices/<string:ref>")
@@ -75,7 +74,7 @@ def bill():
     today = date.today()
     ref = str(today.year) + str(today.month).zfill(2)
     return redirect(url_for("main.bill_by_ref", ref=ref))
-    #return render_template("invoices.html")
+    # return render_template("invoices.html")
 
 
 @app_main.route("/bill/<string:ref>")
@@ -104,6 +103,7 @@ def categories():
 def banks():
     minified_html = minify(render_template("banks.html"))
     return minified_html
+
 
 @app_main.route("/cards")
 @login_required
