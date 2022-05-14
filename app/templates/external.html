@@ -11,6 +11,8 @@
   <body class="bg">
     {% block main %}
     {% endblock %}
+    <script src="{{url_for('static', filename='js/constants.js')}}"></script>
+    <script src="{{url_for('static', filename='js/util.js')}}"></script>
     <script src="{{url_for('static', filename='js/by.js')}}"></script>
     <script src="{{url_for('static', filename='js/rest.js')}}"></script>
     <script src="{{url_for('static', filename='js/api.js')}}"></script>
