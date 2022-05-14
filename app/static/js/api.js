@@ -46,6 +46,9 @@ const
     await getData(`${WECASH_API}/invoices/${year}/${month}?b=${bank_id}`, token)
   ,
 
+  getBankInvoiceByYearMonth = async (year, month, bank_id=0) =>
+    await getData(`${WECASH_API}/invoices/${year}/${month}?v=B`, token)
+  ,
   getCategoryInvoiceByYearMonth = async (year, month, bank_id=0) =>
     await getData(`${WECASH_API}/invoices/${year}/${month}?v=C`, token)
   ,
