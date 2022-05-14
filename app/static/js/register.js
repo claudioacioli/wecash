@@ -1,6 +1,7 @@
 const
   componentRegister = () => {
-    const 
+    const
+      formElement = bySelector("form"),
       nameElement = byId('name'),
       emailElement = byId('email'),
       passwordElement = byId('password'),
