@@ -35,6 +35,14 @@
         <td class="text--right" style="width:15%;">{confirmed_value}</td>
       </tr>
     </template>
+    <template id="template-row-invoice-bank">
+      <tr>
+        <td colspan="2">{bank}</td>
+        <td class="text--right" style="width:15%;">{goal}</td>
+        <td class="text--right" style="width:15%;">{expected_value}</td>
+        <td class="text--right" style="width:15%;">{confirmed_value}</td>
+      </tr>
+    </template>
     <template id="template-row-category">
       <tr class="bookmark bookmark--success">
         <!--<td><input type="checkbox" /></td>-->
@@ -80,7 +88,7 @@
             {% endif %}
 
             <a {% if request.path == url_for('main.banks') %}class="is-active"{% endif %} href="{{ url_for('main.banks') }}">Contas</a>
-            <a class="ml--auto" href="{{url_for('main.signout')}}">Sair</a>
+            <a class="ml--auto" href="{{url_for('main.sign_out')}}">Sair</a>
             <a href="javascript:void(0);">{{current_user.name}}<img class="avatar--sm" style="vertical-align: middle;margin-left:1em;" src="{{url_for('static', filename='media/icons/avatar.svg')}}"></a>
           </nav>
         </div>
