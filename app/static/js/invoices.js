@@ -11,6 +11,7 @@ const
     const
       template = byId("template-row-invoice"),
       invoiceCategoryTemplate = byId("template-row-invoice-category"),
+      invoiceBankTemplate = byId("template-row-invoice-bank"),
       tableElement = bySelector("table"),
       tbodyElement = bySelector("tbody", tableElement),      
       idFieldElement = byId("field--id"),
@@ -73,7 +74,18 @@ const
             .catch(error => {
               console.error(error);
             });
-        
+       
+        if (viewer === "B")
+          getBankInvoiceByYearMonth(year, month, 0)
+            .then(getResult)
+            .then(async result => {
+              tbodyElement.innerHTML = "";
+              return result;
+            })
+            .then(renderInvoiceBankListView)
+            .catch(error => {
+              console.error(error);
+            });
 
         getCategories()
           .then(getResult)
@@ -278,6 +290,25 @@ const
         
       },
 
+      renderItemIBView = data => {
+
+        const { confirmed_value, expected_value} = data;
+        const { id, name, value, type } = data.bank;
+        const element = getItemView(id, invoiceBankTemplate);
+        const elements = byAll("td", element);
+
+        elements.item(0).textContent = name;
+        elements.item(1).textContent = toCurrency(value);
+        elements.item(2).textContent = toCurrency(expected_value);
+        elements.item(3).textContent = toCurrency(!confirmed_value ? 0 : confirmed_value);
+
+        element.id = id;
+        element.dataset.data = JSON.stringify(data);
+        setBookmark(element, type);
+
+        return element;
+      },
+
       renderListView = result => {
         const fragment = document.createDocumentFragment();
         const data = result.payload;
@@ -303,7 +334,7 @@ const
 
         for(item of data) 
           fragment.appendChild(renderOptionView(item, prop));
-        
+
         element.appendChild(fragment);
       },
 
@@ -312,6 +343,15 @@ const
         const data = result.payload;
         for(item of data) 
           fragment.appendChild(renderItemICView(item));
+
+        tbodyElement.appendChild(fragment);
+      },
+      
+      renderInvoiceBankListView = result => {
+        const fragment = document.createDocumentFragment();
+        const data = result.payload;
+        for (item of data)
+          fragment.appendChild(renderItemIBView(item));
 
         tbodyElement.appendChild(fragment);
       },
@@ -324,7 +364,7 @@ const
       },
 
       renderBankListView = result => {
-        if(result.status.toString().trim() !== "1")
+        if (result.status.toString().trim() !== "1")
           return;
 
         renderDataView(bankListElement, result.payload.filter(({type}) => type === "D"), "name");
