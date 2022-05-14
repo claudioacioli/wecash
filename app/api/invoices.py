@@ -7,6 +7,7 @@ from .decorators import auth_required
 from .. import db
 from ..models.invoice import Invoice
 from ..models.invoice_category import InvoiceCategory
+from ..models.invoice_bank import InvoiceBank
 
 
 @app_api.route('/invoices/', methods=['GET'])
@@ -40,7 +41,6 @@ def read_invoices_by_ref(user, year, month):
     view_type = request.args.get("v", "D", type=str)
 
     payload = []
-    
     week_first_day, last_day = monthrange(int(year),int(month))
     start = '-'.join((year, month, '01'))
     end = '-'.join((year, month, str(last_day).zfill(2)))
@@ -58,6 +58,10 @@ def read_invoices_by_ref(user, year, month):
     
     elif view_type == "C":
         invoices = InvoiceCategory.query_categories_between_dates(user_id, start, end, bank_id) 
+        payload = [invoice.to_json() for invoice in invoices]
+
+    elif view_type == "B":
+        invoices = InvoiceBank.query_banks_between_dates(user_id, start, end)
         payload = [invoice.to_json() for invoice in invoices]
 
     return jsonify(result(payload)), 200
