@@ -44,6 +44,7 @@
           <optgroup label="Visualizar por">
             <option value="D" {% if viewer in ["","D"]  %} selected {% endif%}>Padr&#227;o</option>
             <option value="C" {% if viewer == "C" %} selected {% endif%}>Por categorias</option>
+            <option value="B" {% if viewer == "B" %} selected {% endif%}>Por conta</option>
           </optgroup>
         </select>
 
@@ -91,9 +92,16 @@
               <th scope="col">Categoria</th>
               <th scope="col">Conta</th>
             </tr>
-            {% elif viewer == "C" %}
+          {% elif viewer == "C" %}
             <tr>
               <th scope="col" colspan="2">Categoria</th>
+              <th style="text-align:right" scope="col">Meta</th>
+              <th style="text-align:right" scope="col">Previsto</th>
+              <th style="text-align:right" scope="col">Confirmado</th>
+            </tr>
+          {% elif viewer == "B" %}
+            <tr>
+              <th scope="col" colspan="2">Conta</th>
               <th style="text-align:right" scope="col">Meta</th>
               <th style="text-align:right" scope="col">Previsto</th>
               <th style="text-align:right" scope="col">Confirmado</th>
