@@ -238,3 +238,12 @@ label[for]{
   position: sticky;
   top: 8em;
 }
+
+.box--flex__footer {
+  display: flex;
+  justify-content: end;
+}
+
+.box--flex__footer > button {
+  margin-left: .5em;
+}
